@@ -16,13 +16,15 @@
   @media(prefers-color-scheme:dark){
     :root{
       --bg:#0b1220; --bg2:#0f172a; --surface:#151e32; --surface2:#1e293b; --border:#243041;
-      --text:#e2e8f0; --muted:#94a3b8; --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
+      --text:#e2e8f0; --muted:#b4c0d0; --green-bg:rgba(16,185,129,0.18); --red-bg:rgba(239,68,68,0.18);
+      --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
       --shadow-lg:0 8px 24px rgba(0,0,0,0.4),0 20px 48px rgba(0,0,0,0.5);
     }
   }
   [data-theme="dark"]{
     --bg:#0b1220; --bg2:#0f172a; --surface:#151e32; --surface2:#1e293b; --border:#243041;
-    --text:#e2e8f0; --muted:#94a3b8; --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
+    --text:#e2e8f0; --muted:#b4c0d0; --green-bg:rgba(16,185,129,0.18); --red-bg:rgba(239,68,68,0.18);
+    --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
     --shadow-lg:0 8px 24px rgba(0,0,0,0.4),0 20px 48px rgba(0,0,0,0.5);
   }
   [data-theme="light"]{
@@ -163,15 +165,24 @@
   .btn.red:hover{background:var(--red-bg)}
   .btn:active{transform:translateY(0)}
 
-  /* Quiz */
-  .quiz-grid{display:grid;gap:0.6rem;max-width:720px;margin:0 auto;width:100%}
+  /* Quiz - improved contrast */
+  .quiz-grid{display:grid;gap:0.7rem;max-width:720px;margin:0 auto;width:100%}
   .quiz-opt{
-    text-align:left;padding:0.9rem 1rem;border-radius:12px;border:1px solid var(--border);
-    background:var(--surface);cursor:pointer;transition:.15s;font-size:0.9rem;line-height:1.4
+    text-align:left;padding:1rem 1.1rem;border-radius:14px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);cursor:pointer;transition:.18s;
+    font-size:0.92rem;line-height:1.5;box-shadow:var(--shadow);font-weight:400
   }
-  .quiz-opt:hover{border-color:var(--accent);transform:translateY(-1px)}
-  .quiz-opt.correct{border-color:var(--green);background:var(--green-bg)}
-  .quiz-opt.wrong{border-color:var(--red);background:var(--red-bg)}
+  .quiz-opt:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-lg);background:var(--surface2)}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--text);box-shadow:0 0 0 2px rgba(16,185,129,0.2)}
+  .quiz-opt.correct div{color:var(--text) !important}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--text);box-shadow:0 0 0 2px rgba(239,68,68,0.15)}
+  .quiz-opt.wrong div{color:var(--text) !important;opacity:0.9}
+  .quiz-opt div:first-child{color:var(--muted) !important;font-size:0.8rem;font-weight:600;margin-bottom:0.25rem;letter-spacing:0.02em}
+  /* dark mode specific: ensure text stays light even on tinted bg */
+  [data-theme="dark"] .quiz-opt.correct, [data-theme="dark"] .quiz-opt.wrong,
+  @media(prefers-color-scheme:dark){
+    .quiz-opt.correct, .quiz-opt.wrong{color:var(--text)}
+  }
 
   /* List - BIG CARDS */
   .list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1rem}
