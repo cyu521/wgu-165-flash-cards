@@ -254,7 +254,8 @@
         </div>
       </div>
       <div class="progress-track"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
-      <div style="display:flex;gap:0.4rem;margin-top:0.7rem">
+      <button class="btn" id="missedBtn" style="width:100%;margin-top:0.7rem;font-size:0.85rem;justify-content:center">🎯 Missed Only: OFF</button>
+      <div style="display:flex;gap:0.4rem;margin-top:0.5rem">
         <button class="btn ghost" style="flex:1;font-size:0.8rem;padding:0.45rem" id="shuffleBtn">🔀 Shuffle</button>
         <button class="btn ghost" style="flex:1;font-size:0.8rem;padding:0.45rem" id="resetBtn">↺ Reset</button>
       </div>
@@ -488,6 +489,7 @@ let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
   known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, 
   examOrder:[], examIdx:0, lastExamId:null,
+  missedOnly:false,
   theme: localStorage.getItem('wgu165_theme')||'dark'
 };
 
@@ -499,6 +501,7 @@ function load(){
 function getFiltered(){
   let arr=flashcards;
   if(state.chapter!=='all') arr=arr.filter(c=>c.chapter===state.chapter);
+  if(state.missedOnly) arr=arr.filter(c=>!state.known.has(c.id));
   if(state.search.trim()){
     const q=state.search.toLowerCase();
     arr=arr.filter(c=>c.term.toLowerCase().includes(q)||c.definition.toLowerCase().includes(q));
@@ -510,6 +513,7 @@ function getFilteredExam(){
   if(state.chapter!=='all'){
     arr=arr.filter(q=>q.chapter===state.chapter);
   }
+  if(state.missedOnly) arr=arr.filter(q=>!state.known.has(q.id));
   if(state.search.trim()){
     const s=state.search.toLowerCase();
     arr=arr.filter(q=>q.question.toLowerCase().includes(s) || q.options.some(o=>o.toLowerCase().includes(s)));
@@ -572,6 +576,21 @@ function renderStats(){
   document.getElementById('pFill').style.width=pct+'%';
   document.getElementById('ring').style.setProperty('--p', pct+'%');
   document.getElementById('ringTxt').textContent=pct+'%';
+  // update missed button label with live count
+  const missedBtn=document.getElementById('missedBtn');
+  if(missedBtn){
+    if(state.missedOnly){
+      const actualMissed = (state.mode==='quiz'? getFilteredExam().length : getFiltered().length);
+      // getFiltered already respects missedOnly, so to get true left we need unfiltered left
+      let allFiltered = state.mode==='quiz' 
+        ? examQuestions.filter(q=> state.chapter==='all' || q.chapter===state.chapter) 
+        : flashcards.filter(c=> state.chapter==='all' || c.chapter===state.chapter);
+      const left = allFiltered.filter(c=>!state.known.has(c.id)).length;
+      missedBtn.textContent = `🎯 Missed Only: ON (${left} left)`;
+    }else{
+      missedBtn.textContent = '🎯 Missed Only: OFF';
+    }
+  }
   if(pct===100 && filtered.length>0) confetti();
 }
 function renderCard(){
@@ -769,6 +788,13 @@ document.getElementById('nextBtn').addEventListener('click', next);
 document.getElementById('prevBtn').addEventListener('click', prev);
 document.getElementById('knownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.add(c.id); save(); next(); } });
 document.getElementById('unknownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.delete(c.id); save(); render(); } });
+document.getElementById('missedBtn').addEventListener('click', ()=>{
+  state.missedOnly=!state.missedOnly;
+  const btn=document.getElementById('missedBtn');
+  btn.textContent = state.missedOnly ? `🎯 Missed Only: ON (${getFiltered().length} left)` : '🎯 Missed Only: OFF';
+  btn.classList.toggle('primary', state.missedOnly);
+  rebuild();
+});
 document.getElementById('shuffleBtn').addEventListener('click', shuffle);
 document.getElementById('resetBtn').addEventListener('click', ()=>{ if(confirm('Reset progress?')){ state.known.clear(); save(); render(); } });
 document.getElementById('search').addEventListener('input', e=>{ state.search=e.target.value; rebuild(); });
