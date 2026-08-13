@@ -409,9 +409,86 @@ const flashcards = [
   {id:66, chapter:'ch10', term:'WGU C165 OA Tips', definition:'55 questions. Focus: Newton laws, energy, pH, plate boundaries, rock types, water cycle, phases, seasons, scientific method. PA coaching report is key.', example:''},
 ];
 
+// --- EXAM-STYLE QUESTIONS (OA-like) ---
+const examQuestions = [
+  // Ch1 Scientific Method
+  {id:101, chapter:'ch1', question:'A student wants to test if music affects plant growth. She plays music to 5 plants and leaves 5 without music. What is the independent variable?', options:['Plant height','Amount of music played','Type of plant','Sunlight'], correct:1, explanation:'Independent = what you change. Music is changed, height is measured (dependent).'},
+  {id:102, chapter:'ch1', question:'Which statement best describes a scientific theory?', options:['A guess that has not been tested','A well-tested explanation of WHY something happens','A description of WHAT will happen using math','An opinion that can never change'], correct:1, explanation:'Theory = well-tested explanation of why. Law = description of what. Theories don\'t become laws.'},
+  {id:103, chapter:'ch1', question:'A measurement is highly precise but not accurate. What does this mean?', options:['Repeated measurements are far from true value but close together','All measurements equal true value','Measurements are both close together and near true value','Measurements are random'], correct:0, explanation:'Precise = clustered together. Not accurate = not near true value. Dartboard analogy.'},
+  {id:104, chapter:'ch1', question:'What is the purpose of a control group?', options:['To show results are due to independent variable, not other factors','To make experiment more complicated','To prove hypothesis is always correct','To change two variables at once'], correct:0, explanation:'Control isolates effect of independent variable.'},
+
+  // Ch2 Matter & Atoms
+  {id:105, chapter:'ch2', question:'A rock has mass 90g and volume 30 cm³. What is its density? Will it float in water?', options:['3 g/cm³ and will sink','3 g/cm³ and will float','0.33 g/cm³ and will float','90 g/cm³ and will sink'], correct:0, explanation:'Density=mass/volume=90/30=3 g/cm³. Water=1, so 3>1 sinks.'},
+  {id:106, chapter:'ch2', question:'What determines the identity of an element?', options:['Number of neutrons','Number of protons (atomic number)','Mass number','Number of electrons'], correct:1, explanation:'Atomic number = protons = defines element.'},
+  {id:107, chapter:'ch2', question:'Sodium atom (Na) loses one electron to become Na+. What is this called and what is its charge?', options:['Anion, -1','Cation, +1','Isotope, neutral','Molecule, neutral'], correct:1, explanation:'Loses e- => cation +1. Gains => anion -.'},
+  {id:108, chapter:'ch2', question:'Which group is most reactive metals that lose 1 electron?', options:['Group 1 alkali metals','Group 2 alkaline earth','Group 17 halogens','Group 18 noble gases'], correct:0, explanation:'Group 1 has 1 valence electron, wants to lose, very reactive.'},
+  {id:109, chapter:'ch2', question:'In a sealed container, you burn 10g of wood and get 2g of ash. Where did the other 8g go?', options:['Destroyed - conservation law broken','Converted to gases (CO2, water vapor) that escaped','Became energy only','Became extra ash hidden'], correct:1, explanation:'Conservation of matter: mass same, gases escaped if not sealed well. In truly sealed, mass same.'},
+
+  // Ch3 Chemistry
+  {id:110, chapter:'ch3', question:'Which is an ionic bond example?', options:['NaCl where Na gives electron to Cl','H2O sharing electrons','O2 sharing electrons','Chocolate chip cookie'], correct:0, explanation:'Ionic = transfer metal to nonmetal. NaCl classic.'},
+  {id:111, chapter:'ch3', question:'A solution has pH 3. What is it and how many times more acidic than pH 5?', options:['Base, 2x','Acid, 100x more acidic','Acid, 2x','Neutral'], correct:1, explanation:'pH<7 acid, scale logarithmic: pH 3 is 10²=100x more H+ than pH5.'},
+  {id:112, chapter:'ch3', question:'Balance: __H2 + __O2 → __H2O', options:['2,1,2','1,1,1','2,2,2','1,2,1'], correct:0, explanation:'2H2 + O2 → 2H2O needs 4 H and 2 O each side.'},
+  {id:113, chapter:'ch3', question:'Which evidence BEST indicates chemical change vs physical?', options:['Ice melting','Salt dissolving','New gas or precipitate forms with color change','Breaking glass'], correct:2, explanation:'Chemical = new substance: gas, precipitate, color change, temp change.'},
+  {id:114, chapter:'ch3', question:'A reaction feels hot to touch and warms surroundings. It is:', options:['Endothermic, absorbs energy','Exothermic, releases energy','At equilibrium','Not a reaction'], correct:1, explanation:'Exothermic releases → feels hot. Endothermic absorbs → feels cold.'},
+
+  // Ch4 Motion & Forces
+  {id:115, chapter:'ch4', question:'A car at rest stays at rest due to inertia unless pushed. Which law?', options:['Newton\'s 1st Law','Newton\'s 2nd Law F=ma','Newton\'s 3rd Law action/reaction','Law of conservation of energy'], correct:0, explanation:'1st = inertia, resistance to change.'},
+  {id:116, chapter:'ch4', question:'You push a 10kg box with 20N force. What is acceleration? (F=ma)', options:['2 m/s²','200 m/s²','0.5 m/s²','20 m/s²'], correct:0, explanation:'a=F/m=20/10=2.'},
+  {id:117, chapter:'ch4', question:'A rocket pushes exhaust gases down, gases push rocket up. Which law?', options:['1st','2nd','3rd - action/reaction forces on different objects','Law of gravity'], correct:2, explanation:'3rd: equal opposite on different objects.'},
+  {id:118, chapter:'ch4', question:'Your mass is 60kg on Earth. On Moon gravity is 1/6. What is your mass and weight on Moon?', options:['Mass 60kg, Weight ~98N (less)','Mass 10kg, Weight same','Mass 60kg, Weight same','Mass 0kg, Weight 0'], correct:0, explanation:'Mass constant amount matter. Weight = mg changes. Earth weight ~588N, Moon ~98N.'},
+  {id:119, chapter:'ch4', question:'A ball is dropped and another is thrown horizontally from same height at same time. Which hits ground first? (ignore air)', options:['Same time - vertical motion independent','Dropped hits first','Thrown hits first','Depends on throw speed'], correct:0, explanation:'Vertical motion independent of horizontal, same g same height same time.'},
+
+  // Ch5 Energy
+  {id:120, chapter:'ch5', question:'You hold a heavy box above your head without moving. How much work in physics sense?', options:['A lot - you get tired','Zero - no displacement in direction of force','Equal to box weight','Equal to power'], correct:1, explanation:'Work needs displacement: W=Fd cosθ. No movement = 0 work physics, though muscles do work biologically.'},
+  {id:121, chapter:'ch5', question:'At top of roller coaster hill, the car has mostly:', options:['Kinetic energy','Potential energy (mgh)','Only thermal energy','No energy'], correct:1, explanation:'Top = high PE, low KE. Bottom = low PE high KE.'},
+  {id:122, chapter:'ch5', question:'Metal spoon in hot soup feels hot quickly due to:', options:['Conduction - direct contact','Convection - fluid movement','Radiation - EM waves','Evaporation'], correct:0, explanation:'Conduction = contact. Convection fluid, radiation no medium.'},
+  {id:123, chapter:'ch5', question:'Why does water moderate coastal climates vs deserts (sand heats fast)?', options:['Water has high specific heat 4186 J/kg°C','Water low specific heat','Water has low boiling point','Water is magnetic'], correct:0, explanation:'High specific heat needs more energy to raise temp, moderates.'},
+  {id:124, chapter:'ch5', question:'A 100W bulb left on for 10 hours uses how much energy in kWh?', options:['1 kWh','1000 kWh','0.1 kWh','10 kWh'], correct:0, explanation:'Energy = power×time = 0.1kW ×10h =1 kWh.'},
+
+  // Ch6 Waves
+  {id:125, chapter:'ch6', question:'A wave has frequency 2 Hz and wavelength 3m. What is speed? v=fλ', options:['6 m/s','5 m/s','1.5 m/s','0.66 m/s'], correct:0, explanation:'2×3=6.'},
+  {id:126, chapter:'ch6', question:'Which list is correct order of EM spectrum low to high energy?', options:['Radio, microwave, infrared, visible, UV, X-ray, gamma','Gamma, X-ray, visible, radio','Visible, IR, UV, radio','Radio, visible, gamma'], correct:0, explanation:'Radio lowest energy longest λ, gamma highest.'},
+  {id:127, chapter:'ch6', question:'A straw in water looks bent. This is:', options:['Reflection','Refraction due to light changing speed in water','Diffraction','Absorption'], correct:1, explanation:'Refraction = bending due to speed change n=c/v.'},
+  {id:128, chapter:'ch6', question:'Sound cannot travel in space because:', options:['It needs a medium, space vacuum has no particles','It is too cold','Space has no gravity','Light blocks it'], correct:0, explanation:'Sound longitudinal mechanical wave needs medium.'},
+  {id:129, chapter:'ch6', question:'You double distance from a light bulb. Brightness becomes:', options:['1/4 due to inverse square law','2x','Same','1/2'], correct:0, explanation:'Inverse square: I ∝1/d².'},
+
+  // Ch7 Electricity
+  {id:130, chapter:'ch7', question:'Ohm\'s Law: 12V battery connected to 3Ω resistor. Current?', options:['4A','36A','0.25A','4V'], correct:0, explanation:'V=IR => I=V/R=12/3=4A.'},
+  {id:131, chapter:'ch7', question:'Old Christmas lights all go out if one bulb fails. What circuit?', options:['Series - one path','Parallel - multiple paths','Short circuit','Open circuit always'], correct:0, explanation:'Series one path fail all. Parallel independent.'},
+  {id:132, chapter:'ch7', question:'A generator works on principle of:', options:['Moving magnet induces current (Faraday induction)','Current makes magnetism','Static discharge','Chemical reaction only'], correct:0, explanation:'Generator: mechanical spin magnet → current. Motor opposite.'},
+
+  // Ch8 Rocks & Tectonics
+  {id:133, chapter:'ch8', question:'Which is a mineral vs rock?', options:['Quartz (SiO2) is mineral, granite is rock','Granite mineral, quartz rock','Both minerals','Both rocks'], correct:0, explanation:'Mineral definite composition/structure, rock aggregate.'},
+  {id:134, chapter:'ch8', question:'Granite vs basalt: intrusive vs extrusive?', options:['Granite intrusive slow cooled large crystals, basalt extrusive fast cooled small','Both intrusive','Both extrusive','Granite extrusive, basalt intrusive'], correct:0, explanation:'Intrusive slow = large, extrusive fast = small/glassy.'},
+  {id:135, chapter:'ch8', question:'Mid-ocean ridge forms at which plate boundary?', options:['Divergent - plates pull apart new crust forms','Convergent - plates collide','Transform - slide past','Stationary'], correct:0, explanation:'Divergent makes new oceanic crust. Convergent subduction/mountains. Transform earthquakes.'},
+  {id:136, chapter:'ch8', question:'San Andreas Fault is what boundary with earthquakes but no volcanoes?', options:['Transform','Divergent','Convergent','Hotspot'], correct:0, explanation:'Transform slide past → earthquakes no volcanoes.'},
+  {id:137, chapter:'ch8', question:'Law of superposition says:', options:['Younger rocks on top of older in undisturbed sequence','Older on top','All same age','Fossils determine superposition'], correct:0, explanation:'Superposition relative dating.'},
+  {id:138, chapter:'ch8', question:'Outer core is liquid iron nickel that creates Earth\'s:', options:['Magnetic field due to moving conductive fluid','Gravity','Atmosphere','Oceans'], correct:0, explanation:'Outer core liquid motion dynamo → magnet.'},
+
+  // Ch9 Weather & Systems
+  {id:139, chapter:'ch9', question:'Frost wedging breaking rocks is:', options:['Mechanical weathering - physical break no chemical change','Chemical weathering - changes composition','Erosion','Deposition'], correct:0, explanation:'Mechanical = physical break. Chemical = changes composition rust/acid.'},
+  {id:140, chapter:'ch9', question:'Which atmosphere layer is where weather occurs?', options:['Troposphere - 0-12km temp decreases with height','Stratosphere','Mesosphere','Thermosphere'], correct:0, explanation:'Troposphere weather. Stratosphere ozone. Mesosphere meteors.'},
+  {id:141, chapter:'ch9', question:'In water cycle, water vapor → liquid clouds is:', options:['Condensation','Evaporation','Precipitation','Infiltration'], correct:0, explanation:'Evap liquid→vapor, Condensation vapor→liquid, Precip rain/snow.'},
+  {id:142, chapter:'ch9', question:'High pressure system brings:', options:['Clear skies, sinking cold air, clockwise flow NH','Cloudy stormy weather','Always snow','Hurricanes'], correct:0, explanation:'High = sinking clear clockwise NH. Low = rising cloudy counter-clockwise.'},
+  {id:143, chapter:'ch9', question:'Greenhouse gases like CO2 trap:', options:['Outgoing infrared heat radiated from Earth, keeping it warm','Incoming visible light','Oxygen','Only UV'], correct:0, explanation:'Greenhouse traps IR heat → habitable. Enhanced = warming.'},
+
+  // Ch10 Astronomy
+  {id:144, chapter:'ch10', question:'Why do we have seasons? WGU loves this.', options:['23.5° axial tilt causes direct vs indirect sun, not distance from sun','Distance from sun varies greatly','Moon blocks sun','Earth tilt is 90°'], correct:0, explanation:'Tilt not distance! Summer hemisphere tilted toward sun longer days direct rays.'},
+  {id:145, chapter:'ch10', question:'A solar eclipse occurs when:', options:['Moon blocks sun to Earth during new moon','Earth blocks sun to moon during full moon','Sun blocks moon','It is always lunar'], correct:0, explanation:'Solar: Moon new → blocks sun to Earth. Lunar: Earth full → blocks sun to moon.'},
+  {id:146, chapter:'ch10', question:'Planet farthest from sun has longest orbital period due to:', options:['Kepler\'s 3rd law P² ∝ a³','Kepler\'s 1st law','Kepler\'s 2nd law','Newton\'s 1st law'], correct:0, explanation:'3rd = farther = longer period.'},
+  {id:147, chapter:'ch10', question:'Sun is currently main sequence. Next stage?', options:['Red giant then white dwarf','Supernova then black hole','Goes directly to neutron star','Stays main sequence forever'], correct:0, explanation:'Low mass star like sun: main → red giant → white dwarf. Massive → supernova neutron star/black hole.'},
+  {id:148, chapter:'ch10', question:'Big Bang evidence redshift means:', options:['Galaxies moving away, light stretched to longer red wavelengths, universe expanding','Galaxies moving toward us','Universe contracting','Light has no Doppler'], correct:0, explanation:'Redshift Doppler expanding. Blueshift approaching. Hubble law.'},
+
+  // Mixed high-yield WGU
+  {id:149, chapter:'all', question:'Which shows chemical change?', options:['Food digesting, rusting, cooking egg','Ice melting','Water boiling','Crushing can'], correct:0, explanation:'Chemical = new substances: rust, digestion, cooking. Physical = same substance.'},
+  {id:150, chapter:'all', question:'A student says Earth is flat because it looks flat. Weakness?', options:['Observation limited, needs more evidence/models from space measurements','Flat is theory','It is law','Science is opinion'], correct:0, explanation:'Science needs multiple lines evidence, not just casual observation.'},
+];
+
 let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
-  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, theme: localStorage.getItem('wgu165_theme')||'dark'
+  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, 
+  examOrder:[], examIdx:0, lastExamId:null,
+  theme: localStorage.getItem('wgu165_theme')||'dark'
 };
 
 function save(){ localStorage.setItem('wgu165_known', JSON.stringify([...state.known])); }
@@ -428,20 +505,42 @@ function getFiltered(){
   }
   return arr;
 }
+function getFilteredExam(){
+  let arr=examQuestions;
+  if(state.chapter!=='all'){
+    arr=arr.filter(q=>q.chapter===state.chapter);
+  }
+  if(state.search.trim()){
+    const s=state.search.toLowerCase();
+    arr=arr.filter(q=>q.question.toLowerCase().includes(s) || q.options.some(o=>o.toLowerCase().includes(s)));
+  }
+  return arr;
+}
 function rebuild(){
   const f=getFiltered(); 
   state.order=f.map(c=>c.id);
   if(state.idx>=state.order.length) state.idx=0;
+  const ef=getFilteredExam();
+  state.examOrder=ef.map(c=>c.id);
+  if(state.examIdx>=state.examOrder.length) state.examIdx=0;
   state.quizAnswered=false;
   state.lastQuizId=null;
+  state.lastExamId=null;
   state.flipped=false;
   render();
 }
 function shuffle(){
-  for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
-  state.idx=0; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render();
+  if(state.mode==='quiz'){
+    for(let i=state.examOrder.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.examOrder[i],state.examOrder[j]]=[state.examOrder[j],state.examOrder[i]]; }
+    state.examIdx=0;
+  }else{
+    for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
+    state.idx=0;
+  }
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render();
 }
 function current(){ return state.order.length? flashcards.find(c=>c.id===state.order[state.idx]) : null; }
+function currentExam(){ return state.examOrder.length? examQuestions.find(q=>q.id===state.examOrder[state.examIdx]) : null; }
 
 function renderChapters(){
   const el=document.getElementById('chapterList'); el.innerHTML='';
@@ -455,9 +554,16 @@ function renderChapters(){
   });
 }
 function renderStats(){
-  const filtered=getFiltered();
-  const known=filtered.filter(c=>state.known.has(c.id)).length;
-  const pct=filtered.length? Math.round(known/filtered.length*100):0;
+  let filtered, known, pct;
+  if(state.mode==='quiz'){
+    filtered=getFilteredExam();
+    known=filtered.filter(c=>state.known.has(c.id)).length;
+    pct=filtered.length? Math.round(known/filtered.length*100):0;
+  }else{
+    filtered=getFiltered();
+    known=filtered.filter(c=>state.known.has(c.id)).length;
+    pct=filtered.length? Math.round(known/filtered.length*100):0;
+  }
   document.getElementById('statTotal').textContent=filtered.length;
   document.getElementById('statKnown').textContent=known;
   document.getElementById('statTotal2').textContent=filtered.length;
@@ -469,8 +575,36 @@ function renderStats(){
   if(pct===100 && filtered.length>0) confetti();
 }
 function renderCard(){
-  const card=current();
   const quizBox=document.getElementById('quizOptions');
+  
+  // QUIZ MODE uses examQuestions (exam-like MC)
+  if(state.mode==='quiz'){
+    const eq = currentExam();
+    if(!eq){
+      document.getElementById('cardTerm').textContent='No exam questions for this filter – try Whole Book';
+      document.getElementById('cardDef').textContent='Switch to Study mode to see flashcards.';
+      document.getElementById('cardChapter').textContent='—';
+      document.getElementById('cardCount').textContent='0 / 0';
+      quizBox.style.display='none';
+      return;
+    }
+    const ch=chapters.find(c=>c.id===eq.chapter);
+    document.getElementById('cardChapter').textContent=ch? `${ch.emoji} ${ch.name}`:eq.chapter;
+    document.getElementById('cardChapter').className='badge'+(ch?.id==='all'?' all':'');
+    document.getElementById('cardCount').textContent=`${state.examIdx+1} / ${state.examOrder.length} • Exam Mode`;
+    document.getElementById('cardTerm').textContent=eq.question;
+    document.getElementById('cardTermSmall').textContent='Question '+(state.examIdx+1);
+    document.getElementById('cardDef').innerHTML=`<div style="font-size:0.95rem"><b>Explanation:</b> ${eq.explanation}</div>`;
+    document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+    quizBox.style.display='grid';
+    if(state.lastExamId !== eq.id){
+      genQuizExam(eq);
+    }
+    return;
+  }
+
+  // STUDY MODE - flashcards
+  const card=current();
   if(!card){
     document.getElementById('cardTerm').textContent='No cards – try different filter';
     document.getElementById('cardDef').textContent='';
@@ -487,79 +621,43 @@ function renderCard(){
   document.getElementById('cardTermSmall').textContent=card.term;
   document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
   document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
-
-  // QUIZ MODE: Always sync quiz to current flashcard
-  if(state.mode==='quiz'){
-    quizBox.style.display='grid';
-    // Regenerate if card changed or empty or forced reset (lastQuizId null)
-    if(state.lastQuizId !== card.id){
-      genQuiz(card);
-    }
-  }else{
-    quizBox.style.display='none';
-  }
+  quizBox.style.display='none';
 }
-function genQuiz(card){
+function genQuizExam(eq){
   const quizBox=document.getElementById('quizOptions');
   quizBox.innerHTML=''; 
   state.quizAnswered=false;
-  state.lastQuizId=card.id;
+  state.lastExamId=eq.id;
+  state.lastQuizId=eq.id;
   state.flipped=false;
   document.getElementById('flashCard').classList.remove('flipped');
 
-  // --- Harder distractors: pick most similar definitions in same chapter ---
-  const STOP = new Set(['the','and','for','with','from','that','this','these','those','are','was','were','has','have','had','been','being','of','to','in','on','is','a','an','it','its','as','by','at','or','be','not','but','also','into','which','can','will','may','more','most','such','than','then','when','what','how','why','does','did','due','via','per']);
-  const tokenize = (str) => {
-    return str.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>2 && !STOP.has(w));
-  };
-  const cardTokens = new Set(tokenize(card.term + ' ' + card.definition));
+  // Shuffle options but keep track of correct index
+  const opts = eq.options.map((text,i)=>({text, isCorrect:i===eq.correct, originalIdx:i}))
+                         .sort(()=>Math.random()-0.5);
 
-  let pool = flashcards.filter(c=>c.id!==card.id);
-  let sameChapter = pool.filter(c=>c.chapter===card.chapter);
-  // Prefer same chapter for harder, confusing choices (90% of time if enough cards)
-  if(sameChapter.length>=3) pool=sameChapter;
-  else if(sameChapter.length>0 && Math.random()<0.5) pool=sameChapter; // still try same chapter
-
-  // Score by shared keywords + term similarity for harder distractors
-  const scored = pool.map(c=>{
-    const cTokens = tokenize(c.term + ' ' + c.definition);
-    let shared = 0;
-    cTokens.forEach(t=>{ if(cardTokens.has(t)) shared++; });
-    // bonus if same first word or similar length
-    if(c.term.split(' ')[0].toLowerCase()===card.term.split(' ')[0].toLowerCase()) shared+=2;
-    // penalize exact same length diff too big (too obvious)
-    const lenDiff = Math.abs(c.definition.length - card.definition.length) / 100;
-    shared -= lenDiff*0.1;
-    return {c, score: shared};
-  }).sort((a,b)=>b.score-a.score);
-
-  // Take top 6 most similar, then randomize 3 for variety (hard but not always identical set)
-  const top = scored.slice(0, Math.min(6, scored.length));
-  const wrongs = [...top].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.c);
-  // Fallback if not enough
-  if(wrongs.length<3){
-    const remaining = pool.filter(c=>!wrongs.includes(c)).sort(()=>Math.random()-0.5).slice(0,3-wrongs.length);
-    wrongs.push(...remaining);
-  }
-
-  let opts=[{d:card.definition, ok:true, term:card.term}, ...wrongs.map(c=>({d:c.definition, ok:false, term:c.term}))].sort(()=>Math.random()-0.5);
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
-    // Harder: don't show term hint for wrong answers? Show term to make it confusing but still readable
-    // We show term but in harder mode terms are similar, so it's still challenging
-    btn.innerHTML=`<div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;font-weight:600">${o.ok?'✓ Correct definition': '— ' + o.term}</div><div>${o.d.slice(0,260)+(o.d.length>260?'...':'')}</div>`;
+    btn.innerHTML=`<div style="font-weight:500">${o.text}</div>`;
     btn.onclick=()=>{
       if(state.quizAnswered) return;
       state.quizAnswered=true;
       document.querySelectorAll('.quiz-opt').forEach(b=>b.style.pointerEvents='none');
-      if(o.ok){ 
-        btn.classList.add('correct'); 
-        state.known.add(card.id); save(); renderStats(); 
-        setTimeout(()=>{ next(); }, 800); 
-      } else { 
-        btn.classList.add('wrong'); 
+      if(o.isCorrect){
+        btn.classList.add('correct');
+        state.known.add(eq.id); save(); renderStats();
+        // show explanation then next
+        state.flipped=true;
+        document.getElementById('flashCard').classList.add('flipped');
+        setTimeout(()=>{ next(); }, 1200);
+      }else{
+        btn.classList.add('wrong');
+        // show correct
         document.querySelectorAll('.quiz-opt').forEach(b=>{
-          if(b.textContent.includes(card.definition.slice(0,50))) b.classList.add('correct');
+          // find correct button by matching text of correct option
+          if(b.textContent.trim()===eq.options[eq.correct].trim() || b.textContent.includes(eq.options[eq.correct].slice(0,40))){
+            b.classList.add('correct');
+          }
         });
         state.flipped=true;
         document.getElementById('flashCard').classList.add('flipped');
@@ -568,6 +666,9 @@ function genQuiz(card){
     quizBox.appendChild(btn);
   });
 }
+
+// Keep old flashcard def quiz as fallback for search edge cases
+function genQuiz(card){ genQuizExam({id:card.id, question:card.term, options:[card.definition], correct:0, explanation:card.definition, chapter:card.chapter}); }
 function renderList(){
   const grid=document.getElementById('listGrid'); const filtered=getFiltered(); grid.innerHTML='';
   filtered.forEach(card=>{
@@ -623,11 +724,28 @@ function render(){
     document.getElementById('listArea').style.display='none';
   }
 }
-function next(){ if(!state.order.length) return; state.idx=(state.idx+1)%state.order.length; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render(); }
-function prev(){ if(!state.order.length) return; state.idx=(state.idx-1+state.order.length)%state.order.length; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render(); }
+function next(){ 
+  if(state.mode==='quiz'){
+    if(!state.examOrder.length) return;
+    state.examIdx=(state.examIdx+1)%state.examOrder.length;
+  }else{
+    if(!state.order.length) return;
+    state.idx=(state.idx+1)%state.order.length;
+  }
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render(); 
+}
+function prev(){ 
+  if(state.mode==='quiz'){
+    if(!state.examOrder.length) return;
+    state.examIdx=(state.examIdx-1+state.examOrder.length)%state.examOrder.length;
+  }else{
+    if(!state.order.length) return;
+    state.idx=(state.idx-1+state.order.length)%state.order.length;
+  }
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render(); 
+}
 function flip(){ 
   if(state.mode==='quiz' && !state.quizAnswered){
-    // in quiz mode, flipping should not hide options - just show answer
     state.flipped=!state.flipped;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
     return;
@@ -636,7 +754,7 @@ function flip(){
 }
 function switchMode(m){
   state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
-  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null;
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null;
   render();
 }
 function confetti(){
