@@ -268,6 +268,13 @@
       </div>
     </div>
 
+    <div class="card-mini" style="font-size:0.78rem;line-height:1.5">
+      <h4>📝 OA Tips</h4>
+      <div style="color:var(--muted)">
+        55 Qs on OA. High-yield: Newton's laws, energy calc, pH scale, plate boundaries, rock types, water cycle, seasons = tilt, moon phases, scientific method. Check PA coaching report!
+      </div>
+    </div>
+
     <div class="card-mini" style="font-size:0.75rem;color:var(--muted);line-height:1.6">
       <h4>Shortcuts</h4>
       <div style="display:grid;grid-template-columns:auto 1fr;gap:0.2rem 0.6rem">
@@ -416,7 +423,6 @@ const flashcards = [
   {id:63, chapter:'ch10', term:'Seasons', definition:'Due to 23.5° axial tilt not distance! Summer tilted toward sun longer days direct rays. Equinox equal solstice extremes.', example:'Southern summer when northern winter'},
   {id:64, chapter:'ch10', term:'Stars Life Cycle', definition:'Nebula → main sequence H→He → red giant → small white dwarf, massive supergiant→supernova→neutron star/black hole.', example:'Sun → white dwarf'},
   {id:65, chapter:'ch10', term:'Galaxies & Big Bang', definition:'Spiral Milky Way, elliptical, irregular. Universe 13.8B yr Big Bang expanding redshift Hubble. Light-year distance. Dark matter/energy 95%.', example:'Andromeda 2.5M ly'},
-  {id:66, chapter:'ch10', term:'WGU C165 OA Tips', definition:'55 questions. Focus: Newton laws, energy, pH, plate boundaries, rock types, water cycle, phases, seasons, scientific method. PA coaching report is key.', example:''},
 ];
 
 // --- EXAM-STYLE QUESTIONS (OA-like) ---
@@ -512,8 +518,11 @@ function getFiltered(){
   if(state.chapter!=='all') arr=arr.filter(c=>c.chapter===state.chapter);
   if(state.missedOnly) arr=arr.filter(c=>!state.known.has(c.id));
   if(state.search.trim()){
-    const q=state.search.toLowerCase();
-    arr=arr.filter(c=>c.term.toLowerCase().includes(q)||c.definition.toLowerCase().includes(q));
+    const tokens = state.search.toLowerCase().trim().split(/\s+/).filter(t=>t);
+    arr=arr.filter(c=>{
+      const hay = (c.term + ' ' + c.definition + ' ' + (c.example||'')).toLowerCase();
+      return tokens.every(t=>hay.includes(t));
+    });
   }
   return arr;
 }
@@ -524,8 +533,11 @@ function getFilteredExam(){
   }
   if(state.missedOnly) arr=arr.filter(q=>!state.known.has(q.id));
   if(state.search.trim()){
-    const s=state.search.toLowerCase();
-    arr=arr.filter(q=>q.question.toLowerCase().includes(s) || q.options.some(o=>o.toLowerCase().includes(s)));
+    const tokens = state.search.toLowerCase().trim().split(/\s+/).filter(t=>t);
+    arr=arr.filter(q=>{
+      const hay = (q.question + ' ' + q.options.join(' ') + ' ' + q.explanation).toLowerCase();
+      return tokens.every(t=>hay.includes(t));
+    });
   }
   return arr;
 }
