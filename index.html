@@ -138,12 +138,12 @@
   }
   .badge.all{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border-color:transparent}
   .count-badge{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted)}
-  .face-content{flex:1;display:flex;align-items:center;justify-content:center;text-align:center}
+  .face-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.75rem}
   .face-content.front{font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;line-height:1.25}
-  .face-content.back{font-size:1rem;font-weight:400;text-align:left;line-height:1.6;align-items:flex-start;overflow-y:auto}
+  .face-content.back{font-size:1rem;font-weight:400;text-align:left;line-height:1.6;align-items:flex-start;justify-content:flex-start;overflow-y:auto}
   .example-box{
-    margin-top:1rem;padding:0.7rem 0.9rem;border-radius:10px;background:var(--surface2);
-    border:1px dashed var(--border);font-size:0.85rem;color:var(--muted)
+    width:100%;margin-top:0.5rem;padding:0.7rem 0.9rem;border-radius:10px;background:var(--surface2);
+    border:1px dashed var(--border);font-size:0.85rem;color:var(--muted);align-self:stretch
   }
   .example-box b{color:var(--text)}
   .flip-hint{
