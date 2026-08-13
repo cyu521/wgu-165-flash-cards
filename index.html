@@ -506,15 +506,48 @@ function genQuiz(card){
   state.lastQuizId=card.id;
   state.flipped=false;
   document.getElementById('flashCard').classList.remove('flipped');
-  let pool=flashcards.filter(c=>c.id!==card.id);
-  const same=pool.filter(c=>c.chapter===card.chapter);
-  if(same.length>=3 && Math.random()<0.7) pool=same;
-  const wrongs=[...pool].sort(()=>Math.random()-0.5).slice(0,3);
+
+  // --- Harder distractors: pick most similar definitions in same chapter ---
+  const STOP = new Set(['the','and','for','with','from','that','this','these','those','are','was','were','has','have','had','been','being','of','to','in','on','is','a','an','it','its','as','by','at','or','be','not','but','also','into','which','can','will','may','more','most','such','than','then','when','what','how','why','does','did','due','via','per']);
+  const tokenize = (str) => {
+    return str.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>2 && !STOP.has(w));
+  };
+  const cardTokens = new Set(tokenize(card.term + ' ' + card.definition));
+
+  let pool = flashcards.filter(c=>c.id!==card.id);
+  let sameChapter = pool.filter(c=>c.chapter===card.chapter);
+  // Prefer same chapter for harder, confusing choices (90% of time if enough cards)
+  if(sameChapter.length>=3) pool=sameChapter;
+  else if(sameChapter.length>0 && Math.random()<0.5) pool=sameChapter; // still try same chapter
+
+  // Score by shared keywords + term similarity for harder distractors
+  const scored = pool.map(c=>{
+    const cTokens = tokenize(c.term + ' ' + c.definition);
+    let shared = 0;
+    cTokens.forEach(t=>{ if(cardTokens.has(t)) shared++; });
+    // bonus if same first word or similar length
+    if(c.term.split(' ')[0].toLowerCase()===card.term.split(' ')[0].toLowerCase()) shared+=2;
+    // penalize exact same length diff too big (too obvious)
+    const lenDiff = Math.abs(c.definition.length - card.definition.length) / 100;
+    shared -= lenDiff*0.1;
+    return {c, score: shared};
+  }).sort((a,b)=>b.score-a.score);
+
+  // Take top 6 most similar, then randomize 3 for variety (hard but not always identical set)
+  const top = scored.slice(0, Math.min(6, scored.length));
+  const wrongs = [...top].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.c);
+  // Fallback if not enough
+  if(wrongs.length<3){
+    const remaining = pool.filter(c=>!wrongs.includes(c)).sort(()=>Math.random()-0.5).slice(0,3-wrongs.length);
+    wrongs.push(...remaining);
+  }
+
   let opts=[{d:card.definition, ok:true, term:card.term}, ...wrongs.map(c=>({d:c.definition, ok:false, term:c.term}))].sort(()=>Math.random()-0.5);
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
-    // show term hint + truncated definition for better UX
-    btn.innerHTML=`<div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.2rem">${o.ok?'': '— ' + o.term}</div><div>${o.d.slice(0,200)+(o.d.length>200?'...':'')}</div>`;
+    // Harder: don't show term hint for wrong answers? Show term to make it confusing but still readable
+    // We show term but in harder mode terms are similar, so it's still challenging
+    btn.innerHTML=`<div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;font-weight:600">${o.ok?'✓ Correct definition': '— ' + o.term}</div><div>${o.d.slice(0,260)+(o.d.length>260?'...':'')}</div>`;
     btn.onclick=()=>{
       if(state.quizAnswered) return;
       state.quizAnswered=true;
@@ -522,12 +555,11 @@ function genQuiz(card){
       if(o.ok){ 
         btn.classList.add('correct'); 
         state.known.add(card.id); save(); renderStats(); 
-        setTimeout(()=>{ next(); }, 700); 
+        setTimeout(()=>{ next(); }, 800); 
       } else { 
         btn.classList.add('wrong'); 
-        // highlight correct
         document.querySelectorAll('.quiz-opt').forEach(b=>{
-          if(b.textContent.includes(card.definition.slice(0,40))) b.classList.add('correct');
+          if(b.textContent.includes(card.definition.slice(0,50))) b.classList.add('correct');
         });
         state.flipped=true;
         document.getElementById('flashCard').classList.add('flipped');
