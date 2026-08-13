@@ -62,27 +62,29 @@
   }
   .stats-pill .dot{width:8px;height:8px;border-radius:50%}
   
-  /* Chapter Nav */
-  .chapter-nav{
-    max-width:1200px;margin:0 auto;padding:0.75rem 1.25rem 0;
-    display:flex;gap:0.5rem;overflow-x:auto;scrollbar-width:none; -webkit-overflow-scrolling:touch
+  /* Chapter Dropdown */
+  .chapter-nav-wrap{
+    max-width:1200px;margin:0 auto;padding:0.85rem 1.25rem 0.25rem;
+    display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap
   }
-  .chapter-nav::-webkit-scrollbar{display:none}
-  .chapter-pill{
-    white-space:nowrap;padding:0.55rem 1rem;border-radius:20px;border:1px solid var(--border);
-    background:var(--surface);font-size:0.85rem;font-weight:500;cursor:pointer;transition:.18s;
-    display:flex;align-items:center;gap:0.4rem;color:var(--muted)
+  .chapter-select{
+    flex:1;max-width:420px;min-width:240px;
+    padding:0.65rem 2.2rem 0.65rem 0.9rem;
+    border-radius:12px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);
+    font-size:0.9rem;font-weight:600;
+    appearance:none;-webkit-appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+    background-position:calc(100% - 18px) calc(50% - 3px),calc(100% - 12px) calc(50% - 3px);
+    background-size:6px 6px,6px 6px;
+    background-repeat:no-repeat;
+    cursor:pointer;transition:.18s;box-shadow:var(--shadow)
   }
-  .chapter-pill:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}
-  .chapter-pill.active{
-    background:var(--text);color:var(--bg2);border-color:var(--text);
-    box-shadow:var(--shadow)
-  }
-  .chapter-pill .count{
-    font-size:0.7rem;padding:2px 6px;border-radius:10px;background:var(--surface2);font-weight:700;
-    font-family:'JetBrains Mono',monospace
-  }
-  .chapter-pill.active .count{background:rgba(255,255,255,0.2);color:inherit}
+  .chapter-select:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+  .chapter-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,0.15)}
+  /* keep old pill styles for backwards compat (hidden) */
+  .chapter-nav{display:none}
+  .chapter-pill{display:none}
 
   /* Main Layout */
   .main{max-width:1200px;margin:0 auto;padding:1rem 1.25rem 2rem;display:grid;grid-template-columns:200px 1fr;gap:1.25rem}
@@ -233,7 +235,11 @@
   </div>
 </div>
 
-<div class="chapter-nav" id="chapterList"></div>
+<div class="chapter-nav-wrap">
+  <label for="chapterSelect" style="font-size:0.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-right:0.5rem">Chapter:</label>
+  <select id="chapterSelect" class="chapter-select"></select>
+  <span id="chapterCountLabel" style="font-size:0.75rem;color:var(--muted);margin-left:0.5rem;font-family:'JetBrains Mono',monospace"></span>
+</div>
 
 <div class="main">
   <div class="sidebar">
@@ -547,15 +553,23 @@ function current(){ return state.order.length? flashcards.find(c=>c.id===state.o
 function currentExam(){ return state.examOrder.length? examQuestions.find(q=>q.id===state.examOrder[state.examIdx]) : null; }
 
 function renderChapters(){
-  const el=document.getElementById('chapterList'); el.innerHTML='';
+  const sel=document.getElementById('chapterSelect');
+  if(!sel) return;
+  sel.innerHTML='';
   chapters.forEach(ch=>{
     const count = ch.id==='all'? flashcards.length : flashcards.filter(f=>f.chapter===ch.id).length;
-    const b=document.createElement('button');
-    b.className='chapter-pill'+(state.chapter===ch.id?' active':'');
-    b.innerHTML=`<span>${ch.emoji}</span><span>${ch.name}</span><span class="count">${count}</span>`;
-    b.onclick=()=>{ state.chapter=ch.id; renderChapters(); rebuild(); };
-    el.appendChild(b);
+    const examCount = ch.id==='all'? examQuestions.length : examQuestions.filter(q=>q.chapter===ch.id).length;
+    const opt=document.createElement('option');
+    opt.value=ch.id;
+    opt.textContent=`${ch.emoji} ${ch.name} — ${count} cards / ${examCount} quiz`;
+    if(state.chapter===ch.id) opt.selected=true;
+    sel.appendChild(opt);
   });
+  const lbl=document.getElementById('chapterCountLabel');
+  if(lbl){
+    const filtered = state.mode==='quiz'? getFilteredExam() : getFiltered();
+    lbl.textContent=`${filtered.length} items`;
+  }
 }
 function renderStats(){
   let filtered, known, pct;
@@ -788,6 +802,11 @@ document.getElementById('nextBtn').addEventListener('click', next);
 document.getElementById('prevBtn').addEventListener('click', prev);
 document.getElementById('knownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.add(c.id); save(); next(); } });
 document.getElementById('unknownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.delete(c.id); save(); render(); } });
+document.getElementById('chapterSelect').addEventListener('change', (e)=>{
+  state.chapter=e.target.value;
+  renderChapters();
+  rebuild();
+});
 document.getElementById('missedBtn').addEventListener('click', ()=>{
   state.missedOnly=!state.missedOnly;
   const btn=document.getElementById('missedBtn');
