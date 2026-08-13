@@ -246,7 +246,8 @@
     <div class="card-mini">
       <h4>Study Mode</h4>
       <button class="mode-btn active" data-mode="study"><span>📚</span> Flashcards</button>
-      <button class="mode-btn" data-mode="quiz"><span>🧠</span> Quiz</button>
+      <button class="mode-btn" data-mode="quiz"><span>🧠</span> Exam Quiz</button>
+      <button class="mode-btn" data-mode="flashquiz"><span>📝</span> Flashcard Quiz</button>
       <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
     </div>
 
@@ -612,7 +613,7 @@ function renderStats(){
 function renderCard(){
   const quizBox=document.getElementById('quizOptions');
   
-  // QUIZ MODE uses examQuestions (exam-like MC)
+  // EXAM QUIZ MODE uses examQuestions (OA-like)
   if(state.mode==='quiz'){
     const eq = currentExam();
     if(!eq){
@@ -638,7 +639,33 @@ function renderCard(){
     return;
   }
 
-  // STUDY MODE - flashcards
+  // FLASHCARD QUIZ MODE - test flashcards with meaningful MC
+  if(state.mode==='flashquiz'){
+    const card=current();
+    if(!card){
+      document.getElementById('cardTerm').textContent='No cards – try different filter or uncheck Missed Only';
+      document.getElementById('cardDef').textContent='';
+      document.getElementById('cardChapter').textContent='—';
+      document.getElementById('cardCount').textContent='0 / 0';
+      quizBox.style.display='none';
+      return;
+    }
+    const ch=chapters.find(c=>c.id===card.chapter);
+    document.getElementById('cardChapter').textContent=ch? `${ch.emoji} ${ch.name}`:card.chapter;
+    document.getElementById('cardChapter').className='badge';
+    document.getElementById('cardCount').textContent=`${state.idx+1} / ${state.order.length} • Flashcard Quiz`;
+    document.getElementById('cardTerm').textContent=card.term;
+    document.getElementById('cardTermSmall').textContent=card.term;
+    document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
+    document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+    quizBox.style.display='grid';
+    if(state.lastQuizId !== card.id){
+      genQuizFlash(card);
+    }
+    return;
+  }
+
+  // STUDY MODE - flashcards flip
   const card=current();
   if(!card){
     document.getElementById('cardTerm').textContent='No cards – try different filter';
@@ -667,8 +694,7 @@ function genQuizExam(eq){
   state.flipped=false;
   document.getElementById('flashCard').classList.remove('flipped');
 
-  // Shuffle options but keep track of correct index
-  const opts = eq.options.map((text,i)=>({text, isCorrect:i===eq.correct, originalIdx:i}))
+  const opts = eq.options.map((text,i)=>({text, isCorrect:i===eq.correct}))
                          .sort(()=>Math.random()-0.5);
 
   opts.forEach(o=>{
@@ -681,15 +707,12 @@ function genQuizExam(eq){
       if(o.isCorrect){
         btn.classList.add('correct');
         state.known.add(eq.id); save(); renderStats();
-        // show explanation then next
         state.flipped=true;
         document.getElementById('flashCard').classList.add('flipped');
         setTimeout(()=>{ next(); }, 1200);
       }else{
         btn.classList.add('wrong');
-        // show correct
         document.querySelectorAll('.quiz-opt').forEach(b=>{
-          // find correct button by matching text of correct option
           if(b.textContent.trim()===eq.options[eq.correct].trim() || b.textContent.includes(eq.options[eq.correct].slice(0,40))){
             b.classList.add('correct');
           }
@@ -702,8 +725,69 @@ function genQuizExam(eq){
   });
 }
 
-// Keep old flashcard def quiz as fallback for search edge cases
-function genQuiz(card){ genQuizExam({id:card.id, question:card.term, options:[card.definition], correct:0, explanation:card.definition, chapter:card.chapter}); }
+function genQuizFlash(card){
+  const quizBox=document.getElementById('quizOptions');
+  quizBox.innerHTML='';
+  state.quizAnswered=false;
+  state.lastQuizId=card.id;
+  state.flipped=false;
+  document.getElementById('flashCard').classList.remove('flipped');
+
+  const STOP = new Set(['the','and','for','with','from','that','this','these','those','are','was','were','has','have','had','been','being','of','to','in','on','is','a','an','it','its','as','by','at','or','be','not','but','also','into','which','can','will','may','more','most','such','than','then','when','what','how','why','does','did','due','via','per']);
+  const tokenize = (s)=> s.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>2 && !STOP.has(w));
+  const cardTokens = new Set(tokenize(card.term + ' ' + card.definition));
+
+  let pool = flashcards.filter(c=>c.id!==card.id && c.chapter===card.chapter);
+  if(pool.length<3){
+    // if not enough in same chapter, add from other chapters but still score
+    const others = flashcards.filter(c=>c.id!==card.id && !pool.includes(c));
+    pool = [...pool, ...others];
+  }
+
+  const scored = pool.map(c=>{
+    const cTokens = tokenize(c.definition);
+    let shared=0;
+    cTokens.forEach(t=>{ if(cardTokens.has(t)) shared++; });
+    // bonus for same chapter already, and same first letter term, and similar concept
+    const termFirst = c.term.split(' ')[0].toLowerCase();
+    const cardFirst = card.term.split(' ')[0].toLowerCase();
+    if(termFirst===cardFirst) shared+=3;
+    if(c.term.toLowerCase().includes(card.term.toLowerCase().split(' ')[0])) shared+=1;
+    return {c, score: shared + Math.random()*0.5}; // small random tie-breaker
+  }).sort((a,b)=>b.score-a.score);
+
+  const top = scored.slice(0, Math.min(8, scored.length));
+  const wrongs = [...top].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.c);
+
+  const opts = [{def:card.definition, ok:true}, ...wrongs.map(c=>({def:c.definition, ok:false}))].sort(()=>Math.random()-0.5);
+
+  opts.forEach(o=>{
+    const btn=document.createElement('button'); btn.className='quiz-opt';
+    btn.innerHTML=`<div style="line-height:1.5">${o.def}</div>`;
+    btn.onclick=()=>{
+      if(state.quizAnswered) return;
+      state.quizAnswered=true;
+      document.querySelectorAll('.quiz-opt').forEach(b=>b.style.pointerEvents='none');
+      if(o.ok){
+        btn.classList.add('correct');
+        state.known.add(card.id); save(); renderStats();
+        state.flipped=true;
+        document.getElementById('flashCard').classList.add('flipped');
+        setTimeout(()=>next(), 900);
+      }else{
+        btn.classList.add('wrong');
+        document.querySelectorAll('.quiz-opt').forEach(b=>{
+          if(b.textContent.includes(card.definition.slice(0,45))) b.classList.add('correct');
+        });
+        state.flipped=true;
+        document.getElementById('flashCard').classList.add('flipped');
+      }
+    };
+    quizBox.appendChild(btn);
+  });
+}
+
+function genQuiz(card){ genQuizFlash(card); }
 function renderList(){
   const grid=document.getElementById('listGrid'); const filtered=getFiltered(); grid.innerHTML='';
   filtered.forEach(card=>{
