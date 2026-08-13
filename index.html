@@ -573,9 +573,12 @@ function getFilteredExam(){
 function rebuild(){
   const f=getFiltered(); 
   state.order=f.map(c=>c.id);
+  // default shuffle on
+  for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
   if(state.idx>=state.order.length) state.idx=0;
   const ef=getFilteredExam();
   state.examOrder=ef.map(c=>c.id);
+  for(let i=state.examOrder.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.examOrder[i],state.examOrder[j]]=[state.examOrder[j],state.examOrder[i]]; }
   if(state.examIdx>=state.examOrder.length) state.examIdx=0;
   state.quizAnswered=false;
   state.lastQuizId=null;
