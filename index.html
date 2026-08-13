@@ -3,577 +3,550 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WGU C165 - Integrated Physical Sciences Flashcards</title>
+<title>WGU C165 Flashcards - Integrated Physical Sciences</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0f172a; --surface:#1e293b; --surface2:#334155; --border:#475569;
-    --text:#f1f5f9; --muted:#94a3b8; --accent:#38bdf8; --accent2:#818cf8;
-    --green:#4ade80; --yellow:#facc15; --red:#f87171;
+    --bg:#f8fafc; --bg2:#ffffff; --surface:#ffffff; --surface2:#f1f5f9; --border:#e2e8f0;
+    --text:#0f172a; --muted:#64748b; --accent:#0ea5e9; --accent-2:#6366f1; --accent-3:#06b6d4;
+    --green:#10b981; --green-bg:#dcfce7; --red:#ef4444; --red-bg:#fee2e2; --yellow:#f59e0b;
+    --shadow:0 1px 3px rgba(0,0,0,0.08),0 8px 24px rgba(0,0,0,0.06);
+    --shadow-lg:0 4px 12px rgba(0,0,0,0.08),0 20px 40px rgba(0,0,0,0.1);
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --bg:#0b1220; --bg2:#0f172a; --surface:#151e32; --surface2:#1e293b; --border:#243041;
+      --text:#e2e8f0; --muted:#94a3b8; --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
+      --shadow-lg:0 8px 24px rgba(0,0,0,0.4),0 20px 48px rgba(0,0,0,0.5);
+    }
+  }
+  [data-theme="dark"]{
+    --bg:#0b1220; --bg2:#0f172a; --surface:#151e32; --surface2:#1e293b; --border:#243041;
+    --text:#e2e8f0; --muted:#94a3b8; --shadow:0 1px 3px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.4);
+    --shadow-lg:0 8px 24px rgba(0,0,0,0.4),0 20px 48px rgba(0,0,0,0.5);
+  }
+  [data-theme="light"]{
+    --bg:#f8fafc; --bg2:#ffffff; --surface:#ffffff; --surface2:#f1f5f9; --border:#e2e8f0;
+    --text:#0f172a; --muted:#64748b;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-  .top{
-    position:sticky;top:0;z-index:10;
-    background:rgba(15,23,42,0.9);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-    padding:0.75rem 1rem;
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+  
+  /* Header */
+  .header{
+    position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg2) 85%, transparent);
+    backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);
+    padding:0.75rem 1.25rem;
   }
-  .brand{font-weight:800;font-size:1.15rem;letter-spacing:-0.02em}
-  .brand span{color:var(--accent)}
-  .stats{display:flex;gap:0.75rem;font-size:0.85rem;color:var(--muted)}
-  .stats b{color:var(--text)}
-  .container{max-width:1100px;margin:0 auto;padding:1rem;display:grid;grid-template-columns:260px 1fr;gap:1rem}
-  @media(max-width:900px){.container{grid-template-columns:1fr}.sidebar{order:2}}
-  .sidebar{
-    background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem;
-    height:fit-content;position:sticky;top:65px
+  .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:0.7rem;font-weight:800;font-size:1.1rem;letter-spacing:-0.02em}
+  .logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:white;font-size:1.1rem}
+  .search-box{flex:1;max-width:400px;position:relative}
+  .search-box input{
+    width:100%;padding:0.6rem 0.85rem 0.6rem 2.3rem;border-radius:12px;border:1px solid var(--border);
+    background:var(--surface2);color:var(--text);font-size:0.9rem;outline:none;transition:.2s
   }
-  .sidebar h3{font-size:0.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin:0.75rem 0 0.5rem}
-  .sidebar h3:first-child{margin-top:0}
-  .chip{
-    display:flex;justify-content:space-between;align-items:center;
-    width:100%;padding:0.55rem 0.75rem;border-radius:8px;border:1px solid transparent;
-    background:transparent;color:var(--text);cursor:pointer;margin-bottom:0.25rem;font-size:0.9rem;text-align:left;transition:.15s
+  .search-box input:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px rgba(14,165,233,0.15)}
+  .search-box::before{content:'🔍';position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);font-size:0.9rem;opacity:0.6}
+  .header-actions{margin-left:auto;display:flex;align-items:center;gap:0.5rem}
+  .icon-btn{
+    width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);
+    display:grid;place-items:center;cursor:pointer;transition:.15s;font-size:1rem
   }
-  .chip:hover{background:var(--surface2)}
-  .chip.active{background:var(--accent);color:#0f172a;font-weight:600;border-color:var(--accent)}
-  .chip small{opacity:0.7;font-size:0.75rem}
-  .search{width:100%;padding:0.6rem 0.75rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-bottom:0.75rem}
-  .main{display:flex;flex-direction:column;gap:1rem}
-  .card-wrap{perspective:1000px;display:flex;justify-content:center}
-  .card{
-    width:100%;max-width:680px;min-height:380px;position:relative;transform-style:preserve-3d;transition:transform 0.5s;cursor:pointer;
+  .icon-btn:hover{background:var(--surface2);transform:translateY(-1px)}
+  .stats-pill{
+    display:flex;align-items:center;gap:0.5rem;padding:0.45rem 0.8rem;border-radius:20px;background:var(--surface2);
+    border:1px solid var(--border);font-size:0.8rem;font-weight:600
   }
-  .card.flipped{transform:rotateY(180deg)}
+  .stats-pill .dot{width:8px;height:8px;border-radius:50%}
+  
+  /* Chapter Nav */
+  .chapter-nav{
+    max-width:1200px;margin:0 auto;padding:0.75rem 1.25rem 0;
+    display:flex;gap:0.5rem;overflow-x:auto;scrollbar-width:none; -webkit-overflow-scrolling:touch
+  }
+  .chapter-nav::-webkit-scrollbar{display:none}
+  .chapter-pill{
+    white-space:nowrap;padding:0.55rem 1rem;border-radius:20px;border:1px solid var(--border);
+    background:var(--surface);font-size:0.85rem;font-weight:500;cursor:pointer;transition:.18s;
+    display:flex;align-items:center;gap:0.4rem;color:var(--muted)
+  }
+  .chapter-pill:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}
+  .chapter-pill.active{
+    background:var(--text);color:var(--bg2);border-color:var(--text);
+    box-shadow:var(--shadow)
+  }
+  .chapter-pill .count{
+    font-size:0.7rem;padding:2px 6px;border-radius:10px;background:var(--surface2);font-weight:700;
+    font-family:'JetBrains Mono',monospace
+  }
+  .chapter-pill.active .count{background:rgba(255,255,255,0.2);color:inherit}
+
+  /* Main Layout */
+  .main{max-width:1200px;margin:0 auto;padding:1rem 1.25rem 2rem;display:grid;grid-template-columns:200px 1fr;gap:1.25rem}
+  @media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{order:2}}
+  
+  .sidebar{position:sticky;top:115px;height:fit-content;display:flex;flex-direction:column;gap:0.75rem}
+  .card-mini{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1rem;box-shadow:var(--shadow)
+  }
+  .card-mini h4{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.6rem;font-weight:700}
+  .mode-btn{
+    width:100%;text-align:left;padding:0.7rem 0.85rem;border-radius:10px;border:1px solid transparent;
+    background:transparent;cursor:pointer;font-size:0.9rem;font-weight:500;display:flex;align-items:center;gap:0.6rem;
+    transition:.15s;color:var(--muted)
+  }
+  .mode-btn:hover{background:var(--surface2);color:var(--text)}
+  .mode-btn.active{background:var(--text);color:var(--bg2);border-color:var(--text)}
+  .mode-btn.active .mode-icon{background:rgba(255,255,255,0.15)}
+
+  .ring-wrap{display:flex;align-items:center;gap:0.9rem}
+  .ring{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--green) var(--p,0%), var(--surface2) 0);display:grid;place-items:center;position:relative}
+  .ring::after{content:'';position:absolute;inset:5px;background:var(--surface);border-radius:50%}
+  .ring span{position:relative;z-index:1;font-weight:800;font-size:0.9rem}
+
+  .progress-track{height:8px;background:var(--surface2);border-radius:10px;overflow:hidden;display:flex;margin-top:0.5rem}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 0.5s ease}
+
+  /* Flashcard */
+  .study-area{display:flex;flex-direction:column;gap:1rem}
+  .scene{perspective:1200px;display:flex;justify-content:center}
+  .flashcard{
+    width:100%;max-width:720px;min-height:420px;position:relative;transform-style:preserve-3d;
+    transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);cursor:pointer;user-select:none
+  }
+  .flashcard.flipped{transform:rotateY(180deg)}
   .face{
-    position:absolute;inset:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;
-    padding:1.5rem;display:flex;flex-direction:column;backface-visibility:hidden;
-    box-shadow:0 10px 40px rgba(0,0,0,0.4)
+    position:absolute;inset:0;border-radius:20px;border:1px solid var(--border);background:var(--surface);
+    box-shadow:var(--shadow-lg);padding:1.5rem;display:flex;flex-direction:column;
+    backface-visibility:hidden;overflow:hidden
   }
-  .face.back{transform:rotateY(180deg);background:linear-gradient(135deg,var(--surface),#1e1b4b);border-color:var(--accent2)}
-  .face .label{font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;display:flex;justify-content:space-between}
-  .face .label span:last-child{padding:2px 8px;border-radius:20px;background:var(--surface2);font-size:0.7rem}
-  .face .content{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.35rem;line-height:1.4;font-weight:600}
-  .face.back .content{font-size:1.05rem;font-weight:400;color:var(--text);text-align:left}
-  .face .hint{font-size:0.75rem;color:var(--muted);text-align:center;margin-top:1rem}
-  .controls{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap}
+  .face::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));
+  }
+  .face.back{transform:rotateY(180deg)}
+  .face.back::before{background:linear-gradient(90deg,var(--accent-2),#a855f7,#ec4899)}
+  .face-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-top:0.25rem}
+  .badge{
+    font-size:0.7rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+    padding:0.25rem 0.6rem;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)
+  }
+  .badge.all{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border-color:transparent}
+  .count-badge{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted)}
+  .face-content{flex:1;display:flex;align-items:center;justify-content:center;text-align:center}
+  .face-content.front{font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;line-height:1.25}
+  .face-content.back{font-size:1rem;font-weight:400;text-align:left;line-height:1.6;align-items:flex-start;overflow-y:auto}
+  .example-box{
+    margin-top:1rem;padding:0.7rem 0.9rem;border-radius:10px;background:var(--surface2);
+    border:1px dashed var(--border);font-size:0.85rem;color:var(--muted)
+  }
+  .example-box b{color:var(--text)}
+  .flip-hint{
+    display:flex;align-items:center;justify-content:center;gap:0.4rem;
+    font-size:0.75rem;color:var(--muted);margin-top:0.75rem;opacity:0.8
+  }
+
+  /* Controls */
+  .controls-row{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;max-width:720px;margin:0 auto;width:100%}
   .btn{
-    padding:0.6rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);
-    cursor:pointer;font-size:0.9rem;font-weight:500;transition:.15s;display:inline-flex;align-items:center;gap:0.4rem
+    padding:0.7rem 1.1rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);
+    color:var(--text);font-weight:600;font-size:0.9rem;cursor:pointer;transition:.18s;
+    display:inline-flex;align-items:center;gap:0.45rem;box-shadow:var(--shadow)
   }
-  .btn:hover{background:var(--surface2)}
-  .btn.primary{background:var(--accent);color:#0f172a;border-color:var(--accent);font-weight:700}
-  .btn.primary:hover{filter:brightness(1.1)}
-  .btn.green{background:var(--green);color:#0f172a;border-color:var(--green)}
-  .btn.red{background:transparent;color:var(--red);border-color:rgba(248,113,113,0.3)}
-  .btn.red.active{background:rgba(248,113,113,0.15)}
-  .progress{height:8px;background:var(--surface2);border-radius:10px;overflow:hidden;display:flex}
-  .progress .p-known{background:var(--green);transition:.3s}
-  .progress .p-unknown{background:var(--red);transition:.3s}
-  .kbd{font-size:0.7rem;color:var(--muted);text-align:center;margin-top:0.25rem}
-  .list-toggle{font-size:0.8rem;color:var(--muted);cursor:pointer;text-align:right}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem}
-  .mini-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.75rem;cursor:pointer;transition:.15s}
-  .mini-card:hover{border-color:var(--accent)}
-  .mini-card .t{font-weight:600;font-size:0.9rem;margin-bottom:0.25rem}
-  .mini-card .d{font-size:0.8rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .mini-card.known{opacity:0.5;border-color:var(--green)}
-  .empty{text-align:center;padding:3rem;color:var(--muted)}
+  .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--text)}
+  .btn.primary{background:var(--text);color:var(--bg2);border-color:var(--text)}
+  .btn.ghost{background:transparent;box-shadow:none;border-color:transparent;color:var(--muted)}
+  .btn.ghost:hover{background:var(--surface2);color:var(--text)}
+  .btn.green{background:var(--green);color:white;border-color:var(--green);box-shadow:0 4px 12px rgba(16,185,129,0.25)}
+  .btn.red{background:var(--surface);color:var(--red);border-color:var(--red)}
+  .btn.red:hover{background:var(--red-bg)}
+  .btn:active{transform:translateY(0)}
+
+  /* Quiz */
+  .quiz-grid{display:grid;gap:0.6rem;max-width:720px;margin:0 auto;width:100%}
+  .quiz-opt{
+    text-align:left;padding:0.9rem 1rem;border-radius:12px;border:1px solid var(--border);
+    background:var(--surface);cursor:pointer;transition:.15s;font-size:0.9rem;line-height:1.4
+  }
+  .quiz-opt:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-bg)}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-bg)}
+
+  /* List */
+  .list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0.8rem}
+  .list-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;
+    cursor:pointer;transition:.18s;box-shadow:var(--shadow)
+  }
+  .list-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+  .list-card.known{opacity:0.6;border-color:var(--green)}
+  .list-card .lc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+  .list-card .lc-term{font-weight:700;font-size:0.95rem}
+  .list-card .lc-def{font-size:0.85rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+
+  .kbd-hints{display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem}
+  .kbd{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.45rem;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
 </style>
 </head>
-<body>
-<div class="top">
-  <div class="brand">WGU <span>C165</span> • Integrated Physical Sciences</div>
-  <div class="stats">
-    <span><b id="statTotal">0</b> cards</span>
-    <span><b id="statKnown" style="color:var(--green)">0</b> known</span>
-    <span><b id="statLeft">0</b> left</span>
+<body data-theme="light">
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🧬</div>
+      <div>
+        <div style="line-height:1">WGU C165</div>
+        <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.04em">INTEGRATED PHYSICAL SCIENCES</div>
+      </div>
+    </div>
+    <div class="search-box"><input id="search" placeholder="Search terms, definitions..."></div>
+    <div class="header-actions">
+      <div class="stats-pill"><span class="dot" style="background:var(--text)"></span><span id="statTotal">0</span> cards</div>
+      <div class="stats-pill"><span class="dot" style="background:var(--green)"></span><span id="statKnown">0</span> known</div>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
+    </div>
   </div>
 </div>
 
-<div class="container">
+<div class="chapter-nav" id="chapterList"></div>
+
+<div class="main">
   <div class="sidebar">
-    <input id="search" class="search" placeholder="Search term...">
-    <h3>Mode</h3>
-    <button class="chip active" data-mode="study">📚 Study Mode</button>
-    <button class="chip" data-mode="quiz">🧠 Quiz Mode (MC)</button>
-    <button class="chip" data-mode="list">📋 List View</button>
+    <div class="card-mini">
+      <h4>Study Mode</h4>
+      <button class="mode-btn active" data-mode="study"><span>📚</span> Flashcards</button>
+      <button class="mode-btn" data-mode="quiz"><span>🧠</span> Quiz</button>
+      <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
+    </div>
 
-    <h3>Chapters</h3>
-    <div id="chapterList"></div>
+    <div class="card-mini">
+      <h4>Progress</h4>
+      <div class="ring-wrap">
+        <div class="ring" id="ring"><span id="ringTxt">0%</span></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem"><span id="statKnown2">0</span> / <span id="statTotal2">0</span></div>
+          <div style="font-size:0.75rem;color:var(--muted)"><span id="statLeft">0</span> left to master</div>
+        </div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
+      <div style="display:flex;gap:0.4rem;margin-top:0.7rem">
+        <button class="btn ghost" style="flex:1;font-size:0.8rem;padding:0.45rem" id="shuffleBtn">🔀 Shuffle</button>
+        <button class="btn ghost" style="flex:1;font-size:0.8rem;padding:0.45rem" id="resetBtn">↺ Reset</button>
+      </div>
+    </div>
 
-    <h3>Actions</h3>
-    <button class="chip" id="shuffleBtn">🔀 Shuffle</button>
-    <button class="chip" id="resetBtn">↺ Reset Progress</button>
-    <div class="kbd" style="margin-top:1rem;text-align:left;line-height:1.6">
-      <b>Shortcuts:</b><br>
-      Space = flip<br>
-      ← → = prev/next<br>
-      K = mark known<br>
-      U = unknown<br>
-      S = shuffle
+    <div class="card-mini" style="font-size:0.75rem;color:var(--muted);line-height:1.6">
+      <h4>Shortcuts</h4>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:0.2rem 0.6rem">
+        <span class="kbd">Space</span><span>flip</span>
+        <span class="kbd">← →</span><span>prev / next</span>
+        <span class="kbd">K</span><span>know</span>
+        <span class="kbd">U</span><span>don't know</span>
+        <span class="kbd">S</span><span>shuffle</span>
+      </div>
     </div>
   </div>
 
-  <div class="main">
-    <div class="progress" id="progressBar">
-      <div class="p-known" id="pKnown" style="width:0%"></div>
-      <div class="p-unknown" id="pUnknown" style="width:0%"></div>
-    </div>
-
-    <div id="studyView">
-      <div class="card-wrap">
-        <div class="card" id="flashCard">
-          <div class="face front">
-            <div class="label"><span id="cardChapter">Ch 1</span><span id="cardCount">1 / 100</span></div>
-            <div class="content" id="cardTerm">Loading...</div>
-            <div class="hint">Click or press Space to flip</div>
+  <div class="study-area" id="studyArea">
+    <div class="scene">
+      <div class="flashcard" id="flashCard">
+        <div class="face front">
+          <div class="face-top">
+            <span class="badge" id="cardChapter">Chapter</span>
+            <span class="count-badge" id="cardCount">1 / 90</span>
           </div>
-          <div class="face back">
-            <div class="label"><span>Definition</span><span id="cardTermSmall"></span></div>
-            <div class="content" id="cardDef"></div>
-            <div class="hint">Click to flip back</div>
+          <div class="face-content front" id="cardTerm">Loading...</div>
+          <div class="flip-hint">↩ Click or Space to flip</div>
+        </div>
+        <div class="face back">
+          <div class="face-top">
+            <span class="badge">Definition</span>
+            <span class="count-badge" id="cardTermSmall"></span>
           </div>
+          <div class="face-content back" id="cardDef"></div>
+          <div class="flip-hint">↩ Back to term</div>
         </div>
       </div>
-
-      <div class="controls" style="margin-top:1rem">
-        <button class="btn" id="prevBtn">← Prev</button>
-        <button class="btn primary" id="flipBtn">Flip (Space)</button>
-        <button class="btn" id="nextBtn">Next →</button>
-      </div>
-
-      <div class="controls">
-        <button class="btn red" id="unknownBtn">❌ Don't know (U)</button>
-        <button class="btn green" id="knownBtn">✅ Know (K)</button>
-      </div>
-
-      <div id="quizOptions" class="controls" style="margin-top:0.5rem;display:none;flex-direction:column;max-width:680px;margin-inline:auto;width:100%"></div>
     </div>
 
-    <div id="listView" style="display:none">
-      <div class="grid" id="listGrid"></div>
+    <div class="controls-row">
+      <button class="btn ghost" id="prevBtn">← Prev</button>
+      <button class="btn primary" id="flipBtn">Flip card</button>
+      <button class="btn ghost" id="nextBtn">Next →</button>
     </div>
+
+    <div class="controls-row">
+      <button class="btn red" id="unknownBtn">✕ Don't know</button>
+      <button class="btn green" id="knownBtn">✓ I know this</button>
+    </div>
+
+    <div class="quiz-grid" id="quizOptions" style="display:none"></div>
+    <div class="kbd-hints">
+      <span class="kbd">Space</span><span class="kbd">→</span><span class="kbd">K</span><span class="kbd">U</span>
+    </div>
+  </div>
+
+  <div id="listArea" style="display:none;grid-column:1/-1">
+    <div class="list-grid" id="listGrid"></div>
   </div>
 </div>
 
 <script>
 const chapters = [
-  {id:'all', name:'Whole Book - All Chapters'},
-  {id:'ch1', name:'Ch 1: Scientific Method & Measurement'},
-  {id:'ch2', name:'Ch 2: Matter & Atomic Structure'},
-  {id:'ch3', name:'Ch 3: Chemical Bonds & Reactions'},
-  {id:'ch4', name:'Ch 4: Motion & Forces'},
-  {id:'ch5', name:'Ch 5: Energy & Thermodynamics'},
-  {id:'ch6', name:'Ch 6: Waves, Sound & Light'},
-  {id:'ch7', name:'Ch 7: Electricity & Magnetism'},
-  {id:'ch8', name:'Ch 8: Rocks, Minerals & Plate Tectonics'},
-  {id:'ch9', name:'Ch 9: Weather, Climate & Earth Systems'},
-  {id:'ch10', name:'Ch 10: Astronomy & Space'},
+  {id:'all', name:'Whole Book', emoji:'📖'},
+  {id:'ch1', name:'Ch 1: Scientific Method', emoji:'🔬'},
+  {id:'ch2', name:'Ch 2: Matter & Atoms', emoji:'⚛️'},
+  {id:'ch3', name:'Ch 3: Chemistry', emoji:'🧪'},
+  {id:'ch4', name:'Ch 4: Motion & Forces', emoji:'🚀'},
+  {id:'ch5', name:'Ch 5: Energy', emoji:'⚡'},
+  {id:'ch6', name:'Ch 6: Waves & Light', emoji:'🌊'},
+  {id:'ch7', name:'Ch 7: Electricity', emoji:'🔋'},
+  {id:'ch8', name:'Ch 8: Rocks & Tectonics', emoji:'🪨'},
+  {id:'ch9', name:'Ch 9: Weather & Climate', emoji:'⛅'},
+  {id:'ch10', name:'Ch 10: Astronomy', emoji:'🪐'},
 ];
 
 const flashcards = [
-  // Ch1
-  {id:1, chapter:'ch1', term:'Scientific Method', definition:'Systematic process: observation, question, hypothesis, experiment, analysis, conclusion. Used to objectively test ideas and build knowledge.', example:'Testing if fertilizer affects plant growth'},
-  {id:2, chapter:'ch1', term:'Hypothesis', definition:'Testable, falsifiable prediction that explains observations. Must be testable via experiment. Format: If...then...because.', example:'If plants get more light, then they grow taller because photosynthesis increases.'},
-  {id:3, chapter:'ch1', term:'Theory vs Law', definition:'Theory = well-tested explanation of WHY (ex: atomic theory). Law = description of WHAT happens, often math equation (ex: Newton\'s law). Theories don\'t become laws.', example:''},
-  {id:4, chapter:'ch1', term:'Independent vs Dependent Variable', definition:'Independent = you change it (X-axis). Dependent = you measure it (Y-axis), responds to independent. Control stays constant.', example:'Independent: light hours, Dependent: plant height'},
-  {id:5, chapter:'ch1', term:'Accuracy vs Precision', definition:'Accuracy = how close to true value. Precision = how repeatable/consistent. You can be precise but not accurate.', example:'Dartboard: accurate = near bullseye, precise = darts clustered'},
-  {id:6, chapter:'ch1', term:'SI Units & Significant Figures', definition:'International System: meter, kg, second, Kelvin, mole, ampere, candela. Sig figs = meaningful digits reflecting measurement precision.', example:'0.0045 has 2 sig figs'},
-  {id:7, chapter:'ch1', term:'Model in Science', definition:'Representation to explain or predict. Physical, conceptual, or mathematical. All models have limitations.', example:'Bohr model of atom, globe as Earth model'},
-  {id:8, chapter:'ch1', term:'Control Group', definition:'Group not exposed to independent variable, used for comparison to show effect is due to variable, not other factors.', example:'Plants with no fertilizer as control'},
+  {id:1, chapter:'ch1', term:'Scientific Method', definition:'Systematic process: observation → question → hypothesis → experiment → analysis → conclusion. Used to objectively test ideas.', example:'Testing if fertilizer affects plant growth'},
+  {id:2, chapter:'ch1', term:'Hypothesis', definition:'Testable, falsifiable prediction. Format: If...then...because... Must be testable via experiment.', example:'If plants get more light, then they grow taller because photosynthesis increases.'},
+  {id:3, chapter:'ch1', term:'Theory vs Law', definition:'Theory = well-tested explanation of WHY (atomic theory). Law = description of WHAT happens, often math (Newton\'s law). Theories don\'t become laws.', example:''},
+  {id:4, chapter:'ch1', term:'Independent vs Dependent Variable', definition:'Independent = you change it (X-axis). Dependent = you measure it (Y-axis). Control stays constant for comparison.', example:'Independent: light hours, Dependent: plant height'},
+  {id:5, chapter:'ch1', term:'Accuracy vs Precision', definition:'Accuracy = close to true value. Precision = repeatable/consistent. You can be precise but not accurate.', example:'Dartboard: accurate = near bullseye, precise = darts clustered'},
+  {id:6, chapter:'ch1', term:'SI Units', definition:'International System: meter, kilogram, second, Kelvin, mole, ampere, candela. Base units for all measurements.', example:'0.0045 has 2 significant figures'},
+  {id:7, chapter:'ch1', term:'Control Group', definition:'Group not exposed to independent variable, used for comparison to show effect is due to variable, not other factors.', example:'Plants with no fertilizer as control'},
+  {id:8, chapter:'ch1', term:'Model Limitations', definition:'All models are representations with limitations. Physical, conceptual, or mathematical. Useful but simplified.', example:'Bohr model of atom, globe as Earth model'},
 
-  // Ch2
-  {id:9, chapter:'ch2', term:'Matter & States', definition:'Anything with mass and volume. 4 states: solid (fixed shape), liquid (fixed volume), gas (fills container), plasma (ionized gas).', example:'Ice->water->steam'},
-  {id:10, chapter:'ch2', term:'Atom Structure', definition:'Smallest unit of element: nucleus (protons+, neutrons) + electrons- in cloud. Most mass in nucleus, most volume is empty space.', example:'Hydrogen: 1p, 0n, 1e'},
-  {id:11, chapter:'ch2', term:'Atomic Number vs Mass Number', definition:'Atomic number = # protons = defines element. Mass number = protons + neutrons. Isotopes same atomic # different neutrons.', example:'C-12: 6p+6n, C-14: 6p+8n'},
-  {id:12, chapter:'ch2', term:'Periodic Table Organization', definition:'Organized by atomic number. Periods = rows (energy levels), Groups = columns (same valence electrons, similar properties).', example:'Group 1 = alkali metals, Group 18 = noble gases'},
-  {id:13, chapter:'ch2', term:'Ions vs Isotopes', definition:'Ion = atom gains/loses electrons, becomes charged (cation + loses e-, anion - gains). Isotope = different neutrons, neutral but different mass.', example:'Na -> Na+ + e-, Cl + e- -> Cl-'},
-  {id:14, chapter:'ch2', term:'Metals, Nonmetals, Metalloids', definition:'Metals: left side, shiny, conductive, malleable. Nonmetals: right side, dull, insulator. Metalloids: borderline, semiconductors.', example:'Si metalloid for chips'},
-  {id:15, chapter:'ch2', term:'Element vs Compound vs Mixture', definition:'Element: one type atom (O2). Compound: 2+ elements chemically bonded (H2O). Mixture: physically combined, can separate (salt water).', example:''},
-  {id:16, chapter:'ch2', term:'Law of Conservation of Matter', definition:'Matter not created/destroyed in chemical reactions. Mass of reactants = mass of products. Must balance equations.', example:'2H2 + O2 -> 2H2O mass same'},
+  {id:9, chapter:'ch2', term:'Atom Structure', definition:'Smallest unit of element: nucleus (protons+, neutrons) + electron cloud. Most mass in nucleus, most volume is empty space.', example:'Hydrogen: 1p, 0n, 1e'},
+  {id:10, chapter:'ch2', term:'Atomic vs Mass Number', definition:'Atomic number = # protons = defines element. Mass number = protons + neutrons. Isotopes: same atomic #, different neutrons.', example:'C-12: 6p+6n, C-14: 6p+8n – C-14 is radioactive'},
+  {id:11, chapter:'ch2', term:'Periodic Table', definition:'Organized by atomic number. Periods = rows (energy levels), Groups = columns (same valence electrons, similar properties).', example:'Group 1 alkali metals, Group 18 noble gases'},
+  {id:12, chapter:'ch2', term:'Ions vs Isotopes', definition:'Ion = gains/loses electrons, charged (cation + loses, anion - gains). Isotope = different neutrons, neutral but different mass.', example:'Na → Na+ + e-, Cl + e- → Cl-'},
+  {id:13, chapter:'ch2', term:'Metals vs Nonmetals', definition:'Metals left side: shiny, conductive, malleable. Nonmetals right side: dull, insulator. Metalloids borderline semiconductors.', example:'Si metalloid used for computer chips'},
+  {id:14, chapter:'ch2', term:'Density', definition:'Mass per volume (g/cm³). Density = mass/volume. Floats if less dense than fluid. Water = 1 g/cm³.', example:'Ice 0.9 g/cm³ floats on water'},
+  {id:15, chapter:'ch2', term:'Conservation of Matter', definition:'Matter not created/destroyed in chemical reactions. Mass reactants = mass products. Must balance equations.', example:'2H₂ + O₂ → 2H₂O'},
 
-  // Ch3
-  {id:17, chapter:'ch3', term:'Ionic Bond', definition:'Electron transfer from metal to nonmetal, opposites attract. Forms crystal lattice, high mp, conductive when dissolved.', example:'NaCl: Na gives e- to Cl'},
-  {id:18, chapter:'ch3', term:'Covalent Bond', definition:'Sharing electrons between nonmetals. Molecular, lower mp. Single =1 pair, double=2, triple=3. Polar = unequal sharing.', example:'H2O: O shares with 2 H, polar'},
-  {id:19, chapter:'ch3', term:'Chemical Reaction & Balancing', definition:'Rearrangement of atoms to form new substances. Must balance atoms. Types: synthesis, decomposition, single/double replacement, combustion.', example:'CH4 + 2O2 -> CO2 + 2H2O'},
-  {id:20, chapter:'ch3', term:'Acid vs Base & pH', definition:'Acid: donates H+, pH <7, sour, reacts with metal. Base: accepts H+ or OH-, pH >7, bitter, slippery. pH scale 0-14 logarithmic.', example:'Stomach acid pH ~2, bleach pH 13'},
-  {id:21, chapter:'ch3', term:'Solution, Solute, Solvent', definition:'Solution = homogeneous mixture. Solute dissolved, solvent does dissolving. Concentrated = lots solute. Dilute = little. Molarity = moles/L.', example:'Salt water: salt solute, water solvent'},
-  {id:22, chapter:'ch3', term:'Law of Conservation of Energy in Reactions', definition:'Exothermic = releases energy (feels hot, products lower energy). Endothermic = absorbs (feels cold, needs energy).', example:'Combustion exothermic, ice melting endothermic'},
-  {id:23, chapter:'ch3', term:'Mixture Separation vs Chemical Change', definition:'Mixture: physical separation (filter, distillation). Chemical: new substances formed, evidence: color change, gas, precipitate, temp change.', example:''},
-  {id:24, chapter:'ch3', term:'Valence Electrons & Octet Rule', definition:'Outer shell electrons determine bonding. Atoms seek 8 valence e- (octet) for stability, via gaining/losing/sharing.', example:'Na has 1 valence, wants to lose, Cl has 7 wants 1'},
+  {id:16, chapter:'ch3', term:'Ionic Bond', definition:'Electron transfer metal → nonmetal. Opposite charges attract. Forms crystal lattice, high melting point, conductive when dissolved.', example:'NaCl: Na gives e- to Cl'},
+  {id:17, chapter:'ch3', term:'Covalent Bond', definition:'Sharing electrons between nonmetals. Lower melting point. Single/double/triple bonds. Polar = unequal sharing.', example:'H₂O: O shares with 2H, polar molecule'},
+  {id:18, chapter:'ch3', term:'Balancing Equations', definition:'Rearrangement of atoms, must balance atoms. Types: synthesis, decomposition, single/double replacement, combustion.', example:'CH₄ + 2O₂ → CO₂ + 2H₂O'},
+  {id:19, chapter:'ch3', term:'Acid vs Base & pH', definition:'Acid donates H+, pH<7 sour. Base accepts H+ or gives OH-, pH>7 bitter slippery. pH scale 0-14 logarithmic.', example:'Stomach acid pH ~2, bleach pH ~13'},
+  {id:20, chapter:'ch3', term:'Solution Terms', definition:'Solution homogeneous mixture. Solute dissolved, solvent does dissolving. Molarity = moles per liter.', example:'Salt water: salt solute, water solvent'},
+  {id:21, chapter:'ch3', term:'Exothermic vs Endothermic', definition:'Exothermic releases energy (feels hot). Endothermic absorbs (feels cold). Products have lower/higher energy.', example:'Combustion exothermic, ice melting endothermic'},
+  {id:22, chapter:'ch3', term:'Valence & Octet Rule', definition:'Outer shell electrons determine bonding. Atoms seek 8 valence e- for stability via gaining/losing/sharing.', example:'Na 1 valence wants to lose, Cl 7 wants 1'},
+  {id:23, chapter:'ch3', term:'Mole & Avogadro', definition:'6.02×10²³ particles per mole. Molar mass from periodic table (g/mol). Links grams ↔ moles ↔ particles.', example:'12g C = 1 mol = 6e23 atoms'},
 
-  // Ch4
-  {id:25, chapter:'ch4', term:'Speed vs Velocity vs Acceleration', definition:'Speed = distance/time scalar. Velocity = speed + direction vector. Acceleration = change in velocity/time (speed or direction change).', example:'Car accelerating 0-60 mph'},
-  {id:26, chapter:'ch4', term:'Newton\'s First Law - Inertia', definition:'Object at rest stays at rest, in motion stays in motion unless net force. Inertia = resistance to change, proportional to mass.', example:'Seatbelt stops you when car stops'},
-  {id:27, chapter:'ch4', term:'Newton\'s Second Law - F=ma', definition:'Force = mass * acceleration. More force or less mass = more acceleration. Net force not 0 causes acceleration.', example:'Push empty cart vs full cart'},
-  {id:28, chapter:'ch4', term:'Newton\'s Third Law - Action/Reaction', definition:'Every action has equal opposite reaction. Forces on DIFFERENT objects. Rocket pushes gas down, gas pushes rocket up.', example:'Jump: you push Earth down, Earth pushes you up'},
-  {id:29, chapter:'ch4', term:'Gravity & Weight vs Mass', definition:'Gravity: attraction between masses F=Gm1m2/r^2. Mass = amount matter (kg, constant). Weight = force gravity on mass (N, changes with planet).', example:'Mass 10kg everywhere, weight 98N on Earth, 16N on Moon'},
-  {id:30, chapter:'ch4', term:'Friction & Air Resistance', definition:'Friction opposes motion: static > kinetic. Factors: surfaces, normal force. Air resistance increases with speed/surface area.', example:'Rougher surface more friction'},
-  {id:31, chapter:'ch4', term:'Free Fall & Projectile Motion', definition:'Free fall: only gravity, g=9.8 m/s2 down. Projectile: horizontal constant velocity + vertical accelerated, path = parabola, independent.', example:'Dropped and thrown balls hit ground same time if same height'},
-  {id:32, chapter:'ch4', term:'Momentum', definition:'p = mass * velocity. Inertia in motion. Conservation: total momentum before = after collision if no external force.', example:'Truck has more momentum than bike same speed'},
+  {id:24, chapter:'ch4', term:'Speed vs Velocity', definition:'Speed = distance/time scalar. Velocity = speed + direction vector. Acceleration = change in velocity over time.', example:'Car accelerating 0-60 mph'},
+  {id:25, chapter:'ch4', term:'Newton\'s 1st Law - Inertia', definition:'Object at rest stays at rest, in motion stays in motion unless net force. Inertia ∝ mass. Seatbelt demo.', example:'Seatbelt stops you when car stops'},
+  {id:26, chapter:'ch4', term:'Newton\'s 2nd - F=ma', definition:'Force = mass × acceleration. More force or less mass = more acceleration. Net force causes acceleration.', example:'Push empty vs full cart'},
+  {id:27, chapter:'ch4', term:'Newton\'s 3rd - Action/Reaction', definition:'Every action has equal opposite reaction on DIFFERENT objects. Rocket pushes gas down, gas pushes rocket up.', example:'Jump: you push Earth down, Earth pushes you up'},
+  {id:28, chapter:'ch4', term:'Weight vs Mass', definition:'Mass = amount matter kg constant. Weight = force gravity N = mg, changes per planet. F=Gm₁m₂/r².', example:'10kg everywhere, 98N Earth, 16N Moon'},
+  {id:29, chapter:'ch4', term:'Friction', definition:'Opposes motion: static > kinetic. Factors: surfaces, normal force. Air resistance increases with speed/area.', example:'Rougher surface = more friction'},
+  {id:30, chapter:'ch4', term:'Projectile Motion', definition:'Free fall g=9.8 m/s² down. Horizontal constant velocity + vertical accelerated = parabola. Independent components.', example:'Dropped + thrown balls hit same time if same height'},
 
-  // Ch5
-  {id:33, chapter:'ch5', term:'Work & Power', definition:'Work = force * distance * cosθ, only when force causes displacement. Unit Joules. Power = work/time, rate, Watts = J/s.', example:'Lifting weights = work, holding them = no work physics'},
-  {id:34, chapter:'ch5', term:'Kinetic vs Potential Energy', definition:'KE = energy of motion = 1/2mv^2. PE = stored due to position: gravitational mgh, elastic spring, chemical. Total mechanical conserved if no friction.', example:'Roller coaster: top PE, bottom KE'},
-  {id:35, chapter:'ch5', term:'Conservation of Energy', definition:'Energy cannot create/destroy, transforms. Total system constant. With friction, mechanical becomes thermal (heat).', example:'Pendulum slows friction -> heat'},
-  {id:36, chapter:'ch5', term:'Thermodynamics Laws', definition:'0th: equilibrium. 1st: energy conserved ΔU=Q-W. 2nd: entropy increases, heat flows hot->cold. 3rd: absolute zero unreachable.', example:'Ice melts spontaneously increases entropy'},
-  {id:37, chapter:'ch5', term:'Heat Transfer - Conduction Convection Radiation', definition:'Conduction: direct contact (metal spoon). Convection: fluid movement (boiling water). Radiation: EM waves no medium (sun).', example:''},
-  {id:38, chapter:'ch5', term:'Temperature vs Heat', definition:'Temperature = average KE of particles (K, C). Heat = total energy transferred due to temp difference (Joules).', example:'Lake vs cup: lake lower temp but more heat'},
-  {id:39, chapter:'ch5', term:'Specific Heat Capacity', definition:'Energy needed to raise 1kg by 1°C. Water high (4186 J/kgC) moderates climate. Q=mcΔT.', example:'Sand heats faster than water'},
-  {id:40, chapter:'ch5', term:'States & Phase Changes', definition:'Melting/freezing, vaporization/condensation, sublimation/deposition. Latent heat needed to change state, temp constant during change.', example:'Boiling water stays 100C until vaporized'},
+  {id:31, chapter:'ch5', term:'Work & Power', definition:'Work = force × distance × cosθ (only if displacement). Joules. Power = work/time rate Watts = J/s.', example:'Lifting = work, holding = no work in physics'},
+  {id:32, chapter:'ch5', term:'Kinetic vs Potential', definition:'KE motion = ½mv². PE stored position: gravitational mgh, elastic, chemical. Mechanical conserved if no friction.', example:'Roller coaster: top PE, bottom KE'},
+  {id:33, chapter:'ch5', term:'Conservation of Energy', definition:'Energy cannot be created/destroyed, transforms. Total constant. Friction turns mechanical to thermal.', example:'Pendulum slows → heat'},
+  {id:34, chapter:'ch5', term:'Heat Transfer', definition:'Conduction direct contact (spoon), Convection fluid movement (boiling), Radiation EM waves no medium (sun).', example:'Sun warms via radiation'},
+  {id:35, chapter:'ch5', term:'Specific Heat', definition:'Energy to raise 1kg by 1°C. Water high 4186 J/kg°C moderates climate. Q=mcΔT.', example:'Sand heats faster than water'},
+  {id:36, chapter:'ch5', term:'Buoyancy', definition:'Buoyant force = weight of displaced fluid. Float if buoyant = weight. Pascal pressure transmitted, Bernoulli fast = low pressure.', example:'Boat displaces water weight'},
+  {id:37, chapter:'ch5', term:'Nuclear vs Chemical', definition:'Chemical electron rearrangement eV. Nuclear nucleus changes MeV million × more. Fusion combine light (sun), fission split heavy.', example:'Sun H fusion → He'},
 
-  // Ch6
-  {id:41, chapter:'ch6', term:'Wave Properties', definition:'Wave transfers energy not matter. Transverse: perp (light), longitudinal: parallel (sound). Key: wavelength λ, frequency f, amplitude, speed v=fλ.', example:'Ocean waves'},
-  {id:42, chapter:'ch6', term:'Sound', definition:'Longitudinal mechanical wave needs medium, speed ~343 m/s air, faster in water/solid. Pitch = frequency, loudness = amplitude, Doppler shift.', example:'Siren pitch higher approaching'},
-  {id:43, chapter:'ch6', term:'Electromagnetic Spectrum', definition:'All EM waves light speed: radio < microwave < IR < visible < UV < X-ray < gamma. Lower freq = lower energy. Visible ~400-700nm.', example:'Red ~700nm low energy, violet 400nm high'},
-  {id:44, chapter:'ch6', term:'Reflection, Refraction, Diffraction', definition:'Reflection: bounce law angle in=out. Refraction: bends due to speed change n=c/v (lens). Diffraction: spreads through opening, more for longer λ.', example:'Straw looks bent in water = refraction'},
-  {id:45, chapter:'ch6', term:'Interference & Resonance', definition:'Constructive: waves add brighter/louder. Destructive: cancel dark/quiet. Resonance: large amplitude when driven at natural frequency.', example:'Two speakers interference, bridge Tacoma'},
-  {id:46, chapter:'ch6', term:'Color & Light', definition:'White = all colors. Object color = reflected. Pigment subtractive (RYB), light additive (RGB). Black absorbs, white reflects.', example:'Blue shirt reflects blue, absorbs rest'},
-  {id:47, chapter:'ch6', term:'Lenses & Mirrors', definition:'Concave = converges, magnifies. Convex = diverges, widens view. Focal point. Real image inverted, virtual upright.', example:'Magnifying glass convex, car side mirrors convex'},
-  {id:48, chapter:'ch6', term:'Inverse Square Law', definition:'Intensity ~1/d^2. Doubling distance = 1/4 intensity. Applies to light, sound, gravity, radiation.', example:'Move twice far from bulb, 1/4 brightness'},
+  {id:38, chapter:'ch6', term:'Wave Equation', definition:'Wave transfers energy not matter. Transverse ⊥ (light), longitudinal ∥ (sound). v = fλ (wavelength × frequency).', example:'Ocean waves'},
+  {id:39, chapter:'ch6', term:'Sound', definition:'Longitudinal needs medium, ~343 m/s air faster water/solid. Pitch = frequency, loudness = amplitude, Doppler shift moving source.', example:'Siren higher pitch approaching'},
+  {id:40, chapter:'ch6', term:'EM Spectrum', definition:'Radio < microwave < IR < visible (400-700nm) < UV < X-ray < gamma. Lower freq = lower energy. All travel light speed.', example:'Red 700nm low, violet 400nm high energy'},
+  {id:41, chapter:'ch6', term:'Reflection & Refraction', definition:'Reflection bounce angle in=out. Refraction bends speed change n=c/v. Diffraction spreads through opening.', example:'Straw bent in water = refraction'},
+  {id:42, chapter:'ch6', term:'Lenses & Color', definition:'White = all colors. Object color = reflected. Concave converges, convex diverges. Pigment subtractive, light additive RGB.', example:'Blue shirt reflects blue'},
+  {id:43, chapter:'ch6', term:'Inverse Square Law', definition:'Intensity ∝ 1/d². Doubling distance = ¼ intensity. Light, sound, gravity, radiation.', example:'Twice far from bulb = ¼ brightness'},
 
-  // Ch7
-  {id:49, chapter:'ch7', term:'Electric Charge & Coulomb\'s Law', definition:'Charge: positive proton, negative electron, same repel opposite attract. Coulomb: F=kq1q2/r^2 similar gravity but stronger.', example:'Static cling'},
-  {id:50, chapter:'ch7', term:'Current, Voltage, Resistance & Ohm\'s Law', definition:'Current I = flow charge (Amps). Voltage V = push/potential difference (Volts). Resistance R = opposition (Ohms). Ohm: V=IR.', example:'Battery voltage pushes current through resistor'},
-  {id:51, chapter:'ch7', term:'Series vs Parallel Circuits', definition:'Series: one path, current same, voltage divides, if one fails all fail. Parallel: multiple paths, voltage same, current divides, independent.', example:'Christmas lights old series vs new parallel'},
-  {id:52, chapter:'ch7', term:'Power in Electricity', definition:'P=VI=I^2R=V^2/R Watts. Energy = power*time kWh billed. Higher voltage less loss for transmission.', example:'100W bulb uses 0.1kWh per hour'},
-  {id:53, chapter:'ch7', term:'Magnet & Magnetic Field', definition:'Magnet has N/S, like poles repel opposite attract. Field lines N->S. Earth is magnet. Magnetic domains align. Uncuttable.', example:'Compass needle aligns with Earth field'},
-  {id:54, chapter:'ch7', term:'Electromagnetism & Faraday', definition:'Current makes magnetism (electromagnet). Moving magnet makes current (induction) Faraday\'s law. Generator vs motor opposite.', example:'Generator: spin magnet -> electricity'},
-  {id:55, chapter:'ch7', term:'AC vs DC', definition:'DC = one direction (battery). AC = alternates (house 60Hz US). AC easier transform voltage for long distance.', example:'Phone charger AC->DC'},
+  {id:44, chapter:'ch7', term:'Ohm\'s Law', definition:'Current I flow (Amps), Voltage V push (Volts), Resistance R opposition (Ohms). V=IR. Charge same repel opposite attract.', example:'Battery voltage pushes current through resistor'},
+  {id:45, chapter:'ch7', term:'Series vs Parallel', definition:'Series one path current same voltage divides fail all. Parallel multiple paths voltage same current divides independent.', example:'Old Christmas lights series, new parallel'},
+  {id:46, chapter:'ch7', term:'Electric Power', definition:'P=VI=I²R Watts. Energy = power×time kWh billed. High voltage less loss transmission.', example:'100W bulb = 0.1kWh per hour'},
+  {id:47, chapter:'ch7', term:'Magnetism & Induction', definition:'Magnet N/S poles, field N→S, Earth is magnet. Current → magnetism electromagnet. Moving magnet → current Faraday. Generator vs motor.', example:'Generator spin magnet → electricity'},
 
-  // Ch8
-  {id:56, chapter:'ch8', term:'Mineral vs Rock', definition:'Mineral = naturally inorganic solid with definite crystal structure/composition (ex: quartz SiO2). Rock = aggregate of 1+ minerals.', example:'Granite = quartz + feldspar + mica'},
-  {id:57, chapter:'ch8', term:'Igneous Rocks', definition:'From cooling magma/lava. Intrusive slow cools large crystals (granite). Extrusive fast cools small/glassy (basalt, obsidian). Felsic light, mafic dark.', example:'Pumice floats, has gas bubbles'},
-  {id:58, chapter:'ch8', term:'Sedimentary Rocks', definition:'From weathering, erosion, deposition, lithification. Clastic (sandstone), Chemical (limestone), Organic (coal). Features strata, fossils.', example:'Sandstone layers, fossils in limestone'},
-  {id:59, chapter:'ch8', term:'Metamorphic Rocks', definition:'Existing rock altered by heat/pressure not melting. Foliated layered (slate, schist, gneiss) vs non-foliated (marble, quartzite).', example:'Limestone -> marble'},
-  {id:60, chapter:'ch8', term:'Rock Cycle', definition:'Continuous: igneous -> weathering -> sediment -> sedimentary -> heat pressure -> metamorphic -> melting -> magma -> igneous. Any path possible.', example:''},
-  {id:61, chapter:'ch8', term:'Plate Tectonics & Boundaries', definition:'Lithosphere plates move on asthenosphere. Evidence: Wegener continental drift. 3 boundaries: divergent (mid-ocean ridge, new crust), convergent (subduction/mountains), transform (San Andreas, earthquakes).', example:'Mid-Atlantic ridge divergent'},
-  {id:62, chapter:'ch8', term:'Earthquakes & Volcanoes', definition:'Earthquake: release stress at fault, focus underground, epicenter above, P wave first fastest, S wave. Volcano types shields basaltic runny, composite explosive, cinder.', example:'Ring of Fire volcanoes convergent'},
-  {id:63, chapter:'ch8', term:'Relative vs Absolute Dating', definition:'Relative: law superposition (younger on top), cross-cutting, fossils index. Absolute: radiometric using half-life isotopes.', example:'C-14 dating organic <50k years, U-238 older'},
-  {id:64, chapter:'ch8', term:'Earth Structure', definition:'Crust thin (oceanic basalt dense, continental granite light), mantle convective solid flows, outer core liquid iron causes magnet, inner core solid.', example:''},
+  {id:48, chapter:'ch8', term:'Mineral vs Rock', definition:'Mineral natural inorganic solid definite crystal/composition (quartz SiO₂). Rock aggregate 1+ minerals.', example:'Granite = quartz + feldspar + mica'},
+  {id:49, chapter:'ch8', term:'Igneous Rocks', definition:'Cooling magma/lava. Intrusive slow large crystals granite. Extrusive fast small/glassy basalt obsidian. Felsic light, mafic dark.', example:'Pumice floats'},
+  {id:50, chapter:'ch8', term:'Sedimentary Rocks', definition:'Weathering → erosion → deposition → lithification. Clastic sandstone, Chemical limestone, Organic coal. Strata, fossils.', example:'Fossils in limestone'},
+  {id:51, chapter:'ch8', term:'Metamorphic Rocks', definition:'Existing rock altered heat/pressure not melting. Foliated layered slate schist gneiss vs non-foliated marble quartzite.', example:'Limestone → marble'},
+  {id:52, chapter:'ch8', term:'Plate Tectonics', definition:'Lithosphere plates move on asthenosphere. Divergent mid-ocean ridge new crust, Convergent subduction mountains, Transform San Andreas earthquakes.', example:'Mid-Atlantic ridge divergent'},
+  {id:53, chapter:'ch8', term:'Earth Structure', definition:'Crust thin oceanic basalt dense continental granite light, mantle convective solid, outer core liquid iron magnet, inner core solid.', example:''},
+  {id:54, chapter:'ch8', term:'Dating Methods', definition:'Relative: superposition younger on top, cross-cutting, index fossils. Absolute: radiometric half-life C-14 <50k U-238 older.', example:'Trilobite Paleozoic index'},
 
-  // Ch9
-  {id:65, chapter:'ch9', term:'Weathering & Erosion vs Deposition', definition:'Weathering breaks rock: mechanical (frost wedging, abrasion) chemical (acid, rust). Erosion transports (water, wind, ice, gravity). Deposition drops sediment.', example:'Grand Canyon water erosion'},
-  {id:66, chapter:'ch9', term:'Soil Formation', definition:'Soil = weathered rock + organic + air water. Horizons O (organic) A (topsoil) B (subsoil) C (parent) R (bedrock). Takes 1000s years.', example:''},
-  {id:67, chapter:'ch9', term:'Atmosphere Layers', definition:'Troposphere (0-12km weather, temp decreases), Stratosphere ozone, Mesosphere meteors, Thermosphere aurora ISS, Exosphere space.', example:'Ozone in stratosphere UV protection'},
-  {id:68, chapter:'ch9', term:'Water Cycle', definition:'Evaporation liquid->vapor, transpiration plants, condensation vapor->liquid clouds, precipitation rain/snow, infiltration, runoff, collection.', example:''},
-  {id:69, chapter:'ch9', term:'Weather vs Climate & Fronts', definition:'Weather day-to-day (temp, precip), climate long-term average 30+ years. Front: cold (steep, thunderstorms), warm (gentle, drizzle), stationary, occluded.', example:'Cold front = temp drop'},
-  {id:70, chapter:'ch9', term:'Humidity, Clouds & Precipitation Types', definition:'Humidity water vapor amount, relative % saturation. Clouds: cirrus wispy high ice, stratus sheet low, cumulus puffy vertical. Rain, snow, sleet, hail.', example:'Cumulonimbus thunderstorm'},
-  {id:71, chapter:'ch9', term:'Pressure Systems & Wind', definition:'High pressure cold sinking clears clockwise NH. Low pressure warm rising clouds counter-clockwise. Wind high->low, Coriolis deflects right NH creates trade/westerlies.', example:'Low = bad weather'},
-  {id:72, chapter:'ch9', term:'Ocean Currents & El Niño', definition:'Surface currents wind-driven gyres clockwise NH. Deep thermohaline density. El Niño warm Pacific disrupts weather. Ocean moderates climate.', example:'Gulf Stream warms Europe'},
+  {id:55, chapter:'ch9', term:'Weathering vs Erosion', definition:'Weathering breaks: mechanical frost abrasion, chemical acid rust. Erosion transports water wind ice gravity. Deposition drops.', example:'Grand Canyon water erosion'},
+  {id:56, chapter:'ch9', term:'Atmosphere Layers', definition:'Troposphere 0-12km weather temp ↓, Stratosphere ozone, Mesosphere meteors, Thermosphere aurora ISS, Exosphere.', example:'Ozone protects UV'},
+  {id:57, chapter:'ch9', term:'Water Cycle', definition:'Evaporation liquid→vapor, transpiration plants, condensation vapor→clouds, precipitation, infiltration runoff collection.', example:''},
+  {id:58, chapter:'ch9', term:'Weather vs Climate', definition:'Weather day-to-day, climate 30+ yr average. Fronts cold steep thunderstorms, warm gentle drizzle. High pressure clear, low cloudy.', example:'Cold front temp drop'},
+  {id:59, chapter:'ch9', term:'Greenhouse Effect', definition:'CO₂ CH₄ H₂O trap IR heat keeps Earth habitable. Enhanced greenhouse human increase causes warming.', example:'Without = -18°C'},
+  {id:60, chapter:'ch9', term:'Ocean & El Niño', definition:'Surface wind-driven gyres clockwise NH, deep thermohaline density, El Niño warm Pacific disrupts. Ocean moderates climate.', example:'Gulf Stream warms Europe'},
 
-  // Ch10
-  {id:73, chapter:'ch10', term:'Solar System Overview', definition:'Sun 99.8% mass, 8 planets: rocky Mercury Venus Earth Mars, gas Jupiter Saturn, ice Uranus Neptune. Asteroid belt Mars-Jupiter, Kuiper beyond Neptune, Oort cloud comets.', example:'Pluto dwarf planet Kuiper'},
-  {id:74, chapter:'ch10', term:'Moon Phases & Eclipses', definition:'Moon phases due to sun angle 29.5 days new->waxing->full->waning. Lunar eclipse: Earth blocks sun to moon (full). Solar: Moon blocks sun to Earth (new).', example:'Tides due to moon gravity'},
-  {id:75, chapter:'ch10', term:'Seasons Reason', definition:'Seasons due to 23.5° axial tilt, not distance! Summer hemisphere tilted toward sun = longer days direct rays. Equinox equal, solstice extremes.', example:'Southern summer when northern winter'},
-  {id:76, chapter:'ch10', term:'Kepler\'s Laws', definition:'1st: orbits elliptical sun at focus. 2nd: equal areas equal time = faster near sun. 3rd: P^2 proportional a^3 farther = longer period.', example:'Mercury fast, Neptune slow 165 years'},
-  {id:77, chapter:'ch10', term:'Stars Life Cycle', definition:'Nebula -> main sequence (H->He fusion) -> red giant (small->white dwarf, massive->supergiant->supernova -> neutron star or black hole). Mass determines fate.', example:'Sun: main->red giant->white dwarf'},
-  {id:78, chapter:'ch10', term:'HR Diagram', definition:'Plot luminosity vs temperature. Most stars main sequence diagonal hot bright top left to cool dim bottom right. Giants top right, dwarfs bottom left.', example:''},
-  {id:79, chapter:'ch10', term:'Galaxy Types & Universe', definition:'Galaxies: spiral (Milky Way), elliptical, irregular. Universe: Big Bang 13.8B years ago expanding redshift Hubble Law. Light-year distance.', example:'Andromeda nearest spiral 2.5M ly'},
-  {id:80, chapter:'ch10', term:'EM Spectrum in Astronomy', definition:'Telescopes: radio, infrared, visible, X-ray different objects. Redshift = moving away expanding, blueshift approaching. Dark matter/energy 95%?', example:'James Webb infrared'},
-  
-  // EXTRA - high yield for C165 exam
-  {id:81, chapter:'ch1', term:'WGU C165 Exam Tips', definition:'PA = Pre-Assessment with coaching report. Focus high: Newtons laws, energy, pH, plate boundaries, rock types, water cycle, phases, seasons, scientific method. 55 questions OA.', example:''},
-  {id:82, chapter:'ch2', term:'Density Formula', definition:'Density = mass/volume (g/cm3 or kg/m3). Density determines float: object floats if less dense than fluid. Water 1 g/cm3.', example:'Ice 0.9 floats on water 1.0'},
-  {id:83, chapter:'ch3', term:'Mole & Avogadro', definition:'Mole = 6.02x10^23 particles. Molar mass periodic table g/mole. Converts grams<->moles<->particles.', example:'12g C = 1 mole = 6e23 atoms'},
-  {id:84, chapter:'ch4', term:'Work-Energy Theorem & Machines', definition:'Net work = change KE. Simple machines: lever, pulley, inclined plane, etc trade force for distance but not work (conservation) ideal mechanical advantage.', example:'Longer ramp less force same work'},
-  {id:85, chapter:'ch5', term:'Buoyancy & Archimedes', definition:'Buoyant force = weight of displaced fluid. Float if buoyant = weight. Pascal = pressure transmitted in fluid, Bernoulli fast fluid low pressure.', example:'Boat floats displaces water weight'},
-  {id:86, chapter:'ch6', term:'Sound Loudness Decibel & Light Intensity', definition:'Decibel logarithmic 10x intensity = +10dB. 0dB threshold, 60 conversation, 120 pain. Human hearing 20Hz-20kHz.', example:'Double intensity +3dB'},
-  {id:87, chapter:'ch8', term:'Fossils & Geologic Time Scale', definition:'Fossils only in sedimentary. Index fossils widespread short time good markers. Geologic time: Precambrian 88%, Paleozoic, Mesozoic dinosaurs, Cenozoic mammals.', example:'Trilobite Paleozoic index'},
-  {id:88, chapter:'ch9', term:'Greenhouse Effect', definition:'Gases CO2, CH4, H2O trap IR heat radiating from Earth, keeps warm habitable. Enhanced greenhouse = human increase causes warming.', example:'Without greenhouse Earth -18C'},
-  {id:89, chapter:'ch5', term:'Nuclear Reactions vs Chemical', definition:'Chemical = electrons rearrange eV energy. Nuclear = nucleus changes MeV million times more. Fusion = combine light (sun), fission = split heavy (reactor).', example:'Sun H fusion to He'},
-  {id:90, chapter:'ch7', term:'Static Electricity vs Current', definition:'Static = charge buildup not flowing (rub balloon). Current = flowing. Lightning = static discharge.', example:''},
+  {id:61, chapter:'ch10', term:'Solar System', definition:'Sun 99.8% mass, 8 planets rocky Mercury Venus Earth Mars gas Jupiter Saturn ice Uranus Neptune. Asteroid belt, Kuiper, Oort.', example:'Pluto dwarf Kuiper'},
+  {id:62, chapter:'ch10', term:'Moon & Eclipses', definition:'Phases 29.5d sun angle new→full→waning. Lunar Earth blocks sun→moon full, Solar Moon blocks sun→Earth new. Tides moon gravity.', example:''},
+  {id:63, chapter:'ch10', term:'Seasons', definition:'Due to 23.5° axial tilt not distance! Summer tilted toward sun longer days direct rays. Equinox equal solstice extremes.', example:'Southern summer when northern winter'},
+  {id:64, chapter:'ch10', term:'Stars Life Cycle', definition:'Nebula → main sequence H→He → red giant → small white dwarf, massive supergiant→supernova→neutron star/black hole.', example:'Sun → white dwarf'},
+  {id:65, chapter:'ch10', term:'Galaxies & Big Bang', definition:'Spiral Milky Way, elliptical, irregular. Universe 13.8B yr Big Bang expanding redshift Hubble. Light-year distance. Dark matter/energy 95%.', example:'Andromeda 2.5M ly'},
+  {id:66, chapter:'ch10', term:'WGU C165 OA Tips', definition:'55 questions. Focus: Newton laws, energy, pH, plate boundaries, rock types, water cycle, phases, seasons, scientific method. PA coaching report is key.', example:''},
 ];
 
-let state = {
-  chapter:'all',
-  search:'',
-  order:[],
-  idx:0,
-  flipped:false,
-  known:Set,
-  mode:'study',
-  quizOptions:[],
-  quizAnswered:false
+let state={
+  chapter:'all', search:'', order:[], idx:0, flipped:false,
+  known:new Set(), mode:'study', quizAnswered:false, theme: localStorage.getItem('wgu165_theme')||'light'
 };
 
-function save(){
-  localStorage.setItem('wgu165_known', JSON.stringify([...state.known]));
-}
-function loadKnown(){
-  try{
-    const arr = JSON.parse(localStorage.getItem('wgu165_known')||'[]');
-    state.known = new Set(arr);
-  }catch{ state.known=new Set()}
+function save(){ localStorage.setItem('wgu165_known', JSON.stringify([...state.known])); }
+function load(){
+  try{ state.known=new Set(JSON.parse(localStorage.getItem('wgu165_known')||'[]')); }catch{ state.known=new Set()}
 }
 
 function getFiltered(){
-  let arr = flashcards;
-  if(state.chapter!=='all'){
-    arr = arr.filter(c=>c.chapter===state.chapter);
-  }
+  let arr=flashcards;
+  if(state.chapter!=='all') arr=arr.filter(c=>c.chapter===state.chapter);
   if(state.search.trim()){
-    const q = state.search.toLowerCase();
-    arr = arr.filter(c=>c.term.toLowerCase().includes(q) || c.definition.toLowerCase().includes(q));
+    const q=state.search.toLowerCase();
+    arr=arr.filter(c=>c.term.toLowerCase().includes(q)||c.definition.toLowerCase().includes(q));
   }
   return arr;
 }
-
-function rebuildOrder(){
-  let filtered = getFiltered();
-  state.order = filtered.map(c=>c.id);
-  if(state.order.length===0){ state.idx=0; render(); return; }
-  // keep existing order index if possible? For simplicity reset to 0 unless preserving
+function rebuild(){
+  const f=getFiltered(); state.order=f.map(c=>c.id);
   if(state.idx>=state.order.length) state.idx=0;
   render();
 }
-
 function shuffle(){
-  for(let i=state.order.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [state.order[i], state.order[j]]=[state.order[j], state.order[i]];
-  }
-  state.idx=0;
-  render();
+  for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
+  state.idx=0; state.flipped=false; render();
 }
-
-function currentCard(){
-  if(state.order.length===0) return null;
-  const id = state.order[state.idx];
-  return flashcards.find(c=>c.id===id);
-}
+function current(){ return state.order.length? flashcards.find(c=>c.id===state.order[state.idx]) : null; }
 
 function renderChapters(){
-  const container = document.getElementById('chapterList');
-  container.innerHTML='';
+  const el=document.getElementById('chapterList'); el.innerHTML='';
   chapters.forEach(ch=>{
     const count = ch.id==='all'? flashcards.length : flashcards.filter(f=>f.chapter===ch.id).length;
-    const btn = document.createElement('button');
-    btn.className='chip'+(state.chapter===ch.id?' active':'');
-    btn.innerHTML=`<span>${ch.name}</span><small>${count}</small>`;
-    btn.onclick=()=>{
-      state.chapter=ch.id;
-      document.querySelectorAll('#chapterList .chip').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      rebuildOrder();
-    };
-    container.appendChild(btn);
+    const b=document.createElement('button');
+    b.className='chapter-pill'+(state.chapter===ch.id?' active':'');
+    b.innerHTML=`<span>${ch.emoji}</span><span>${ch.name}</span><span class="count">${count}</span>`;
+    b.onclick=()=>{ state.chapter=ch.id; renderChapters(); rebuild(); };
+    el.appendChild(b);
   });
 }
-
 function renderStats(){
-  const filtered = getFiltered();
-  const knownCount = filtered.filter(c=>state.known.has(c.id)).length;
+  const filtered=getFiltered();
+  const known=filtered.filter(c=>state.known.has(c.id)).length;
+  const pct=filtered.length? Math.round(known/filtered.length*100):0;
   document.getElementById('statTotal').textContent=filtered.length;
-  document.getElementById('statKnown').textContent=knownCount;
-  document.getElementById('statLeft').textContent=filtered.length-knownCount;
-  const pKnown = filtered.length? (knownCount/filtered.length*100):0;
-  const unknownCount = filtered.length - knownCount;
-  // For simplicity unknown progress as not known? But we track unknown separate? Use 0 for unknown bar
-  document.getElementById('pKnown').style.width=pKnown+'%';
-  document.getElementById('pUnknown').style.width='0%';
+  document.getElementById('statKnown').textContent=known;
+  document.getElementById('statTotal2').textContent=filtered.length;
+  document.getElementById('statKnown2').textContent=known;
+  document.getElementById('statLeft').textContent=filtered.length-known;
+  document.getElementById('pFill').style.width=pct+'%';
+  document.getElementById('ring').style.setProperty('--p', pct+'%');
+  document.getElementById('ringTxt').textContent=pct+'%';
+  if(pct===100 && filtered.length>0) confetti();
 }
-
-function renderStudy(){
-  const card = currentCard();
-  const cardEl = document.getElementById('flashCard');
+function renderCard(){
+  const card=current();
   if(!card){
-    document.getElementById('cardTerm').textContent = 'No cards - try different search / chapter';
-    document.getElementById('cardDef').textContent = '';
-    document.getElementById('cardChapter').textContent='-';
+    document.getElementById('cardTerm').textContent='No cards – try different filter';
+    document.getElementById('cardDef').textContent='';
+    document.getElementById('cardChapter').textContent='—';
     document.getElementById('cardCount').textContent='0 / 0';
-    document.getElementById('quizOptions').style.display='none';
     return;
   }
-  const ch = chapters.find(c=>c.id===card.chapter);
-  document.getElementById('cardChapter').textContent = ch? ch.name : card.chapter;
-  document.getElementById('cardCount').textContent = `${state.idx+1} / ${state.order.length}`;
-  document.getElementById('cardTerm').textContent = card.term;
-  document.getElementById('cardTermSmall').textContent = card.term;
-  document.getElementById('cardDef').innerHTML = `${card.definition}${card.example? `<br><br><em style="color:var(--muted)">Ex: ${card.example}</em>`:''}`;
-  
+  const ch=chapters.find(c=>c.id===card.chapter);
+  document.getElementById('cardChapter').textContent=ch? `${ch.emoji} ${ch.name}`:card.chapter;
+  document.getElementById('cardChapter').className='badge'+(ch?.id==='all'?' all':'');
+  document.getElementById('cardCount').textContent=`${state.idx+1} / ${state.order.length}`;
+  document.getElementById('cardTerm').textContent=card.term;
+  document.getElementById('cardTermSmall').textContent=card.term;
+  document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
+  document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+
   // quiz
+  const quizBox=document.getElementById('quizOptions');
   if(state.mode==='quiz'){
-    document.getElementById('quizOptions').style.display='flex';
-    if(!state.quizAnswered) generateQuiz(card);
-  }else{
-    document.getElementById('quizOptions').style.display='none';
-  }
-
-  // known styling
-  const knownBtn = document.getElementById('knownBtn');
-  const unknownBtn = document.getElementById('unknownBtn');
-  if(state.known.has(card.id)){
-    knownBtn.classList.add('primary');
-    unknownBtn.classList.remove('active');
-  }else{
-    knownBtn.classList.remove('primary');
-  }
-
-  // ensure not flipped unless state
-  if(state.flipped){ cardEl.classList.add('flipped'); } else { cardEl.classList.remove('flipped'); }
+    quizBox.style.display='grid';
+    if(!state.quizAnswered) genQuiz(card);
+  }else quizBox.style.display='none';
 }
-
-function generateQuiz(card){
-  const quizBox = document.getElementById('quizOptions');
-  quizBox.innerHTML='';
-  state.quizAnswered=false;
-  // pick 3 random wrong definitions from same chapter or all
-  let pool = flashcards.filter(c=>c.id!==card.id);
-  if(Math.random()<0.6){
-    const same = pool.filter(c=>c.chapter===card.chapter);
-    if(same.length>=3) pool=same;
-  }
-  const shuffled = [...pool].sort(()=>Math.random()-0.5).slice(0,3);
-  let options = [{def:card.definition, correct:true, card}, ...shuffled.map(c=>({def:c.definition, correct:false, card:c}))];
-  options.sort(()=>Math.random()-0.5);
-  options.forEach(opt=>{
-    const b = document.createElement('button');
-    b.className='btn';
-    b.style.textAlign='left';
-    b.style.justifyContent='flex-start';
-    b.style.whiteSpace='normal';
-    b.textContent = opt.def.slice(0,180) + (opt.def.length>180?'...':'');
-    b.onclick=()=>{
+function genQuiz(card){
+  const quizBox=document.getElementById('quizOptions');
+  quizBox.innerHTML=''; state.quizAnswered=false;
+  let pool=flashcards.filter(c=>c.id!==card.id);
+  const same=pool.filter(c=>c.chapter===card.chapter);
+  if(same.length>=3 && Math.random()<0.7) pool=same;
+  const wrongs=[...pool].sort(()=>Math.random()-0.5).slice(0,3);
+  let opts=[{d:card.definition, ok:true}, ...wrongs.map(c=>({d:c.definition, ok:false}))].sort(()=>Math.random()-0.5);
+  opts.forEach(o=>{
+    const btn=document.createElement('button'); btn.className='quiz-opt';
+    btn.textContent=o.d.slice(0,200)+(o.d.length>200?'...':'');
+    btn.onclick=()=>{
       state.quizAnswered=true;
-      const isCorrect = opt.correct;
-      document.querySelectorAll('#quizOptions .btn').forEach(btn=>{
-        btn.disabled=true;
-        if(btn.textContent===b.textContent){
-          btn.style.borderColor = isCorrect? 'var(--green)' : 'var(--red)';
-          btn.style.background = isCorrect? 'rgba(74,222,128,0.15)' : 'rgba(248,113,113,0.15)';
-        }
-      });
-      if(isCorrect){
-        state.known.add(card.id); save();
-        setTimeout(()=>{ next(); }, 800);
-      }else{
-        // show correct on flip
-        state.flipped=true;
-        renderStudy();
-      }
-      renderStats();
+      document.querySelectorAll('.quiz-opt').forEach(b=>b.style.pointerEvents='none');
+      if(o.ok){ btn.classList.add('correct'); state.known.add(card.id); save(); renderStats(); setTimeout(next,700); }
+      else { btn.classList.add('wrong'); state.flipped=true; renderCard(); }
     };
-    quizBox.appendChild(b);
+    quizBox.appendChild(btn);
   });
 }
-
 function renderList(){
-  const grid = document.getElementById('listGrid');
-  const filtered = getFiltered();
-  grid.innerHTML='';
+  const grid=document.getElementById('listGrid'); const filtered=getFiltered(); grid.innerHTML='';
   filtered.forEach(card=>{
-    const div = document.createElement('div');
-    div.className='mini-card'+(state.known.has(card.id)?' known':'');
-    div.innerHTML=`<div class="t">${card.term}</div><div class="d">${card.definition}</div><div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted)">${chapters.find(c=>c.id===card.chapter)?.name||''}</div>`;
-    div.onclick=()=>{
-      // go to study view at that card
-      state.chapter='all';
-      state.search='';
-      document.getElementById('search').value='';
-      rebuildOrder();
-      const idx = state.order.indexOf(card.id);
-      if(idx>=0){ state.idx=idx; state.flipped=false; state.mode='study'; switchMode('study'); render(); }
-    };
+    const div=document.createElement('div'); div.className='list-card'+(state.known.has(card.id)?' known':'');
+    const ch=chapters.find(c=>c.id===card.chapter);
+    div.innerHTML=`<div class="lc-top"><span class="badge">${ch?.emoji||''} ${ch?.name.split(':')[0]||''}</span><span class="count-badge">${state.known.has(card.id)?'✓ known':'—'}</span></div><div class="lc-term">${card.term}</div><div class="lc-def">${card.definition}</div>`;
+    div.onclick=()=>{ state.chapter='all'; document.getElementById('search').value=''; state.search=''; state.idx=state.order.indexOf(card.id); if(state.idx<0) state.idx=0; switchMode('study'); renderChapters(); rebuild(); };
     grid.appendChild(div);
   });
 }
-
 function render(){
-  renderStats();
+  renderStats(); renderCard();
   if(state.mode==='list'){
-    document.getElementById('studyView').style.display='none';
-    document.getElementById('listView').style.display='block';
+    document.getElementById('studyArea').style.display='none';
+    document.getElementById('listArea').style.display='block';
     renderList();
   }else{
-    document.getElementById('studyView').style.display='block';
-    document.getElementById('listView').style.display='none';
-    renderStudy();
+    document.getElementById('studyArea').style.display='flex';
+    document.getElementById('listArea').style.display='none';
   }
 }
-
-function next(){
-  if(state.order.length===0) return;
-  state.idx = (state.idx+1) % state.order.length;
-  state.flipped=false;
-  render();
+function next(){ if(!state.order.length) return; state.idx=(state.idx+1)%state.order.length; state.flipped=false; render(); }
+function prev(){ if(!state.order.length) return; state.idx=(state.idx-1+state.order.length)%state.order.length; state.flipped=false; render(); }
+function flip(){ state.flipped=!state.flipped; render(); }
+function switchMode(m){
+  state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
+  if(m==='quiz') state.flipped=false; render();
 }
-function prev(){
-  if(state.order.length===0) return;
-  state.idx = (state.idx-1+state.order.length) % state.order.length;
-  state.flipped=false;
-  render();
-}
-function flip(){
-  state.flipped=!state.flipped;
-  render();
+function confetti(){
+  // simple emoji burst
+  if(document.getElementById('confetti')) return;
+  const d=document.createElement('div'); d.id='confetti'; d.style.position='fixed'; d.style.inset='0'; d.style.pointerEvents='none'; d.style.fontSize='2rem'; d.textContent='🎉'; d.style.animation='fall 2s ease'; document.body.appendChild(d); setTimeout(()=>d.remove(),2000);
 }
 
-function switchMode(mode){
-  state.mode=mode;
-  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`[data-mode="${mode}"]`)?.classList.add('active');
-  if(mode==='quiz'){ state.flipped=false; }
-  render();
-}
-
-// events
-document.getElementById('flashCard').addEventListener('click', ()=>{ 
-  if(state.mode!=='list') flip(); 
-});
+document.getElementById('flashCard').addEventListener('click', flip);
 document.getElementById('flipBtn').addEventListener('click', flip);
 document.getElementById('nextBtn').addEventListener('click', next);
 document.getElementById('prevBtn').addEventListener('click', prev);
-document.getElementById('knownBtn').addEventListener('click', ()=>{
-  const card=currentCard(); if(!card) return;
-  state.known.add(card.id); save();
-  // auto next if not at end
-  next();
-});
-document.getElementById('unknownBtn').addEventListener('click', ()=>{
-  const card=currentCard(); if(!card) return;
-  state.known.delete(card.id); save();
-  renderStats();
-  document.getElementById('flashCard').classList.remove('flipped');
-  state.flipped=false;
-  // stay but visual
-});
-
+document.getElementById('knownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.add(c.id); save(); next(); } });
+document.getElementById('unknownBtn').addEventListener('click', ()=>{ const c=current(); if(c){ state.known.delete(c.id); save(); render(); } });
 document.getElementById('shuffleBtn').addEventListener('click', shuffle);
-document.getElementById('resetBtn').addEventListener('click', ()=>{
-  if(confirm('Reset all known progress?')){
-    state.known.clear(); save(); render();
-  }
+document.getElementById('resetBtn').addEventListener('click', ()=>{ if(confirm('Reset progress?')){ state.known.clear(); save(); render(); } });
+document.getElementById('search').addEventListener('input', e=>{ state.search=e.target.value; rebuild(); });
+document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click', ()=>switchMode(b.dataset.mode)));
+document.getElementById('themeBtn').addEventListener('click', ()=>{
+  state.theme = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.body.setAttribute('data-theme', state.theme);
+  localStorage.setItem('wgu165_theme', state.theme);
+  document.getElementById('themeBtn').textContent = state.theme==='dark'?'☀️':'🌙';
 });
-
-document.getElementById('search').addEventListener('input', (e)=>{
-  state.search=e.target.value;
-  rebuildOrder();
-});
-
-document.querySelectorAll('[data-mode]').forEach(btn=>{
-  btn.addEventListener('click', ()=>switchMode(btn.dataset.mode));
-});
-
-document.addEventListener('keydown', (e)=>{
+document.addEventListener('keydown', e=>{
   if(e.code==='Space'){ e.preventDefault(); flip(); }
-  if(e.code==='ArrowRight'){ next(); }
-  if(e.code==='ArrowLeft'){ prev(); }
-  if(e.key.toLowerCase()==='k'){ 
-    const card=currentCard(); if(card){ state.known.add(card.id); save(); next(); }
-  }
-  if(e.key.toLowerCase()==='u'){
-    const card=currentCard(); if(card){ state.known.delete(card.id); save(); render(); }
-  }
-  if(e.key.toLowerCase()==='s'){ shuffle(); }
+  if(e.code==='ArrowRight') next();
+  if(e.code==='ArrowLeft') prev();
+  if(e.key.toLowerCase()==='k'){ const c=current(); if(c){ state.known.add(c.id); save(); next(); } }
+  if(e.key.toLowerCase()==='u'){ const c=current(); if(c){ state.known.delete(c.id); save(); render(); } }
+  if(e.key.toLowerCase()==='s') shuffle();
 });
 
 // init
-loadKnown();
-renderChapters();
-rebuildOrder();
+document.body.setAttribute('data-theme', state.theme);
+document.getElementById('themeBtn').textContent = state.theme==='dark'?'☀️':'🌙';
+load(); renderChapters(); rebuild();
 </script>
 </body>
 </html>
