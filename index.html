@@ -459,12 +459,13 @@ function renderStats(){
 }
 function renderCard(){
   const card=current();
+  const quizBox=document.getElementById('quizOptions');
   if(!card){
     document.getElementById('cardTerm').textContent='No cards – try different filter';
     document.getElementById('cardDef').textContent='';
     document.getElementById('cardChapter').textContent='—';
     document.getElementById('cardCount').textContent='0 / 0';
-    document.getElementById('quizOptions').style.display='none';
+    quizBox.style.display='none';
     return;
   }
   const ch=chapters.find(c=>c.id===card.chapter);
@@ -476,20 +477,16 @@ function renderCard(){
   document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
   document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
 
-  // quiz - always regenerate when card changes or not yet generated
-  const quizBox=document.getElementById('quizOptions');
+  // QUIZ MODE: Always sync quiz to current flashcard
   if(state.mode==='quiz'){
     quizBox.style.display='grid';
-    if(state.lastQuizId !== card.id || !state.quizAnswered && quizBox.children.length===0){
-      genQuiz(card);
-    } else if(state.lastQuizId !== card.id){
-      genQuiz(card);
-    }
-    // if quizAnswered but card changed, we already regenned via next/prev reset
+    // Regenerate if card changed or empty or forced reset (lastQuizId null)
     if(state.lastQuizId !== card.id){
-      // will be set inside genQuiz
+      genQuiz(card);
     }
-  }else quizBox.style.display='none';
+  }else{
+    quizBox.style.display='none';
+  }
 }
 function genQuiz(card){
   const quizBox=document.getElementById('quizOptions');
