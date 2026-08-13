@@ -203,7 +203,7 @@
   .kbd{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.45rem;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
 </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 <div class="header">
   <div class="header-inner">
     <div class="logo">
@@ -400,7 +400,7 @@ const flashcards = [
 
 let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
-  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, theme: localStorage.getItem('wgu165_theme')||'light'
+  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, theme: localStorage.getItem('wgu165_theme')||'dark'
 };
 
 function save(){ localStorage.setItem('wgu165_known', JSON.stringify([...state.known])); }
