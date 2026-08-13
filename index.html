@@ -709,18 +709,17 @@ function renderList(){
     const ch=chapters.find(c=>c.id===card.chapter);
     const isKnown=state.known.has(card.id);
     div.innerHTML=`
-      <div class="lc-top">
-        <span class="badge">${ch?.emoji||''} ${ch?.name||''}</span>
-        <span class="count-badge" style="${isKnown?'color:var(--green)':''}">${isKnown?'✓ mastered':'not yet'}</span>
-      </div>
       <div class="lc-term">${card.term}</div>
       <div class="lc-def">${card.definition}</div>
       ${card.example? `<div class="lc-def-ex"><b>Example:</b> ${card.example}</div>`:''}
-      <div class="lc-footer">
-        <span>${ch?.emoji||''} ${ch?.id.toUpperCase()}</span>
-        <div class="lc-actions">
-          <button class="lc-btn study-btn">Study →</button>
-          <button class="lc-btn know-btn" style="${isKnown?'background:var(--green);color:white;border-color:var(--green)':''}">${isKnown?'✓ Known':'Mark known'}</button>
+      <div class="lc-meta" style="margin-top:0.8rem;display:flex;flex-direction:column;gap:0.35rem">
+        <span class="badge" style="align-self:flex-start">${ch?.emoji||''} ${ch?.name||''}</span>
+        <span class="count-badge" style="${isKnown?'color:var(--green);font-weight:700':''};align-self:flex-start">${isKnown?'✓ mastered':'○ not yet mastered'} • ${ch?.id.toUpperCase()}</span>
+      </div>
+      <div class="lc-footer" style="margin-top:0.9rem;flex-direction:column;align-items:stretch;gap:0.5rem">
+        <div class="lc-actions" style="display:flex;gap:0.5rem">
+          <button class="lc-btn study-btn" style="flex:1;justify-content:center;padding:0.5rem">📚 Study this</button>
+          <button class="lc-btn know-btn" style="flex:1;justify-content:center;padding:0.5rem;${isKnown?'background:var(--green);color:white;border-color:var(--green)':''}">${isKnown?'✓ Known':'Mark known'}</button>
         </div>
       </div>
     `;
@@ -728,7 +727,6 @@ function renderList(){
       const allOrder = flashcards.map(f=>f.id);
       state.chapter='all';
       document.getElementById('search').value=''; state.search='';
-      // rebuild to include all, then jump
       state.order=allOrder;
       state.idx=allOrder.indexOf(card.id);
       if(state.idx<0) state.idx=0;
