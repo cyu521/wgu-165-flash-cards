@@ -737,29 +737,37 @@ function genQuizFlash(card){
   const tokenize = (s)=> s.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>2 && !STOP.has(w));
   const cardTokens = new Set(tokenize(card.term + ' ' + card.definition));
 
-  let pool = flashcards.filter(c=>c.id!==card.id && c.chapter===card.chapter);
-  if(pool.length<3){
-    // if not enough in same chapter, add from other chapters but still score
-    const others = flashcards.filter(c=>c.id!==card.id && !pool.includes(c));
-    pool = [...pool, ...others];
-  }
+  // 2 wrong from same chapter
+  let sameChapter = flashcards.filter(c=>c.id!==card.id && c.chapter===card.chapter);
+  sameChapter = [...sameChapter].sort(()=>Math.random()-0.5);
+  let twoFromSame = sameChapter.slice(0,2);
 
-  const scored = pool.map(c=>{
-    const cTokens = tokenize(c.definition);
+  // 1 wrong similar to correct answer (from anywhere, most keyword overlap)
+  let remainingForSimilar = flashcards.filter(c=>c.id!==card.id && !twoFromSame.includes(c));
+  const scored = remainingForSimilar.map(c=>{
+    const cTokens = tokenize(c.term + ' ' + c.definition);
     let shared=0;
     cTokens.forEach(t=>{ if(cardTokens.has(t)) shared++; });
-    // bonus for same chapter already, and same first letter term, and similar concept
-    const termFirst = c.term.split(' ')[0].toLowerCase();
-    const cardFirst = card.term.split(' ')[0].toLowerCase();
-    if(termFirst===cardFirst) shared+=3;
-    if(c.term.toLowerCase().includes(card.term.toLowerCase().split(' ')[0])) shared+=1;
-    return {c, score: shared + Math.random()*0.5}; // small random tie-breaker
+    // bonus for same first word
+    if(c.term.split(' ')[0].toLowerCase()===card.term.split(' ')[0].toLowerCase()) shared+=2;
+    return {c, score: shared};
   }).sort((a,b)=>b.score-a.score);
 
-  const top = scored.slice(0, Math.min(8, scored.length));
-  const wrongs = [...top].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.c);
+  let oneSimilar = scored.length? [scored[0].c] : [];
+  // If sameChapter had less than 2, fill from similar list
+  if(twoFromSame.length<2){
+    const needed = 2 - twoFromSame.length;
+    const fill = scored.filter(s=>!oneSimilar.includes(s.c)).slice(0, needed).map(s=>s.c);
+    twoFromSame = [...twoFromSame, ...fill];
+    // recalc similar excluding what we just used
+    if(fill.length>0) oneSimilar = scored.filter(s=>!twoFromSame.includes(s.c)).slice(0,1).map(s=>s.c);
+  }
 
-  const opts = [{def:card.definition, ok:true}, ...wrongs.map(c=>({def:c.definition, ok:false}))].sort(()=>Math.random()-0.5);
+  const wrongs = [...twoFromSame, ...oneSimilar].slice(0,3);
+
+  const opts = [{def:card.definition, ok:true, origin:'correct'}, 
+                ...wrongs.map((c,i)=>({def:c.definition, ok:false, origin: i<twoFromSame.length?'same-chapter':'similar'}))]
+                .sort(()=>Math.random()-0.5);
 
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
