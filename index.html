@@ -929,6 +929,8 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
   document.getElementById('themeBtn').textContent = state.theme==='dark'?'☀️':'🌙';
 });
 document.addEventListener('keydown', e=>{
+  const isTyping = e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA' || e.target.tagName==='SELECT' || e.target.isContentEditable;
+  if(isTyping) return;
   if(e.code==='Space'){ e.preventDefault(); flip(); }
   if(e.code==='ArrowRight') next();
   if(e.code==='ArrowLeft') prev();
