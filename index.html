@@ -386,7 +386,7 @@ const flashcards = [
 
 let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
-  known:new Set(), mode:'study', quizAnswered:false, theme: localStorage.getItem('wgu165_theme')||'light'
+  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, theme: localStorage.getItem('wgu165_theme')||'light'
 };
 
 function save(){ localStorage.setItem('wgu165_known', JSON.stringify([...state.known])); }
@@ -404,13 +404,17 @@ function getFiltered(){
   return arr;
 }
 function rebuild(){
-  const f=getFiltered(); state.order=f.map(c=>c.id);
+  const f=getFiltered(); 
+  state.order=f.map(c=>c.id);
   if(state.idx>=state.order.length) state.idx=0;
+  state.quizAnswered=false;
+  state.lastQuizId=null;
+  state.flipped=false;
   render();
 }
 function shuffle(){
   for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
-  state.idx=0; state.flipped=false; render();
+  state.idx=0; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render();
 }
 function current(){ return state.order.length? flashcards.find(c=>c.id===state.order[state.idx]) : null; }
 
@@ -446,6 +450,7 @@ function renderCard(){
     document.getElementById('cardDef').textContent='';
     document.getElementById('cardChapter').textContent='—';
     document.getElementById('cardCount').textContent='0 / 0';
+    document.getElementById('quizOptions').style.display='none';
     return;
   }
   const ch=chapters.find(c=>c.id===card.chapter);
@@ -457,29 +462,54 @@ function renderCard(){
   document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
   document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
 
-  // quiz
+  // quiz - always regenerate when card changes or not yet generated
   const quizBox=document.getElementById('quizOptions');
   if(state.mode==='quiz'){
     quizBox.style.display='grid';
-    if(!state.quizAnswered) genQuiz(card);
+    if(state.lastQuizId !== card.id || !state.quizAnswered && quizBox.children.length===0){
+      genQuiz(card);
+    } else if(state.lastQuizId !== card.id){
+      genQuiz(card);
+    }
+    // if quizAnswered but card changed, we already regenned via next/prev reset
+    if(state.lastQuizId !== card.id){
+      // will be set inside genQuiz
+    }
   }else quizBox.style.display='none';
 }
 function genQuiz(card){
   const quizBox=document.getElementById('quizOptions');
-  quizBox.innerHTML=''; state.quizAnswered=false;
+  quizBox.innerHTML=''; 
+  state.quizAnswered=false;
+  state.lastQuizId=card.id;
+  state.flipped=false;
+  document.getElementById('flashCard').classList.remove('flipped');
   let pool=flashcards.filter(c=>c.id!==card.id);
   const same=pool.filter(c=>c.chapter===card.chapter);
   if(same.length>=3 && Math.random()<0.7) pool=same;
   const wrongs=[...pool].sort(()=>Math.random()-0.5).slice(0,3);
-  let opts=[{d:card.definition, ok:true}, ...wrongs.map(c=>({d:c.definition, ok:false}))].sort(()=>Math.random()-0.5);
+  let opts=[{d:card.definition, ok:true, term:card.term}, ...wrongs.map(c=>({d:c.definition, ok:false, term:c.term}))].sort(()=>Math.random()-0.5);
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
-    btn.textContent=o.d.slice(0,200)+(o.d.length>200?'...':'');
+    // show term hint + truncated definition for better UX
+    btn.innerHTML=`<div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.2rem">${o.ok?'': '— ' + o.term}</div><div>${o.d.slice(0,200)+(o.d.length>200?'...':'')}</div>`;
     btn.onclick=()=>{
+      if(state.quizAnswered) return;
       state.quizAnswered=true;
       document.querySelectorAll('.quiz-opt').forEach(b=>b.style.pointerEvents='none');
-      if(o.ok){ btn.classList.add('correct'); state.known.add(card.id); save(); renderStats(); setTimeout(next,700); }
-      else { btn.classList.add('wrong'); state.flipped=true; renderCard(); }
+      if(o.ok){ 
+        btn.classList.add('correct'); 
+        state.known.add(card.id); save(); renderStats(); 
+        setTimeout(()=>{ next(); }, 700); 
+      } else { 
+        btn.classList.add('wrong'); 
+        // highlight correct
+        document.querySelectorAll('.quiz-opt').forEach(b=>{
+          if(b.textContent.includes(card.definition.slice(0,40))) b.classList.add('correct');
+        });
+        state.flipped=true;
+        document.getElementById('flashCard').classList.add('flipped');
+      }
     };
     quizBox.appendChild(btn);
   });
@@ -505,12 +535,21 @@ function render(){
     document.getElementById('listArea').style.display='none';
   }
 }
-function next(){ if(!state.order.length) return; state.idx=(state.idx+1)%state.order.length; state.flipped=false; render(); }
-function prev(){ if(!state.order.length) return; state.idx=(state.idx-1+state.order.length)%state.order.length; state.flipped=false; render(); }
-function flip(){ state.flipped=!state.flipped; render(); }
+function next(){ if(!state.order.length) return; state.idx=(state.idx+1)%state.order.length; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render(); }
+function prev(){ if(!state.order.length) return; state.idx=(state.idx-1+state.order.length)%state.order.length; state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; render(); }
+function flip(){ 
+  if(state.mode==='quiz' && !state.quizAnswered){
+    // in quiz mode, flipping should not hide options - just show answer
+    state.flipped=!state.flipped;
+    document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+    return;
+  }
+  state.flipped=!state.flipped; render(); 
+}
 function switchMode(m){
   state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
-  if(m==='quiz') state.flipped=false; render();
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null;
+  render();
 }
 function confetti(){
   // simple emoji burst
