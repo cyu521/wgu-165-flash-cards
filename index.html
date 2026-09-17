@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WGU C165 Flashcards - Integrated Physical Sciences</title>
+<title>WGU D236 Flashcards - Pathophysiology OA | Verified Q&A for an A Grade</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -220,10 +220,10 @@
 <div class="header">
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon">🧬</div>
+      <div class="logo-icon">🩺</div>
       <div>
-        <div style="line-height:1">WGU C165</div>
-        <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.04em">INTEGRATED PHYSICAL SCIENCES</div>
+        <div style="line-height:1">WGU D236</div>
+        <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.04em">PATHOPHYSIOLOGY OA • VERIFIED Q&A</div>
       </div>
     </div>
     <div class="search-box"><input id="search" placeholder="Search terms, definitions..."></div>
@@ -271,7 +271,7 @@
     <div class="card-mini" style="font-size:0.78rem;line-height:1.5">
       <h4>📝 OA Tips</h4>
       <div style="color:var(--muted)">
-        55 Qs on OA. High-yield: Newton's laws, energy calc, pH scale, plate boundaries, rock types, water cycle, seasons = tilt, moon phases, scientific method. Check PA coaching report!
+        D236 OA is scenario-based. High-yield: fluid/electrolyte & ABGs (pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145), MI vs angina, HF/BNP, anemias, pneumonia vs empyema, AKI, DKA/T1 vs T2, Addison, MS/GBS, burns, compartment syndrome. Sources: NY01 v2 (54) + Megan/Shay guides.
       </div>
     </div>
 
@@ -293,7 +293,7 @@
         <div class="face front">
           <div class="face-top">
             <span class="badge" id="cardChapter">Chapter</span>
-            <span class="count-badge" id="cardCount">1 / 90</span>
+            <span class="count-badge" id="cardCount">1 / 74</span>
           </div>
           <div class="face-content front" id="cardTerm">Loading...</div>
           <div class="flip-hint">↩ Click or Space to flip</div>
@@ -333,200 +333,168 @@
 
 <script>
 const chapters = [
-  {id:'all', name:'Whole Book', emoji:'📖'},
-  {id:'ch1', name:'Ch 1: Scientific Method', emoji:'🔬'},
-  {id:'ch2', name:'Ch 2: Matter & Atoms', emoji:'⚛️'},
-  {id:'ch3', name:'Ch 3: Chemistry', emoji:'🧪'},
-  {id:'ch4', name:'Ch 4: Motion & Forces', emoji:'🚀'},
-  {id:'ch5', name:'Ch 5: Energy', emoji:'⚡'},
-  {id:'ch6', name:'Ch 6: Waves & Light', emoji:'🌊'},
-  {id:'ch7', name:'Ch 7: Electricity', emoji:'🔋'},
-  {id:'ch8', name:'Ch 8: Rocks & Tectonics', emoji:'🪨'},
-  {id:'ch9', name:'Ch 9: Weather & Climate', emoji:'⛅'},
-  {id:'ch10', name:'Ch 10: Astronomy', emoji:'🪐'},
+  {id:'all', name:'Whole OA — All Systems', emoji:'📖'},
+  {id:'ch1', name:'Injury, Burns & Inflammation', emoji:'🔥'},
+  {id:'ch2', name:'Fluids, Electrolytes & Acid-Base', emoji:'💧'},
+  {id:'ch3', name:'Genetics & Development', emoji:'🧬'},
+  {id:'ch4', name:'Immunity & Infection', emoji:'🛡️'},
+  {id:'ch5', name:'Blood & Cardiovascular', emoji:'❤️'},
+  {id:'ch6', name:'Respiratory', emoji:'🫁'},
+  {id:'ch7', name:'Renal, GI & Hepatic', emoji:'🫘'},
+  {id:'ch8', name:'Endocrine, Neuro, MSK, Skin & Senses', emoji:'🧠'},
 ];
 
 const flashcards = [
-  {id:1, chapter:'ch1', term:'Scientific Method', definition:'Systematic process: observation → question → hypothesis → experiment → analysis → conclusion. Used to objectively test ideas.', example:'Testing if fertilizer affects plant growth'},
-  {id:2, chapter:'ch1', term:'Hypothesis', definition:'Testable, falsifiable prediction. Format: If...then...because... Must be testable via experiment.', example:'If plants get more light, then they grow taller because photosynthesis increases.'},
-  {id:3, chapter:'ch1', term:'Theory', definition:'Well-tested explanation of WHY something happens, based on many observations and experiments. Can be modified but not proven. Does not become a law.', example:'Atomic theory, germ theory, theory of plate tectonics'},
-  {id:69, chapter:'ch1', term:'Law', definition:'Description of WHAT happens in nature, often a mathematical equation describing a pattern. Theories don\'t become laws - they are different.', example:'Newton\'s laws, Boyle\'s law PV=k, law of conservation of mass'},
-  {id:4, chapter:'ch1', term:'Independent Variable', definition:'Variable you intentionally change or control (the cause). Plotted on X-axis. Only one independent variable should be tested at a time.', example:'Light hours given to plants'},
-  {id:70, chapter:'ch1', term:'Dependent Variable', definition:'Variable you measure that responds to independent variable (the effect). Plotted on Y-axis. Control variables stay constant.', example:'Plant height measured'},
-  {id:5, chapter:'ch1', term:'Accuracy', definition:'How close a measurement is to the true or accepted value. Affected by systematic errors. More accurate = closer to bullseye.', example:'Dart near bullseye = accurate'},
-  {id:71, chapter:'ch1', term:'Precision', definition:'How repeatable and consistent measurements are, how close to each other. Affected by random errors. Precise but not accurate = clustered but off target.', example:'Darts clustered together but away from bullseye = precise not accurate'},
-  {id:6, chapter:'ch1', term:'SI Units', definition:'International System: meter (m) length, kilogram (kg) mass, second (s) time, Kelvin (K) temp, mole (mol) amount, ampere (A) current, candela (cd) light. Base units for all measurements.', example:'5 meters = 5 m, 10 kg, 60 seconds'},
-  {id:7, chapter:'ch1', term:'Control Group', definition:'Group not exposed to independent variable, used for comparison to show effect is due to variable, not other factors.', example:'Plants with no fertilizer as control'},
-  {id:8, chapter:'ch1', term:'Model Limitations', definition:'All models are representations with limitations. Physical, conceptual, or mathematical. Useful but simplified.', example:'Bohr model of atom, globe as Earth model'},
+  {id:1, chapter:'ch1', term:'Acute burn injury — manifestations', definition:'Pain, edema, tissue ischemia, hypovolemia, acidosis, tissue damage. 35-year-old male classic OA vignette.', example:'Burn → capillary leak → fluid loss → hypovolemia + acidosis'},
+  {id:2, chapter:'ch1', term:'Severe burn complications', definition:'Hypovolemia, water loss, sepsis, and electrolyte imbalance. Vehicle-fire burn vignette.', example:'Large burns lose plasma → shock + infection risk'},
+  {id:3, chapter:'ch1', term:'First-degree burn', definition:'Burn affecting epidermis only (e.g., hot-water scald). Painful, red, no blisters, heals quickly.', example:'Sunburn-like scald of epidermis only'},
+  {id:4, chapter:'ch1', term:'Strain vs Sprain', definition:'Strain = muscle/tendon injury (calf hurt jumping). Sprain = ligament injury (ankle twist).', example:'Jumped high, hurt calf muscle = strain'},
+  {id:5, chapter:'ch1', term:'Third-degree muscle strain', definition:'Muscle rupture with tearing of fascia and bleeding. Most severe grade.', example:'Complete rupture + fascia tear + bleed'},
+  {id:6, chapter:'ch1', term:'Acute compartment syndrome', definition:'Rising pressure in a closed muscle compartment from fracture bleed or penetrating wound (forearm, lower leg, abdomen) → tissue ischemia.', example:'Forearm fracture bleed → pain, pallor, pulselessness'},
+  {id:7, chapter:'ch1', term:'Cardinal sign of inflammation', definition:'Edema is a cardinal sign (along with rubor, calor, dolor, functio laesa).', example:'Swelling at injury site = edema'},
+  {id:8, chapter:'ch1', term:'Neutrophil role', definition:'Phagocytoses bacteria and damaged cells as part of the innate immune response (e.g., puncture wound from sharp stick).', example:'First responders to bacterial invasion'},
+  {id:9, chapter:'ch1', term:'Innate immunity — cut finger', definition:'Complement system breaks pathogenic cells. Immediate, non-specific response.', example:'Cut finger while cooking → complement activation'},
+  {id:10, chapter:'ch1', term:'Adaptive immunity — cut by glass', definition:'Specialized T cells produce cytotoxic cells to destroy infection. Specific, with memory.', example:'Cytotoxic T cells kill infected cells'},
 
-  {id:9, chapter:'ch2', term:'Atom Structure', definition:'Smallest unit of element: nucleus (protons+, neutrons) + electron cloud. Most mass in nucleus, most volume is empty space.', example:'Hydrogen: 1p, 0n, 1e'},
-  {id:10, chapter:'ch2', term:'Atomic vs Mass Number', definition:'Atomic number = # protons = defines element. Mass number = protons + neutrons. Isotopes: same atomic #, different neutrons.', example:'C-12: 6p+6n, C-14: 6p+8n – C-14 is radioactive'},
-  {id:11, chapter:'ch2', term:'Periodic Table', definition:'Organized by atomic number. Periods = rows (energy levels), Groups = columns (same valence electrons, similar properties).', example:'Group 1 alkali metals, Group 18 noble gases'},
-  {id:12, chapter:'ch2', term:'Ions', definition:'Atom that gains or loses electrons, becomes charged. Cation = loses electrons, positive (+). Anion = gains electrons, negative (-). Formed in ionic bonding.', example:'Na → Na+ + e- (cation), Cl + e- → Cl- (anion)'},
-  {id:72, chapter:'ch2', term:'Isotopes', definition:'Atoms of same element (same protons/atomic number) with different numbers of neutrons, so different mass number. Neutral charge but different mass and stability. Example C-12 vs C-14.', example:'C-12: 6p+6n stable, C-14: 6p+8n radioactive'},
-  {id:13, chapter:'ch2', term:'Metals', definition:'Left side periodic table: shiny luster, good conductors of heat and electricity, malleable and ductile, tend to lose electrons to form cations.', example:'Iron, copper, gold, aluminum'},
-  {id:73, chapter:'ch2', term:'Nonmetals', definition:'Right side periodic table: dull, poor conductors (insulators), brittle, tend to gain electrons to form anions. Metalloids borderline semiconductors along staircase.', example:'Oxygen, sulfur, chlorine, Si metalloid for chips'},
-  {id:14, chapter:'ch2', term:'Density', definition:'Mass per volume (g/cm³). Density = mass/volume. Floats if less dense than fluid. Water = 1 g/cm³.', example:'Ice 0.9 g/cm³ floats on water'},
-  {id:15, chapter:'ch2', term:'Conservation of Matter', definition:'Matter not created/destroyed in chemical reactions. Mass reactants = mass products. Must balance equations.', example:'2H₂ + O₂ → 2H₂O'},
+  {id:11, chapter:'ch2', term:'Oncotic pressure determinant', definition:'Albumin is the primary determinant of oncotic pressure (osmotic pressure exerted by plasma proteins). Megan/Shay study guide.', example:'Low albumin → edema'},
+  {id:12, chapter:'ch2', term:'Normal ABG & electrolyte values', definition:'pH 7.35-7.45, CO2 35-45, HCO3 22-26, Sodium 135-145. Memorize for OA.', example:'pH 7.53 + high CO2 = metabolic alkalosis'},
+  {id:13, chapter:'ch2', term:'Metabolic alkalosis vignette', definition:'Viral illness + severe vomiting → elevated CO2 and pH 7.53, slow breathing. pH and CO2 move same direction = metabolic cause with respiratory compensation.', example:'Vomiting loses HCl → alkalosis'},
+  {id:14, chapter:'ch2', term:'Respiratory alkalosis triggers', definition:'Alveolar hyperventilation from hypoxemia, fever, anemia, thyrotoxicosis, early salicylate intoxication, anxiety/panic.', example:'Panic attack hyperventilation → alkalosis'},
+  {id:15, chapter:'ch2', term:'Respiratory acidosis pulmonary causes', definition:'Cystic fibrosis and hypoventilation (OA verified answer). Also Michael pulmonary edema → retained CO2.', example:'CF + hypoventilation → CO2 retention'},
+  {id:16, chapter:'ch2', term:'Pulmonary edema → BMP changes', definition:'Increased CO2 (lungs cannot remove it), decreased Na (hypervolemia dilution), elevated K+ (H+ shifts into cells, K+ shifts out).', example:'Respiratory acidosis labs'},
+  {id:17, chapter:'ch2', term:'BNP in fluid overload', definition:'Brain natriuretic peptide (BNP) is elevated when the body attempts to reduce fluid volume overload (e.g., CHF).', example:'CHF + overload → BNP up'},
+  {id:18, chapter:'ch2', term:'Hyponatremia vs Hypernatremia', definition:'Hypo Na<135: fatigue, nausea, headache, confusion, spasms, seizures. Hyper Na>145: thirst, fatigue, confusion, twitching, seizures.', example:'Na 135-145 normal'},
+  {id:19, chapter:'ch2', term:'Dehydration causes & signs', definition:'Causes: excessive loss, inadequate intake, or both. Signs: dry mucous membranes, decreased skin turgor, decreased urine, hypotension, tachycardia, confusion.', example:'Vomiting + no intake → dehydration'},
+  {id:20, chapter:'ch2', term:'Bones in acid-base regulation', definition:'Bones absorb excessive hydronium or hydroxyl ions to minimize pH fluctuations.', example:'Bone buffers chronic acidosis'},
+  {id:21, chapter:'ch2', term:'Osmoreceptors regulate', definition:'Fluid and electrolyte levels are regulated by osmoreceptors, which control thirst, ADH, kidneys, and RAAS.', example:'Thirst + ADH + RAAS axis'},
 
-  {id:16, chapter:'ch3', term:'Ionic Bond', definition:'Electron transfer metal → nonmetal. Opposite charges attract. Forms crystal lattice, high melting point, conductive when dissolved.', example:'NaCl: Na gives e- to Cl'},
-  {id:17, chapter:'ch3', term:'Covalent Bond', definition:'Sharing electrons between nonmetals. Lower melting point. Single/double/triple bonds. Polar = unequal sharing.', example:'H₂O: O shares with 2H, polar molecule'},
-  {id:18, chapter:'ch3', term:'Balancing Equations', definition:'Rearrangement of atoms, must balance atoms. Types: synthesis, decomposition, single/double replacement, combustion.', example:'CH₄ + 2O₂ → CO₂ + 2H₂O'},
-  {id:19, chapter:'ch3', term:'Acid', definition:'Donates H+ (proton), tastes sour, pH <7, turns blue litmus red, reacts with metals to produce H2 gas, neutralizes bases to make water + salt.', example:'Vinegar, lemon juice, stomach acid pH ~2'},
-  {id:74, chapter:'ch3', term:'Base', definition:'Accepts H+ or donates OH-, tastes bitter and feels slippery, pH >7, turns red litmus blue, neutralizes acids.', example:'Baking soda, bleach pH ~13, ammonia'},
-  {id:75, chapter:'ch3', term:'pH Scale', definition:'Measure of H+ concentration: pH = -log[H+]. Scale 0-14 logarithmic: each unit 10x change. <7 acidic, 7 neutral water, >7 basic. Acidic has more H+.', example:'pH 3 is 100x more acidic than pH 5'},
-  {id:20, chapter:'ch3', term:'Solution Terms', definition:'Solution homogeneous mixture. Solute dissolved, solvent does dissolving. Molarity = moles per liter.', example:'Salt water: salt solute, water solvent'},
-  {id:21, chapter:'ch3', term:'Exothermic Reaction', definition:'Chemical reaction that releases energy to surroundings, usually feels hot. Products have lower energy than reactants. ΔH negative.', example:'Combustion, hand warmers, burning wood'},
-  {id:78, chapter:'ch3', term:'Endothermic Reaction', definition:'Reaction that absorbs energy from surroundings, feels cold. Needs energy input, products higher energy than reactants. ΔH positive.', example:'Ice melting, instant cold packs, photosynthesis'},
-  {id:22, chapter:'ch3', term:'Valence & Octet Rule', definition:'Outer shell electrons determine bonding. Atoms seek 8 valence e- for stability via gaining/losing/sharing.', example:'Na 1 valence wants to lose, Cl 7 wants 1'},
-  {id:23, chapter:'ch3', term:'Mole & Avogadro', definition:'6.02×10²³ particles per mole. Molar mass from periodic table (g/mol). Links grams ↔ moles ↔ particles.', example:'12g C = 1 mol = 6e23 atoms'},
+  {id:22, chapter:'ch3', term:'Klinefelter syndrome', definition:'At least two X chromosomes + a Y in each cell (XXY). Sterility, female-like breasts, small testes, sparse body hair, high-pitched voice, tall stature, moderate mental impairment.', example:'XXY = Klinefelter'},
+  {id:23, chapter:'ch3', term:'Down syndrome survival', definition:'Reduced survival rate because of increased likelihood of congenital heart defects.', example:'Trisomy 21 + cardiac defects'},
+  {id:24, chapter:'ch3', term:'Spina bifida cause', definition:'Portion of the neural tube fails to close properly during fetal development.', example:'Neural tube defect — folate link'},
+  {id:25, chapter:'ch3', term:'Fetal alcohol HD-PAE sign (OA)', definition:'Child with neurobehavioral disorder associated with prenatal alcohol exposure exhibits trouble planning (executive dysfunction).', example:'HD-PAE → planning deficits'},
 
-  {id:24, chapter:'ch4', term:'Speed', definition:'Distance per time scalar quantity, no direction, always positive. Speed = distance/time. Example 60 mph.', example:'Car speedometer shows speed'},
-  {id:76, chapter:'ch4', term:'Velocity', definition:'Speed with direction vector quantity. Velocity = displacement/time. Can be negative. Change in velocity = acceleration. Example 60 mph north.', example:'Velocity includes direction; speed does not'},
-  {id:25, chapter:'ch4', term:'Newton\'s 1st Law - Inertia', definition:'Object at rest stays at rest, in motion stays in motion unless net force. Inertia ∝ mass. Seatbelt demo.', example:'Seatbelt stops you when car stops'},
-  {id:26, chapter:'ch4', term:'Newton\'s 2nd - F=ma', definition:'Force = mass × acceleration. More force or less mass = more acceleration. Net force causes acceleration.', example:'Push empty vs full cart'},
-  {id:27, chapter:'ch4', term:'Newton\'s 3rd - Action/Reaction', definition:'Every action has equal opposite reaction on DIFFERENT objects. Rocket pushes gas down, gas pushes rocket up.', example:'Jump: you push Earth down, Earth pushes you up'},
-  {id:28, chapter:'ch4', term:'Weight vs Mass', definition:'Mass = amount matter kg constant. Weight = force gravity N = mg, changes per planet. F=Gm₁m₂/r².', example:'10kg everywhere, 98N Earth, 16N Moon'},
-  {id:29, chapter:'ch4', term:'Friction', definition:'Opposes motion: static > kinetic. Factors: surfaces, normal force. Air resistance increases with speed/area.', example:'Rougher surface = more friction'},
-  {id:30, chapter:'ch4', term:'Projectile Motion', definition:'Free fall g=9.8 m/s² down. Horizontal constant velocity + vertical accelerated = parabola. Independent components.', example:'Dropped + thrown balls hit same time if same height'},
+  {id:26, chapter:'ch4', term:'HIV structure', definition:'Capsid containing two enzymes and RNA that infects host cells to replicate and spread.', example:'Retrovirus: RNA + reverse transcriptase'},
+  {id:27, chapter:'ch4', term:'Systemic lupus erythematosus', definition:'Arthritis/arthralgia, rash, vasculitis, renal disease, hematologic abnormalities, cardiovascular disease. SLE symptom: arthralgias.', example:'Butterfly rash + arthralgias'},
+  {id:28, chapter:'ch4', term:'Poliomyelitis class', definition:'Belongs to viruses (enterovirus).', example:'Viral pathogen'},
+  {id:29, chapter:'ch4', term:'Adenovirus causes (OA)', definition:'Upper respiratory infection (OA verified answer).', example:'Adenovirus → URI'},
+  {id:30, chapter:'ch4', term:'TB spread factor', definition:'Crowded institutional settings significantly contribute to tuberculosis spread.', example:'Prisons, shelters, dorms'},
+  {id:31, chapter:'ch4', term:'Malaria symptom (OA)', definition:'Myalgia is a symptom of malaria.', example:'Myalgia + fever paroxysms'},
+  {id:32, chapter:'ch4', term:'Cephalosporins trigger (OA)', definition:'Classification of drugs that can trigger hemolytic anemia: cephalosporins.', example:'Drug-induced hemolysis'},
 
-  {id:31, chapter:'ch5', term:'Work & Power', definition:'Work = force × distance × cosθ (only if displacement). Joules. Power = work/time rate Watts = J/s.', example:'Lifting = work, holding = no work in physics'},
-  {id:32, chapter:'ch5', term:'Kinetic Energy', definition:'Energy of motion. KE = ½mv² depends on mass and speed squared. Scalar, always positive. More speed = much more KE.', example:'Moving car has KE; doubled speed = 4x KE'},
-  {id:77, chapter:'ch5', term:'Potential Energy', definition:'Stored energy due to position or composition. Gravitational PE=mgh (height), elastic PE in spring, chemical PE in bonds. Can convert to kinetic.', example:'Roller coaster top has max PE, bottom max KE'},
-  {id:33, chapter:'ch5', term:'Conservation of Energy', definition:'Energy cannot be created/destroyed, transforms. Total constant. Friction turns mechanical to thermal.', example:'Pendulum slows → heat'},
-  {id:34, chapter:'ch5', term:'Heat Transfer', definition:'Conduction direct contact (spoon), Convection fluid movement (boiling), Radiation EM waves no medium (sun).', example:'Sun warms via radiation'},
-  {id:35, chapter:'ch5', term:'Specific Heat', definition:'Energy to raise 1kg by 1°C. Water high 4186 J/kg°C moderates climate. Q=mcΔT.', example:'Sand heats faster than water'},
-  {id:36, chapter:'ch5', term:'Buoyancy & Archimedes', definition:'Buoyant force = weight of displaced fluid (Archimedes principle). Float if buoyant ≥ weight, sink if < weight, neutral buoyancy if = .', example:'Boat floats: displaces water weighing same as boat'},
-  {id:67, chapter:'ch5', term:'Pascal\'s Principle', definition:'Pressure applied to enclosed fluid is transmitted equally in all directions. Hydraulic lift: small force on small area creates large force on large area.', example:'Car brake hydraulic system'},
-  {id:68, chapter:'ch5', term:'Bernoulli\'s Principle', definition:'Fast moving fluid exerts less pressure. Faster fluid = low pressure. Explains airplane wing: air faster over curved top → lower pressure → lift.', example:'Airplane wing lift, shower curtain inward'},
-  {id:37, chapter:'ch5', term:'Chemical Reaction Energy', definition:'Involves electron rearrangement, valence electrons, breaks/forms bonds. Energy scale eV (electron volts), relatively small. Examples combustion, rust.', example:'Burning wood = chemical, eV range'},
-  {id:83, chapter:'ch5', term:'Nuclear Reaction Energy', definition:'Involves nucleus changes: protons/neutrons. Energy scale MeV million x more than chemical. Fusion = combine light nuclei (sun H→He), Fission = split heavy (U-235 reactor).', example:'Sun H fusion → He releases MeV'},
+  {id:33, chapter:'ch5', term:'Embolism', definition:'Cardiovascular condition where a blood clot blocks circulation in blood vessels.', example:'Clot blocks vessel → ischemia'},
+  {id:34, chapter:'ch5', term:'Atherosclerosis cause', definition:'Accumulation of lipid-laden macrophages within the arterial wall.', example:'Fatty streak → plaque'},
+  {id:35, chapter:'ch5', term:'Atherosclerosis complications', definition:'Thrombosis, tissue infarction, myocardial ischemia, and stroke.', example:'Plaque rupture → MI/stroke'},
+  {id:36, chapter:'ch5', term:'Aneurysm', definition:'Cardiovascular condition characterized by weakening of a vessel wall.', example:'Weak wall → bulge → rupture risk'},
+  {id:37, chapter:'ch5', term:'Hypertension — most common', definition:'Most common primary cardiovascular diagnosis in the United States.', example:'#1 primary cardiac Dx'},
+  {id:38, chapter:'ch5', term:'Malignant hypertension (OA)', definition:'Typically above 180/120, causes serious organ damage, treated as medical emergency. Risk factor: kidney failure.', example:'>180/120 = emergency'},
+  {id:39, chapter:'ch5', term:'Hemolytic anemia', definition:'Caused by episodic or continuous premature destruction of erythrocytes.', example:'RBCs destroyed early'},
+  {id:40, chapter:'ch5', term:'Aplastic anemia (OA)', definition:'Insufficient or totally absent RBC production → inability to fight infection + bleeding tendency.', example:'Pancytopenia vignette'},
+  {id:41, chapter:'ch5', term:'Pericardial effusion vignette', definition:'Muffled heart sounds, dull chest pain, dyspnea, tachycardia, cardiomegaly, pulsus paradoxus, jugular venous distention.', example:'Fluid around heart'},
+  {id:42, chapter:'ch5', term:'Myocardial infarction vignette (OA)', definition:'Fatigue, SOB, vomiting + crushing chest pain radiating to back and jaw + elevated cardiac enzymes.', example:'Crushing radiating pain + enzymes'},
+  {id:43, chapter:'ch5', term:'Endocarditis vignette (OA)', definition:'Fatigue, fever, night sweats + vegetations on echocardiogram.', example:'Vegetations = endocarditis'},
+  {id:44, chapter:'ch5', term:'Thrombophlebitis vignette (OA)', definition:'Headaches with memory defects, unusual color/temperature, night pain.', example:'Vein inflammation + clot'},
 
-  {id:38, chapter:'ch6', term:'Wave Equation', definition:'Wave transfers energy not matter. Transverse ⊥ (light), longitudinal ∥ (sound). v = fλ (wavelength × frequency).', example:'Ocean waves'},
-  {id:39, chapter:'ch6', term:'Sound', definition:'Longitudinal needs medium, ~343 m/s air faster water/solid. Pitch = frequency, loudness = amplitude, Doppler shift moving source.', example:'Siren higher pitch approaching'},
-  {id:40, chapter:'ch6', term:'EM Spectrum', definition:'Radio < microwave < IR < visible (400-700nm) < UV < X-ray < gamma. Lower freq = lower energy. All travel light speed.', example:'Red 700nm low, violet 400nm high energy'},
-  {id:41, chapter:'ch6', term:'Reflection & Refraction', definition:'Reflection bounce angle in=out. Refraction bends speed change n=c/v. Diffraction spreads through opening.', example:'Straw bent in water = refraction'},
-  {id:42, chapter:'ch6', term:'Lenses & Color', definition:'White light = all colors combined; object color = reflected, rest absorbed. Lenses: Convex = converges (magnifier), Concave = diverges. Mirrors opposite: Concave converges. Pigment subtractive (RYB), light additive (RGB).', example:'Blue shirt reflects blue, absorbs other colors; convex lens magnifies'},
-  {id:43, chapter:'ch6', term:'Inverse Square Law', definition:'Intensity ∝ 1/d². Doubling distance = ¼ intensity. Light, sound, gravity, radiation.', example:'Twice far from bulb = ¼ brightness'},
+  {id:45, chapter:'ch6', term:'Pneumonia vignette (20yo man)', definition:'Previous URI + cough, dyspnea, fever, chills, malaise, pleuritic chest pain, pulmonary consolidation.', example:'Consolidation = pneumonia'},
+  {id:46, chapter:'ch6', term:'Empyema vignette (62yo female)', definition:'Cough, fever, localized decreased breath sounds, cyanosis, tachycardia, pleural pain.', example:'Pus in pleural space'},
+  {id:47, chapter:'ch6', term:'Central cyanosis', definition:'Respiratory disorder from decreased arterial oxygenation due to pulmonary disease or dysfunction.', example:'Blue from lung failure'},
+  {id:48, chapter:'ch6', term:'Hypoxemia', definition:'Respiratory condition characterized by reduced oxygenation of arterial blood.', example:'Low arterial O2'},
+  {id:49, chapter:'ch6', term:'Emphysema pathology', definition:'Destruction of alveoli through breakdown of elastin within the septa.', example:'Elastin loss → air trapping'},
+  {id:50, chapter:'ch6', term:'Labored breathing', definition:'Breathing pattern occurring whenever there is increased work of breathing.', example:'Accessory muscle use'},
+  {id:51, chapter:'ch6', term:'Cor pulmonale', definition:'Chronic pressure overload in the right ventricle from high pulmonary artery pressure.', example:'Lung disease → RV failure'},
+  {id:52, chapter:'ch6', term:'Pulmonary hypertension', definition:'Example of a pulmonary vascular disease.', example:'High lung-vessel pressure'},
+  {id:53, chapter:'ch6', term:'Upper vs Lower tract (OA)', definition:'Upper: laryngitis, rhinitis, pharyngitis. Lower: pneumonia, COPD, asthma.', example:'Above vs below larynx'},
+  {id:54, chapter:'ch6', term:'Lower tract infections (OA pick 2)', definition:'Respiratory mycoses and pulmonary tuberculosis affect the lower respiratory tract.', example:'Mycoses + TB = lower'},
 
-  {id:44, chapter:'ch7', term:'Ohm\'s Law', definition:'Current I flow (Amps), Voltage V push (Volts), Resistance R opposition (Ohms). V=IR. Charge same repel opposite attract.', example:'Battery voltage pushes current through resistor'},
-  {id:45, chapter:'ch7', term:'Series Circuit', definition:'One path for current, current same everywhere, voltage divides across components, total resistance is sum. If one component fails, all fail.', example:'Old Christmas lights - one bulb out, all out'},
-  {id:79, chapter:'ch7', term:'Parallel Circuit', definition:'Multiple branches for current, voltage same across branches, current divides, total resistance decreases. One branch fails, others still work.', example:'House wiring - one light out, others stay on'},
-  {id:46, chapter:'ch7', term:'Electric Power', definition:'P=VI=I²R Watts. Energy = power×time kWh billed. High voltage less loss transmission.', example:'100W bulb = 0.1kWh per hour'},
-  {id:47, chapter:'ch7', term:'Magnetism & Induction', definition:'Magnet N/S poles, field N→S, Earth is magnet. Current → magnetism electromagnet. Moving magnet → current Faraday. Generator vs motor.', example:'Generator spin magnet → electricity'},
+  {id:55, chapter:'ch7', term:'Acute kidney injury cause', definition:'Extracellular volume depletion, decreased renal blood flow, and cell injury altering renal function.', example:'Prerenal: volume down → AKI'},
+  {id:56, chapter:'ch7', term:'Duodenal ulcer vignette (51yo woman)', definition:'Chronic intermittent epigastric pain relieved rapidly by food ingestion.', example:'Pain → eat → relief = duodenal'},
+  {id:57, chapter:'ch7', term:'Gastric ulcer age', definition:'Typically occurs between ages 50 and 60 years.', example:'50-60 = gastric peak'},
+  {id:58, chapter:'ch7', term:'Lower urinary tract obstruction (42yo man)', definition:'Incomplete emptying, frequent daytime voiding, nocturia, urgency, poor force, intermittency of stream.', example:'BPH-like obstructive picture'},
+  {id:59, chapter:'ch7', term:'Overflow incontinence', definition:'Associated with overdistention of the bladder.', example:'Overfull → dribbling'},
+  {id:60, chapter:'ch7', term:'Intrahepatic obstructive jaundice', definition:'Impeded flow of bile through the liver.', example:'Bile blocked in liver'},
 
-  {id:48, chapter:'ch8', term:'Mineral', definition:'Naturally occurring inorganic solid with definite crystal structure and chemical composition. Hardness measured by Mohs scale.', example:'Quartz SiO2, halite NaCl, diamond C'},
-  {id:80, chapter:'ch8', term:'Rock', definition:'Aggregate of one or more minerals. Classified as igneous, sedimentary, or metamorphic based on formation.', example:'Granite = quartz + feldspar + mica'},
-  {id:49, chapter:'ch8', term:'Igneous Rocks', definition:'Cooling magma/lava. Intrusive slow large crystals granite. Extrusive fast small/glassy basalt obsidian. Felsic light, mafic dark.', example:'Pumice floats'},
-  {id:50, chapter:'ch8', term:'Sedimentary Rocks', definition:'Weathering → erosion → deposition → lithification. Clastic sandstone, Chemical limestone, Organic coal. Strata, fossils.', example:'Fossils in limestone'},
-  {id:51, chapter:'ch8', term:'Metamorphic Rocks', definition:'Existing rock altered heat/pressure not melting. Foliated layered slate schist gneiss vs non-foliated marble quartzite.', example:'Limestone → marble'},
-  {id:52, chapter:'ch8', term:'Plate Tectonics', definition:'Lithosphere plates move on asthenosphere. Divergent mid-ocean ridge new crust, Convergent subduction mountains, Transform San Andreas earthquakes.', example:'Mid-Atlantic ridge divergent'},
-  {id:53, chapter:'ch8', term:'Earth Structure', definition:'Crust thin oceanic basalt dense continental granite light, mantle convective solid, outer core liquid iron magnet, inner core solid.', example:''},
-  {id:54, chapter:'ch8', term:'Dating Methods', definition:'Relative: superposition younger on top, cross-cutting, index fossils. Absolute: radiometric half-life C-14 <50k U-238 older.', example:'Trilobite Paleozoic index'},
-
-  {id:55, chapter:'ch9', term:'Weathering', definition:'Breaking down rock in place without moving it. Mechanical: physical break (frost wedging, abrasion). Chemical: composition change (acid rain, oxidation rust).', example:'Frost wedging cracks driveway, rusting nail'},
-  {id:81, chapter:'ch9', term:'Erosion & Deposition', definition:'Erosion: transport of weathered material away by water, wind, ice, gravity. Deposition: dropping sediment in new location when energy decreases.', example:'Grand Canyon formed by water erosion, delta by deposition'},
-  {id:56, chapter:'ch9', term:'Atmosphere Layers', definition:'Troposphere 0-12km weather temp ↓, Stratosphere ozone, Mesosphere meteors, Thermosphere aurora ISS, Exosphere.', example:'Ozone protects UV'},
-  {id:57, chapter:'ch9', term:'Water Cycle', definition:'Evaporation liquid→vapor, transpiration plants, condensation vapor→clouds, precipitation, infiltration runoff collection.', example:''},
-  {id:58, chapter:'ch9', term:'Weather', definition:'Day-to-day atmospheric conditions: temperature, precipitation, humidity, wind, pressure. Short-term, changes quickly. Includes fronts: cold steep thunderstorms, warm gentle drizzle.', example:'Today is rainy 65°F - weather, cold front temp drop'},
-  {id:82, chapter:'ch9', term:'Climate', definition:'Long-term average of weather over 30+ years for a region. Determines biomes. High pressure = clear skies sinking air, Low pressure = cloudy rising air.', example:'Arizona has hot desert climate, Seattle has temperate rainy climate'},
-  {id:59, chapter:'ch9', term:'Greenhouse Effect', definition:'CO₂ CH₄ H₂O trap IR heat keeps Earth habitable. Enhanced greenhouse human increase causes warming.', example:'Without = -18°C'},
-  {id:60, chapter:'ch9', term:'Ocean & El Niño', definition:'Surface wind-driven gyres clockwise NH, deep thermohaline density, El Niño warm Pacific disrupts. Ocean moderates climate.', example:'Gulf Stream warms Europe'},
-
-  {id:61, chapter:'ch10', term:'Solar System', definition:'Sun 99.8% mass, 8 planets rocky Mercury Venus Earth Mars gas Jupiter Saturn ice Uranus Neptune. Asteroid belt, Kuiper, Oort.', example:'Pluto dwarf Kuiper'},
-  {id:62, chapter:'ch10', term:'Moon & Eclipses', definition:'Phases 29.5d sun angle new→full→waning. Lunar Earth blocks sun→moon full, Solar Moon blocks sun→Earth new. Tides moon gravity.', example:''},
-  {id:63, chapter:'ch10', term:'Seasons', definition:'Due to 23.5° axial tilt not distance! Summer tilted toward sun longer days direct rays. Equinox equal solstice extremes.', example:'Southern summer when northern winter'},
-  {id:64, chapter:'ch10', term:'Stars Life Cycle', definition:'Nebula → main sequence H→He → red giant → small white dwarf, massive supergiant→supernova→neutron star/black hole.', example:'Sun → white dwarf'},
-  {id:65, chapter:'ch10', term:'Galaxies & Big Bang', definition:'Spiral Milky Way, elliptical, irregular. Universe 13.8B yr Big Bang expanding redshift Hubble. Light-year distance. Dark matter/energy 95%.', example:'Andromeda 2.5M ly'},
+  {id:61, chapter:'ch8', term:'Multiple sclerosis cause', definition:'Autoimmune response to self or microbial antigens in genetically susceptible people.', example:'CNS demyelination'},
+  {id:62, chapter:'ch8', term:'Guillain-Barré vignette (91yo)', definition:'Ascending paralysis, areflexia, respiratory insufficiency, autonomic instability.', example:'Ascending weakness post-infection'},
+  {id:63, chapter:'ch8', term:'ALS sign (OA)', definition:'Head drop is associated with amyotrophic lateral sclerosis.', example:'Motor neuron loss → head drop'},
+  {id:64, chapter:'ch8', term:'Intracerebral hematoma location', definition:'Commonly frontal and temporal lobes; may occur in hemisphere deep white matter.', example:'Frontal/temporal bleed'},
+  {id:65, chapter:'ch8', term:'Rhegmatogenous retinal detachment', definition:'Causes: intravitreous contractile traction, severe myopia, vitreoretinal traction, age-related vitreous degeneration, trauma.', example:'Retinal tear → detachment'},
+  {id:66, chapter:'ch8', term:'Myopia classification', definition:'Alteration in refraction.', example:'Nearsightedness = refraction error'},
+  {id:67, chapter:'ch8', term:'Functional hearing loss', definition:'Auditory dysfunction thought to relate to emotional or psychological factors.', example:'No organic cause found'},
+  {id:68, chapter:'ch8', term:'Addison disease cause', definition:'Primary inability of the adrenals to produce and secrete adrenocortical hormones.', example:'Adrenal failure → low cortisol/aldo'},
+  {id:69, chapter:'ch8', term:'Decreased libido causes', definition:'Depression, substance abuse, prolactin-secreting pituitary tumors, testosterone deficiency.', example:'Multifactorial low libido'},
+  {id:70, chapter:'ch8', term:'Type 2 diabetes vignette (71yo man)', definition:'Obesity, dyslipidemia, hyperinsulinemia, hypertension, fatigue, genital pruritus, blurred vision, recurrent infections, prolonged wound healing, neuropathy, paresthesias, acanthosis nigricans.', example:'Metabolic syndrome + T2DM'},
+  {id:71, chapter:'ch8', term:'Type 1 diabetes', definition:'Beta-cell destruction leading to absolute insulin deficiency.', example:'Juvenile onset, needs insulin'},
+  {id:72, chapter:'ch8', term:'Gonorrhea complications', definition:'Disseminated gonococcal infection and pelvic inflammatory disease.', example:'DGI + PID'},
+  {id:73, chapter:'ch8', term:'Vaginismus', definition:'Involuntary muscle spasm in response to attempted sexual penetration.', example:'Pelvic floor spasm'},
+  {id:74, chapter:'ch8', term:'Most common reportable STI (US)', definition:'Chlamydia is the most common reportable STI in the United States.', example:'Chlamydia #1 reported'},
 ];
 
-// --- EXAM-STYLE QUESTIONS (OA-like) ---
+// --- EXAM-STYLE QUESTIONS (D236 OA-like, from NY01 v2 + Megan/Shay + OA verified) ---
 const examQuestions = [
-  // Ch1 Scientific Method
-  {id:101, chapter:'ch1', question:'A student wants to test if music affects plant growth. She plays music to 5 plants and leaves 5 without music. What is the independent variable?', options:['Plant height','Amount of music played','Type of plant','Sunlight'], correct:1, explanation:'Independent = what you change. Music is changed, height is measured (dependent).'},
-  {id:102, chapter:'ch1', question:'Which statement best describes a scientific theory?', options:['A guess that has not been tested','A well-tested explanation of WHY something happens','A description of WHAT will happen using math','An opinion that can never change'], correct:1, explanation:'Theory = well-tested explanation of why. Law = description of what. Theories don\'t become laws.'},
-  {id:103, chapter:'ch1', question:'A measurement is highly precise but not accurate. What does this mean?', options:['Repeated measurements are far from true value but close together','All measurements equal true value','Measurements are both close together and near true value','Measurements are random'], correct:0, explanation:'Precise = clustered together. Not accurate = not near true value. Dartboard analogy.'},
-  {id:104, chapter:'ch1', question:'What is the purpose of a control group?', options:['To show results are due to independent variable, not other factors','To make experiment more complicated','To prove hypothesis is always correct','To change two variables at once'], correct:0, explanation:'Control isolates effect of independent variable.'},
+  // Injury, Burns & Inflammation
+  {id:101, chapter:'ch1', question:'A 35-year-old male has pain, edema, tissue ischemia, hypovolemia, acidosis, and tissue damage after a thermal injury. Which condition is this?', options:['Acute burn injury','First-degree burn only','Compartment syndrome','Contact dermatitis'], correct:0, explanation:'Systemic burn picture: pain + edema + ischemia + hypovolemia + acidosis = acute burn injury.'},
+  {id:102, chapter:'ch1', question:'A patient sustained severe burns in a vehicle fire. Which complications are expected?', options:['Hypovolemia, water loss, sepsis, electrolyte imbalance','Hypertension and bradycardia','Hyperthermia only','No systemic effects'], correct:0, explanation:'Large burns → plasma loss (hypovolemia), water loss, sepsis, electrolyte shifts.'},
+  {id:103, chapter:'ch1', question:'A burn from hot water affects the epidermis only. What degree?', options:['First-degree','Second-degree deep partial','Third-degree full thickness','Fourth-degree'], correct:0, explanation:'Epidermis only = first-degree (red, painful, no blisters).'},
+  {id:104, chapter:'ch1', question:'Bleeding from a forearm fracture causes rising pressure, pain, and ischemia. What is the condition?', options:['Acute compartment syndrome','Cellulitis','Strain','Osteoarthritis'], correct:0, explanation:'Fracture bleed into closed compartment → acute compartment syndrome.'},
+  {id:105, chapter:'ch1', question:'A basketball player jumped and hurt the calf muscle. The injury involves muscle/tendon. What is it?', options:['Strain','Sprain','Fracture','Dislocation'], correct:0, explanation:'Muscle/tendon = strain. Ligament = sprain.'},
+  {id:106, chapter:'ch1', question:'A puncture wound is invaded by bacteria. Which cell phagocytoses bacteria and damaged cells?', options:['Neutrophil','Erythrocyte','Thrombocyte','Osteoblast'], correct:0, explanation:'Neutrophils are first-responder phagocytes of innate immunity.'},
 
-  // Ch2 Matter & Atoms
-  {id:105, chapter:'ch2', question:'A rock has mass 90g and volume 30 cm³. What is its density? Will it float in water?', options:['3 g/cm³ and will sink','3 g/cm³ and will float','0.33 g/cm³ and will float','90 g/cm³ and will sink'], correct:0, explanation:'Density=mass/volume=90/30=3 g/cm³. Water=1, so 3>1 sinks.'},
-  {id:106, chapter:'ch2', question:'What determines the identity of an element?', options:['Number of neutrons','Number of protons (atomic number)','Mass number','Number of electrons'], correct:1, explanation:'Atomic number = protons = defines element.'},
-  {id:107, chapter:'ch2', question:'Sodium atom (Na) loses one electron to become Na+. What is this called and what is its charge?', options:['Anion, -1','Cation, +1','Isotope, neutral','Molecule, neutral'], correct:1, explanation:'Loses e- => cation +1. Gains => anion -.'},
-  {id:108, chapter:'ch2', question:'Which group is most reactive metals that lose 1 electron?', options:['Group 1 alkali metals','Group 2 alkaline earth','Group 17 halogens','Group 18 noble gases'], correct:0, explanation:'Group 1 has 1 valence electron, wants to lose, very reactive.'},
-  {id:109, chapter:'ch2', question:'In an OPEN container, you burn 10g of wood and get 2g of ash. Where did the other 8g go? What about if sealed?', options:['Destroyed - law broken','Converted to gases CO2 / water vapor that escaped into air. If sealed, gases stay inside and total mass still 10g','Became energy only','Became extra hidden ash'], correct:1, explanation:'Open: gases escape. Conservation holds - in truly sealed container, ash + gases = 10g still. Mass not destroyed.'},
+  // Fluids, Electrolytes & Acid-Base (Megan/Shay + OA verified)
+  {id:107, chapter:'ch2', question:'What is the primary determinant of oncotic pressure?', options:['Albumin','Sodium','Glucose','Hemoglobin'], correct:0, explanation:'Albumin exerts plasma oncotic pressure; low albumin → edema.'},
+  {id:108, chapter:'ch2', question:'Vomiting illness with pH 7.53, elevated CO2, slow breathing. What condition?', options:['Metabolic alkalosis with respiratory compensation','Metabolic acidosis','Respiratory acidosis','Normal ABGs'], correct:0, explanation:'pH and CO2 rise together = metabolic alkalosis; lungs retain CO2 to compensate.'},
+  {id:109, chapter:'ch2', question:'Which are normal values? (select the correct set)', options:['pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145','pH 7.55-7.65, CO2 55-65, HCO3 32-36, Na 155-165','pH 7.00-7.10, CO2 15-25, HCO3 10-14, Na 115-125','pH 7.45-7.55, CO2 45-55, HCO3 26-30, Na 145-155'], correct:0, explanation:'Memorize: pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145.'},
+  {id:110, chapter:'ch2', question:'What are two pulmonary causes of respiratory acidosis? (OA verified)', options:['Cystic fibrosis and hypoventilation','Hyperventilation and fever','Anemia and pain','Asthma recovery and exercise'], correct:0, explanation:'OA answer: cystic fibrosis and hypoventilation cause CO2 retention.'},
+  {id:111, chapter:'ch2', question:'CHF patient with fluid overload. Which elevated hormone shows the body trying to reduce volume?', options:['Brain natriuretic peptide (BNP)','Aldosterone','Renin','Cortisol'], correct:0, explanation:'BNP is released in fluid volume excess.'},
+  {id:112, chapter:'ch2', question:'Which can trigger respiratory alkalosis?', options:['Anxiety/panic hyperventilation, fever, early salicylate intoxication','Hypoventilation and CF','Renal failure','Hypothermia'], correct:0, explanation:'Hyperventilation blows off CO2 → alkalosis: anxiety, fever, salicylates, hypoxemia.'},
+  {id:113, chapter:'ch2', question:'Pulmonary edema leads to respiratory acidosis. Which BMP changes occur? (choose the trio)', options:['High CO2, low Na, high K+','Low CO2, high Na, low K+','High CO2, high Na, high Ca','Low CO2, low Na, low K+'], correct:0, explanation:'CO2 retained; Na diluted by hypervolemia; H+ into cells pushes K+ out.'},
+  // Genetics & Development
+  {id:114, chapter:'ch3', question:'Sterility, female-like breasts, small testes, sparse hair, tall stature, XXY. Which condition?', options:['Klinefelter syndrome','Turner syndrome','Down syndrome','Marfan syndrome'], correct:0, explanation:'XXY (two X + Y) = Klinefelter.'},
+  {id:115, chapter:'ch3', question:'Why do those with Down syndrome have reduced survival?', options:['Increased likelihood of congenital heart defects','Increased height','Decreased infection risk','Higher IQ'], correct:0, explanation:'Congenital heart defects drive mortality in Down syndrome.'},
+  {id:116, chapter:'ch3', question:'Neural tube fails to close during fetal development. Which disorder?', options:['Spina bifida','Hydrocephalus','Cerebral palsy','Muscular dystrophy'], correct:0, explanation:'Failed neural tube closure = spina bifida.'},
 
-  // Ch3 Chemistry
-  {id:110, chapter:'ch3', question:'Which is an ionic bond example?', options:['NaCl where Na gives electron to Cl','H2O sharing electrons','O2 sharing electrons','Chocolate chip cookie'], correct:0, explanation:'Ionic = transfer metal to nonmetal. NaCl classic.'},
-  {id:111, chapter:'ch3', question:'A solution has pH 3. What is it and how many times more acidic than pH 5?', options:['Base, 2x','Acid, 100x more acidic','Acid, 2x','Neutral'], correct:1, explanation:'pH<7 acid, scale logarithmic: pH 3 is 10²=100x more H+ than pH5.'},
-  {id:112, chapter:'ch3', question:'Balance: __H2 + __O2 → __H2O', options:['2,1,2','1,1,1','2,2,2','1,2,1'], correct:0, explanation:'2H2 + O2 → 2H2O needs 4 H and 2 O each side.'},
-  {id:113, chapter:'ch3', question:'Which evidence BEST indicates chemical change vs physical?', options:['Ice melting','Salt dissolving','New gas or precipitate forms with color change','Breaking glass'], correct:2, explanation:'Chemical = new substance: gas, precipitate, color change, temp change.'},
-  {id:114, chapter:'ch3', question:'A reaction feels hot to touch and warms surroundings. It is:', options:['Endothermic, absorbs energy','Exothermic, releases energy','At equilibrium','Not a reaction'], correct:1, explanation:'Exothermic releases → feels hot. Endothermic absorbs → feels cold.'},
+  // Immunity & Infection
+  {id:117, chapter:'ch4', question:'Arthritis, rash, vasculitis, renal disease, hematologic and cardiac abnormalities. Which disorder?', options:['Systemic lupus erythematosus','Rheumatoid arthritis only','Osteoarthritis','Gout'], correct:0, explanation:'Multi-system autoimmune picture = SLE.'},
+  {id:118, chapter:'ch4', question:'Capsid with two enzymes and RNA infecting host cells to replicate. What is it?', options:['HIV','Staphylococcus','Candida','Plasmodium'], correct:0, explanation:'RNA + enzymes in capsid = HIV retrovirus.'},
+  {id:119, chapter:'ch4', question:'Which class of microorganisms does poliomyelitis belong to?', options:['Viruses','Bacteria','Fungi','Parasites'], correct:0, explanation:'Polio = enterovirus.'},
+  {id:120, chapter:'ch4', question:'What significantly contributes to the spread of tuberculosis?', options:['Crowded institutional settings','Cold weather alone','Exercise','Vegetarian diet'], correct:0, explanation:'Crowding → airborne TB spread.'},
+  // Blood & Cardiovascular
+  {id:121, chapter:'ch5', question:'Blood clot blocking circulation in vessels. Which condition?', options:['Embolism','Aneurysm','Hypertension','Anemia'], correct:0, explanation:'Clot blocking flow = embolism.'},
+  {id:122, chapter:'ch5', question:'Lipid-laden macrophages in the arterial wall cause which condition?', options:['Atherosclerosis','Embolism','Aneurysm','Pericarditis'], correct:0, explanation:'Foam cells (lipid macrophages) = atherosclerosis.'},
+  {id:123, chapter:'ch5', question:'Weakening of a vessel wall characterizes which condition?', options:['Aneurysm','Embolism','Pneumonia','Dermatitis'], correct:0, explanation:'Weak wall → aneurysm.'},
+  {id:124, chapter:'ch5', question:'Muffled heart sounds, pulsus paradoxus, JVD, cardiomegaly, dyspnea. Which condition?', options:['Pericardial effusion','Asthma','Pneumonia','Anemia'], correct:0, explanation:'Fluid around heart compresses chambers → effusion/tamponade signs.'},
 
-  // Ch4 Motion & Forces
-  {id:115, chapter:'ch4', question:'A car at rest stays at rest due to inertia unless pushed. Which law?', options:['Newton\'s 1st Law','Newton\'s 2nd Law F=ma','Newton\'s 3rd Law action/reaction','Law of conservation of energy'], correct:0, explanation:'1st = inertia, resistance to change.'},
-  {id:116, chapter:'ch4', question:'You push a 10kg box with 20N force. What is acceleration? (F=ma)', options:['2 m/s²','200 m/s²','0.5 m/s²','20 m/s²'], correct:0, explanation:'a=F/m=20/10=2.'},
-  {id:117, chapter:'ch4', question:'A rocket pushes exhaust gases down, gases push rocket up. Which law?', options:['1st','2nd','3rd - action/reaction forces on different objects','Law of gravity'], correct:2, explanation:'3rd: equal opposite on different objects.'},
-  {id:118, chapter:'ch4', question:'Your mass is 60kg on Earth. On Moon gravity is 1/6. What is your mass and weight on Moon?', options:['Mass 60kg, Weight ~98N (less)','Mass 10kg, Weight same','Mass 60kg, Weight same','Mass 0kg, Weight 0'], correct:0, explanation:'Mass constant amount matter. Weight = mg changes. Earth weight ~588N, Moon ~98N.'},
-  {id:119, chapter:'ch4', question:'A ball is dropped and another is thrown horizontally from same height at same time. Which hits ground first? (ignore air)', options:['Same time - vertical motion independent','Dropped hits first','Thrown hits first','Depends on throw speed'], correct:0, explanation:'Vertical motion independent of horizontal, same g same height same time.'},
+  // Blood & Cardiovascular continued (OA verified)
+  {id:125, chapter:'ch5', question:'Fatigue, fever, night sweats + vegetations on echo. Which disease?', options:['Endocarditis','Pericarditis','Stenosis','Myocarditis'], correct:0, explanation:'Vegetations = endocarditis.'},
+  {id:126, chapter:'ch5', question:'Crushing chest pain radiating to back/jaw + elevated cardiac enzymes. Which condition?', options:['Myocardial infarction','Angina only','Atrial fibrillation','CHF'], correct:0, explanation:'Radiating crushing pain + enzymes = MI.'},
+  {id:127, chapter:'ch5', question:'Absent RBC production with infection risk and bleeding tendency. Which anemia?', options:['Aplastic anemia','Iron deficiency','Pernicious','Folic acid deficiency'], correct:0, explanation:'Marrow failure = aplastic anemia (pancytopenia).'},
+  {id:128, chapter:'ch5', question:'BP typically above 180/120, organ damage, emergency. Which hypertension type?', options:['Malignant','Essential','Pulmonary','White-coat'], correct:0, explanation:'>180/120 emergency = malignant hypertension.'},
+  // Respiratory
+  {id:129, chapter:'ch6', question:'20yo man: URI then cough, dyspnea, fever, chills, pleuritic pain, consolidation. Which condition?', options:['Pneumonia','Asthma','Emphysema','Pneumothorax'], correct:0, explanation:'Consolidation + febrile URI course = pneumonia.'},
+  {id:130, chapter:'ch6', question:'62yo female: cough, fever, decreased breath sounds, cyanosis, tachycardia, pleural pain. Which?', options:['Empyema','Asthma','Bronchitis','Anemia'], correct:0, explanation:'Pleural-space infection vignette = empyema.'},
+  {id:131, chapter:'ch6', question:'Destruction of alveoli via elastin breakdown in septa. Which condition?', options:['Emphysema','Pneumonia','Empyema','Asthma'], correct:0, explanation:'Elastin loss → emphysema.'},
+  {id:132, chapter:'ch6', question:'Chronic RV pressure overload from pulmonary artery hypertension. Which condition?', options:['Cor pulmonale','Left heart failure','Aortic stenosis','Mitral prolapse'], correct:0, explanation:'Lung HTN → RV overload = cor pulmonale.'},
 
-  // Ch5 Energy
-  {id:120, chapter:'ch5', question:'You hold a heavy box above your head without moving. How much work in physics sense?', options:['A lot - you get tired','Zero - no displacement in direction of force','Equal to box weight','Equal to power'], correct:1, explanation:'Work needs displacement: W=Fd cosθ. No movement = 0 work physics, though muscles do work biologically.'},
-  {id:121, chapter:'ch5', question:'At top of roller coaster hill, the car has mostly:', options:['Kinetic energy','Potential energy (mgh)','Only thermal energy','No energy'], correct:1, explanation:'Top = high PE, low KE. Bottom = low PE high KE.'},
-  {id:122, chapter:'ch5', question:'Metal spoon in hot soup feels hot quickly due to:', options:['Conduction - direct contact','Convection - fluid movement','Radiation - EM waves','Evaporation'], correct:0, explanation:'Conduction = contact. Convection fluid, radiation no medium.'},
-  {id:123, chapter:'ch5', question:'Why does water moderate coastal climates vs deserts (sand heats fast)?', options:['Water has high specific heat 4186 J/kg°C','Water low specific heat','Water has low boiling point','Water is magnetic'], correct:0, explanation:'High specific heat needs more energy to raise temp, moderates.'},
-  {id:124, chapter:'ch5', question:'A 100W bulb left on for 10 hours uses how much energy in kWh?', options:['1 kWh','1000 kWh','0.1 kWh','10 kWh'], correct:0, explanation:'Energy = power×time = 0.1kW ×10h =1 kWh.'},
+  // Renal, GI & Hepatic
+  {id:133, chapter:'ch7', question:'Volume depletion + decreased renal blood flow + cell injury altering function. Which?', options:['Acute kidney injury','Chronic liver failure','Pneumonia','Dermatitis'], correct:0, explanation:'Prerenal + injury = acute kidney injury.'},
+  {id:134, chapter:'ch7', question:'51yo woman: chronic epigastric pain relieved rapidly by food. Likely?', options:['Duodenal ulcer','Gastric ulcer','Appendicitis','Cholecystitis'], correct:0, explanation:'Pain-food-relief = duodenal ulcer.'},
+  {id:135, chapter:'ch7', question:'42yo man: incomplete emptying, frequency, nocturia, urgency, poor stream. Likely?', options:['Lower urinary tract obstruction','UTI only','Overactive bladder without obstruction','Renal colic'], correct:0, explanation:'Obstructive voiding picture = lower urinary tract obstruction.'},
+  {id:136, chapter:'ch7', question:'Bladder overdistention leads to which incontinence type?', options:['Overflow','Stress','Urge','Functional'], correct:0, explanation:'Overfull bladder → overflow incontinence.'},
+  // Endocrine, Neuro, MSK, Skin & Senses
+  {id:137, chapter:'ch8', question:'Adrenals cannot produce adrenocortical hormones. Which condition?', options:['Addison disease','Cushing syndrome','Diabetes insipidus','Grave disease'], correct:0, explanation:'Adrenal failure = Addison disease.'},
+  {id:138, chapter:'ch8', question:'71yo man: obesity, dyslipidemia, hyperinsulinemia, HTN, acanthosis nigricans, neuropathy. Which?', options:['Type 2 diabetes mellitus','Type 1 diabetes','Addison disease','Hyperthyroidism'], correct:0, explanation:'Insulin resistance + metabolic syndrome = T2DM.'},
+  {id:139, chapter:'ch8', question:'Beta-cell destruction with absolute insulin deficiency. Which diabetes?', options:['Type 1','Type 2','Gestational only','Secondary'], correct:0, explanation:'Autoimmune beta-cell loss = type 1.'},
+  {id:140, chapter:'ch8', question:'Autoimmune response in genetically susceptible people causing CNS demyelination. Which?', options:['Multiple sclerosis','GBS','ALS','Myasthenia only'], correct:0, explanation:'Autoimmune CNS demyelination = MS.'},
+  {id:141, chapter:'ch8', question:'91yo: ascending paralysis, areflexia, respiratory insufficiency, autonomic instability. Which?', options:['Guillain-Barré syndrome','Multiple sclerosis','Stroke','Parkinson disease'], correct:0, explanation:'Ascending flaccid paralysis = GBS.'},
+  {id:142, chapter:'ch8', question:'Myopia is classified as which vision disorder?', options:['Alteration in refraction','Cataract','Glaucoma','Retinopathy'], correct:0, explanation:'Myopia = refraction error.'},
+  {id:143, chapter:'ch8', question:'Traction, severe myopia, vitreous degeneration, trauma → retinal issue. Which?', options:['Rhegmatogenous retinal detachment','Cataract','Glaucoma','Conjunctivitis'], correct:0, explanation:'Tear-mediated detachment = rhegmatogenous.'},
 
-  // Ch6 Waves
-  {id:125, chapter:'ch6', question:'A wave has frequency 2 Hz and wavelength 3m. What is speed? v=fλ', options:['6 m/s','5 m/s','1.5 m/s','0.66 m/s'], correct:0, explanation:'2×3=6.'},
-  {id:126, chapter:'ch6', question:'Which list is correct order of EM spectrum low to high energy?', options:['Radio, microwave, infrared, visible, UV, X-ray, gamma','Gamma, X-ray, visible, radio','Visible, IR, UV, radio','Radio, visible, gamma'], correct:0, explanation:'Radio lowest energy longest λ, gamma highest.'},
-  {id:127, chapter:'ch6', question:'A straw in water looks bent. This is:', options:['Reflection','Refraction due to light changing speed in water','Diffraction','Absorption'], correct:1, explanation:'Refraction = bending due to speed change n=c/v.'},
-  {id:128, chapter:'ch6', question:'Sound cannot travel in space because:', options:['It needs a medium, space vacuum has no particles','It is too cold','Space has no gravity','Light blocks it'], correct:0, explanation:'Sound longitudinal mechanical wave needs medium.'},
-  {id:129, chapter:'ch6', question:'You double distance from a light bulb. Brightness becomes:', options:['1/4 due to inverse square law','2x','Same','1/2'], correct:0, explanation:'Inverse square: I ∝1/d².'},
-
-  // Ch7 Electricity
-  {id:130, chapter:'ch7', question:'Ohm\'s Law: 12V battery connected to 3Ω resistor. Current?', options:['4A','36A','0.25A','4V'], correct:0, explanation:'V=IR => I=V/R=12/3=4A.'},
-  {id:131, chapter:'ch7', question:'Old Christmas lights all go out if one bulb fails. What circuit?', options:['Series - one path','Parallel - multiple paths','Short circuit','Open circuit always'], correct:0, explanation:'Series one path fail all. Parallel independent.'},
-  {id:132, chapter:'ch7', question:'A generator works on principle of:', options:['Moving magnet induces current (Faraday induction)','Current makes magnetism','Static discharge','Chemical reaction only'], correct:0, explanation:'Generator: mechanical spin magnet → current. Motor opposite.'},
-
-  // Ch8 Rocks & Tectonics
-  {id:133, chapter:'ch8', question:'Which is a mineral vs rock?', options:['Quartz (SiO2) is mineral, granite is rock','Granite mineral, quartz rock','Both minerals','Both rocks'], correct:0, explanation:'Mineral definite composition/structure, rock aggregate.'},
-  {id:134, chapter:'ch8', question:'Granite vs basalt: intrusive vs extrusive?', options:['Granite intrusive slow cooled large crystals, basalt extrusive fast cooled small','Both intrusive','Both extrusive','Granite extrusive, basalt intrusive'], correct:0, explanation:'Intrusive slow = large, extrusive fast = small/glassy.'},
-  {id:135, chapter:'ch8', question:'Mid-ocean ridge forms at which plate boundary?', options:['Divergent - plates pull apart new crust forms','Convergent - plates collide','Transform - slide past','Stationary'], correct:0, explanation:'Divergent makes new oceanic crust. Convergent subduction/mountains. Transform earthquakes.'},
-  {id:136, chapter:'ch8', question:'San Andreas Fault is what boundary with earthquakes but no volcanoes?', options:['Transform','Divergent','Convergent','Hotspot'], correct:0, explanation:'Transform slide past → earthquakes no volcanoes.'},
-  {id:137, chapter:'ch8', question:'Law of superposition says:', options:['Younger rocks on top of older in undisturbed sequence','Older on top','All same age','Fossils determine superposition'], correct:0, explanation:'Superposition relative dating.'},
-  {id:138, chapter:'ch8', question:'Outer core is liquid iron nickel that creates Earth\'s:', options:['Magnetic field due to moving conductive fluid','Gravity','Atmosphere','Oceans'], correct:0, explanation:'Outer core liquid motion dynamo → magnet.'},
-
-  // Ch9 Weather & Systems
-  {id:139, chapter:'ch9', question:'Frost wedging breaking rocks is:', options:['Mechanical weathering - physical break no chemical change','Chemical weathering - changes composition','Erosion','Deposition'], correct:0, explanation:'Mechanical = physical break. Chemical = changes composition rust/acid.'},
-  {id:140, chapter:'ch9', question:'Which atmosphere layer is where weather occurs?', options:['Troposphere - 0-12km temp decreases with height','Stratosphere','Mesosphere','Thermosphere'], correct:0, explanation:'Troposphere weather. Stratosphere ozone. Mesosphere meteors.'},
-  {id:141, chapter:'ch9', question:'In water cycle, water vapor → liquid clouds is:', options:['Condensation','Evaporation','Precipitation','Infiltration'], correct:0, explanation:'Evap liquid→vapor, Condensation vapor→liquid, Precip rain/snow.'},
-  {id:142, chapter:'ch9', question:'High pressure system brings:', options:['Clear skies, sinking cold air, clockwise flow NH','Cloudy stormy weather','Always snow','Hurricanes'], correct:0, explanation:'High = sinking clear clockwise NH. Low = rising cloudy counter-clockwise.'},
-  {id:143, chapter:'ch9', question:'Greenhouse gases like CO2 trap:', options:['Outgoing infrared heat radiated from Earth, keeping it warm','Incoming visible light','Oxygen','Only UV'], correct:0, explanation:'Greenhouse traps IR heat → habitable. Enhanced = warming.'},
-
-  // Ch10 Astronomy
-  {id:144, chapter:'ch10', question:'Why do we have seasons? WGU loves this.', options:['23.5° axial tilt causes direct vs indirect sun, not distance from sun','Distance from sun varies greatly','Moon blocks sun','Earth tilt is 90°'], correct:0, explanation:'Tilt not distance! Summer hemisphere tilted toward sun longer days direct rays.'},
-  {id:145, chapter:'ch10', question:'A solar eclipse occurs when:', options:['Moon blocks sun to Earth during new moon','Earth blocks sun to moon during full moon','Sun blocks moon','It is always lunar'], correct:0, explanation:'Solar: Moon new → blocks sun to Earth. Lunar: Earth full → blocks sun to moon.'},
-  {id:146, chapter:'ch10', question:'Planet farthest from sun has longest orbital period due to:', options:['Kepler\'s 3rd law P² ∝ a³','Kepler\'s 1st law','Kepler\'s 2nd law','Newton\'s 1st law'], correct:0, explanation:'3rd = farther = longer period.'},
-  {id:147, chapter:'ch10', question:'Sun is currently main sequence. Next stage?', options:['Red giant then white dwarf','Supernova then black hole','Goes directly to neutron star','Stays main sequence forever'], correct:0, explanation:'Low mass star like sun: main → red giant → white dwarf. Massive → supernova neutron star/black hole.'},
-  {id:148, chapter:'ch10', question:'Big Bang evidence redshift means:', options:['Galaxies moving away, light stretched to longer red wavelengths, universe expanding','Galaxies moving toward us','Universe contracting','Light has no Doppler'], correct:0, explanation:'Redshift Doppler expanding. Blueshift approaching. Hubble law.'},
-
-  // Mixed high-yield WGU
-  {id:149, chapter:'all', question:'Which shows chemical change?', options:['Food digesting, rusting, cooking egg','Ice melting','Water boiling','Crushing can'], correct:0, explanation:'Chemical = new substances: rust, digestion, cooking. Physical = same substance.'},
-  {id:150, chapter:'all', question:'A student says Earth is flat because it looks flat. Weakness?', options:['Observation limited, needs more evidence/models from space measurements','Flat is theory','It is law','Science is opinion'], correct:0, explanation:'Science needs multiple lines evidence, not just casual observation.'},
-
-  // New vs-comparison exams for split flashcards
-  {id:151, chapter:'ch2', question:'WGU C165: What is the key difference between an ion and an isotope?', options:['Ion = different electrons (charged), Isotope = different neutrons (different mass, neutral)','Ion = different neutrons, Isotope = different electrons','Both are same with different protons','Ion is always radioactive, isotope never'], correct:0, explanation:'Ion electron change = charge. Isotope neutron change = mass difference, same element. Classic WGU confusion.'},
-  {id:152, chapter:'ch1', question:'Trick: A well-tested explanation of WHY vs description of WHAT?', options:['Theory = WHY explanation, Law = WHAT happens description (math)','Theory = WHAT, Law = WHY','Both are guesses','Law becomes theory after 10 years'], correct:0, explanation:'Theory explains why, law describes what. Theories don\'t become laws.'},
-  {id:153, chapter:'ch1', question:'Independent vs Dependent: You change light hours, measure plant height. Which is which?', options:['Independent = light hours (you change, X-axis), Dependent = height (you measure, Y-axis)','Independent = height, Dependent = light','Both independent','Both dependent'], correct:0, explanation:'Independent you change, dependent you measure.'},
-  {id:154, chapter:'ch1', question:'Accuracy vs Precision: Darts clustered far from bullseye are:', options:['Precise but not accurate','Accurate but not precise','Both accurate and precise','Neither'], correct:0, explanation:'Clustered = precise, far from true = not accurate.'},
-  {id:155, chapter:'ch2', question:'Metals vs Nonmetals: Which is true?', options:['Metals left side shiny conductive lose electrons, Nonmetals right side dull insulator gain electrons','Metals right side dull, Nonmetals left shiny','Both are good conductors','Both gain electrons'], correct:0, explanation:'Metals left shiny conductive malleable lose e- cations. Nonmetals right opposite.'},
-  {id:156, chapter:'ch4', question:'Speed vs Velocity: Car goes 60 mph north. What is velocity?', options:['Speed 60 mph scalar, Velocity 60 mph north vector (with direction)','Same thing','Speed has direction, velocity no direction','Velocity always negative'], correct:0, explanation:'Speed scalar no direction, velocity vector direction matters.'},
-  {id:157, chapter:'ch5', question:'Kinetic vs Potential: Book on high shelf has:', options:['Potential energy mgh stored due to position, converts to kinetic when falls','Kinetic energy only','No energy','Only thermal'], correct:0, explanation:'PE = stored position (mgh). KE = motion ½mv².'},
-  {id:158, chapter:'ch7', question:'Series vs Parallel: House lights stay on if one bulb burns out - which circuit and why?', options:['Parallel - multiple paths, voltage same, one fails others stay; Series one path fails all','Series - parallel fails all','Both series','Neither'], correct:0, explanation:'Parallel independent paths. Series one path fail all.'},
-  {id:159, chapter:'ch8', question:'Mineral vs Rock: Which is true?', options:['Mineral inorganic definite crystal composition (quartz SiO2), Rock aggregate of minerals (granite)','Mineral aggregate, Rock single crystal','Both same','Rock is always single mineral only'], correct:0, explanation:'Mineral definite, rock aggregate.'},
-  {id:160, chapter:'ch9', question:'Weathering vs Erosion: Frost wedging cracks rock in place, river carries away pieces. Which is which?', options:['Weathering breaks in place, Erosion transports away','Weathering transports, Erosion breaks','Both same','Erosion only chemical'], correct:0, explanation:'Weathering breaks in place mechanical/chemical. Erosion transports water wind ice gravity.'},
-  {id:161, chapter:'ch9', question:'Weather vs Climate: “Today 70°F rainy” vs “Seattle has rainy climate” – difference?', options:['Weather day-to-day short term, Climate 30+ year average long term','Same','Weather long term, Climate day-to-day','Climate always hot'], correct:0, explanation:'Weather short term, climate long term average.'},
-  {id:162, chapter:'ch3', question:'Exothermic vs Endothermic: Ice pack gets cold, hand warmer gets hot. Which?', options:['Ice pack endothermic absorbs heat feels cold, hand warmer exothermic releases feels hot','Both exothermic','Both endothermic','Ice pack exothermic'], correct:0, explanation:'Exo releases hot, Endo absorbs cold.'},
+  // Mixed high-yield D236
+  {id:144, chapter:'all', question:'Which condition is caused by premature destruction of erythrocytes?', options:['Hemolytic anemia','Aplastic anemia','Iron deficiency only','Thalassemia only'], correct:0, explanation:'Premature RBC destruction = hemolytic anemia.'},
+  {id:145, chapter:'all', question:'Which complications are associated with atherosclerosis?', options:['Thrombosis, tissue infarction, myocardial ischemia, stroke','Only hypertension','Only bradycardia','No complications'], correct:0, explanation:'Plaque → thrombosis, infarction, ischemia, stroke.'},
+  {id:146, chapter:'all', question:'Hematoma in frontal/temporal lobes or deep white matter. Which type?', options:['Intracerebral hematoma','Epidural hematoma','Subdural only','Subarachnoid only'], correct:0, explanation:'Frontal/temporal/deep white matter = intracerebral.'},
+  {id:147, chapter:'all', question:'Third-degree muscle strain is characterized by what?', options:['Muscle rupture, fascia tearing, bleeding','Mild stretch only','Bruise only','Tendonitis'], correct:0, explanation:'Grade III = rupture + fascia tear + bleed.'},
+  {id:148, chapter:'all', question:'Gonorrhea complications include which?', options:['Disseminated gonococcal infection and pelvic inflammatory disease','Only pharyngitis','Only conjunctivitis','No complications'], correct:0, explanation:'DGI + PID are classic gonorrhea complications.'},
+  {id:149, chapter:'all', question:'Reduced arterial blood oxygenation from pulmonary dysfunction is which?', options:['Hypoxemia','Hyperoxia','Alkalosis','Polycythemia only'], correct:0, explanation:'Low arterial O2 = hypoxemia; with cyanosis from lungs = central cyanosis.'},
+  {id:150, chapter:'all', question:'Involuntary muscle spasm with attempted penetration. Which?', options:['Vaginismus','Dysmenorrhea','Endometriosis','Vulvitis'], correct:0, explanation:'Involuntary spasm = vaginismus.'},
 ];
 
 let state={
@@ -534,12 +502,12 @@ let state={
   known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, 
   examOrder:[], examIdx:0, lastExamId:null,
   missedOnly:false,
-  theme: localStorage.getItem('wgu165_theme')||'dark'
+  theme: localStorage.getItem('wgu236_theme')||'dark'
 };
 
-function save(){ localStorage.setItem('wgu165_known', JSON.stringify([...state.known])); }
+function save(){ localStorage.setItem('wgu236_known', JSON.stringify([...state.known])); }
 function load(){
-  try{ state.known=new Set(JSON.parse(localStorage.getItem('wgu165_known')||'[]')); }catch{ state.known=new Set()}
+  try{ state.known=new Set(JSON.parse(localStorage.getItem('wgu236_known')||'[]')); }catch{ state.known=new Set()}
 }
 
 function getFiltered(){
@@ -957,7 +925,7 @@ document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click', ()
 document.getElementById('themeBtn').addEventListener('click', ()=>{
   state.theme = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
   document.body.setAttribute('data-theme', state.theme);
-  localStorage.setItem('wgu165_theme', state.theme);
+  localStorage.setItem('wgu236_theme', state.theme);
   document.getElementById('themeBtn').textContent = state.theme==='dark'?'☀️':'🌙';
 });
 document.addEventListener('keydown', e=>{
