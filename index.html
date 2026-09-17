@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>WGU D236 Flashcards - Pathophysiology OA | Verified Q&A for an A Grade</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
@@ -247,6 +250,7 @@
       <h4>Study Mode</h4>
       <button class="mode-btn active" data-mode="study"><span>📚</span> Flashcards</button>
       <button class="mode-btn" data-mode="quiz"><span>🧠</span> Exam Quiz</button>
+      <button class="mode-btn" data-mode="quiz2"><span>🔁</span> Exam Quiz 2</button>
       <button class="mode-btn" data-mode="flashquiz"><span>📝</span> Flashcard Quiz</button>
       <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
     </div>
@@ -497,10 +501,73 @@ const examQuestions = [
   {id:150, chapter:'all', question:'Involuntary muscle spasm with attempted penetration. Which?', options:['Dyspareunia','Vulvodynia','Endometriosis','Vaginismus'], correct:3, explanation:'Involuntary pelvic floor spasm = vaginismus.'},
 ];
 
+// --- EXAM QUIZ 2 (Form B: alternate OA-style vignettes, same domains) ---
+const examQuestions2 = [
+  {id:201, chapter:'ch1', question:'A scald burn is red and painful with blisters, heals within 3 weeks with no scarring. What depth?', options:['First-degree','Second-degree superficial partial-thickness','Third-degree full-thickness','Fourth-degree'], correct:1, explanation:'Blisters that heal without grafting = superficial partial-thickness (second-degree).'},
+  {id:202, chapter:'ch1', question:'Day 1 after major burns: hypotension, tachycardia, low urine output. Which shock is developing?', options:['Hypovolemic (burn) shock','Cardiogenic shock','Neurogenic shock','Obstructive shock'], correct:0, explanation:'Plasma leak on day 1 = hypovolemic burn shock (septic shock comes days later).'},
+  {id:203, chapter:'ch1', question:'A weightlifter feels a pop with complete muscle rupture, fascia tear, and bleeding. What grade of strain?', options:['Grade I','Grade II','Grade III','Tendinopathy'], correct:2, explanation:'Complete rupture plus fascia tear plus bleed = grade III.'},
+  {id:204, chapter:'ch1', question:'Forearm fracture with severe pain on passive stretch, paresthesia, and pallor. Earliest concern?', options:['Cellulitis','Fat embolism syndrome','Acute compartment syndrome','Deep vein thrombosis'], correct:2, explanation:'Pain with passive stretch plus paresthesia = compartment syndrome until proven otherwise.'},
+  {id:205, chapter:'ch1', question:'An ankle rolls inward tearing ligaments, with swelling but no fracture. What injury?', options:['Strain','Sprain','Tendinopathy','Compartment syndrome'], correct:1, explanation:'Ligament tear = sprain (muscle-tendon = strain).'},
+  {id:206, chapter:'ch1', question:'Which is NOT a cardinal sign of inflammation?', options:['Edema','Rubor','Pallor','Dolor'], correct:2, explanation:'Cardinal signs: rubor, calor, tumor (edema), dolor, functio laesa — pallor is not one.'},
+
+  {id:207, chapter:'ch2', question:'Albumin 2.0 with generalized edema. What mechanism causes the swelling?', options:['Decreased oncotic pressure','Increased hydrostatic pressure','Lymphatic obstruction','Increased capillary permeability'], correct:0, explanation:'Low albumin lowers oncotic pull, so fluid stays interstitial.'},
+  {id:208, chapter:'ch2', question:'DKA with Kussmaul breathing, pH 7.28, HCO3 14. Which disorder?', options:['Respiratory acidosis','Metabolic alkalosis','Respiratory alkalosis','Metabolic acidosis with respiratory compensation'], correct:3, explanation:'Low pH plus low HCO3 = metabolic acidosis; Kussmaul blows off CO2 to compensate.'},
+  {id:209, chapter:'ch2', question:'Na 128 with headache, confusion, and nausea. Which imbalance?', options:['Hypernatremia','Hypocalcemia','Hyponatremia','Hyperkalemia'], correct:2, explanation:'Na below 135 with neuro symptoms = hyponatremia.'},
+  {id:210, chapter:'ch2', question:'Which ABG set shows respiratory alkalosis?', options:['pH 7.30, CO2 55, HCO3 24','pH 7.52, CO2 28, HCO3 22','pH 7.50, CO2 45, HCO3 30','pH 7.32, CO2 30, HCO3 16'], correct:1, explanation:'High pH plus low CO2 = respiratory alkalosis (blown-off CO2).'},
+  {id:211, chapter:'ch2', question:'In CHF the RAAS activates and retains volume. Which hormone directly retains sodium?', options:['BNP','Aldosterone','ANP','Calcitonin'], correct:1, explanation:'Aldosterone retains Na and water; BNP does the opposite (excretes volume).'},
+  {id:212, chapter:'ch2', question:'Panic attack with hyperventilation, perioral tingling, carpal spasm. What mechanism?', options:['Metabolic acidosis','Hypoglycemia','Respiratory alkalosis with decreased ionized calcium','Hyperkalemia'], correct:2, explanation:'Blown-off CO2 raises pH, dropping ionized Ca → tingling and spasm.'},
+  {id:213, chapter:'ch2', question:'Prolonged NG suction removes acidic stomach fluid. Expected ABG change?', options:['Respiratory acidosis','Metabolic acidosis','Respiratory alkalosis','Metabolic alkalosis'], correct:3, explanation:'Losing HCl raises pH via HCO3 retention = metabolic alkalosis.'},
+
+  {id:214, chapter:'ch3', question:'Tall male with gynecomastia, small firm testes, and infertility. Expected karyotype?', options:['45,X','47,XXY','47,XYY','46,XX'], correct:1, explanation:'XXY with hypogonadism = Klinefelter.'},
+  {id:215, chapter:'ch3', question:'Newborn with trisomy 21. Which screening is priority before discharge?', options:['Renal ultrasound','Brain MRI','Echocardiogram','Bone age X-ray'], correct:2, explanation:'Congenital heart defects are the top survival risk, so echo first.'},
+  {id:216, chapter:'ch3', question:'Maternal folate deficiency in early pregnancy raises risk of which defect?', options:['Down syndrome','Fetal alcohol syndrome','Spina bifida','Turner syndrome'], correct:2, explanation:'Folate prevents neural tube defects like spina bifida.'},
+
+  {id:217, chapter:'ch4', question:'Butterfly rash, photosensitivity, and positive ANA in a young woman. Which disease?', options:['Rosacea','Dermatomyositis','Psoriasis','Systemic lupus erythematosus'], correct:3, explanation:'Malar rash plus photosensitivity plus ANA = SLE.'},
+  {id:218, chapter:'ch4', question:'RNA virus that uses reverse transcriptase to make DNA from RNA. Which virus?', options:['Influenza','Rhinovirus','HIV','Poliovirus'], correct:2, explanation:'Reverse transcriptase plus RNA capsid = HIV retrovirus.'},
+  {id:219, chapter:'ch4', question:'Shelter resident with night sweats, weight loss, and cavitary lung lesion. Likely?', options:['Pneumococcal pneumonia','Asthma','Tuberculosis','Sarcoidosis'], correct:2, explanation:'Crowded setting plus cavitary lesion plus night sweats = TB.'},
+  {id:220, chapter:'ch4', question:'After starting a cephalosporin: falling hemoglobin, jaundice, dark urine. Which anemia?', options:['Aplastic anemia','Iron deficiency anemia','Blood-loss anemia','Hemolytic anemia'], correct:3, explanation:'Drug-triggered RBC destruction with jaundice = hemolytic anemia.'},
+
+  {id:221, chapter:'ch5', question:'Calf DVT dislodges and blocks a pulmonary artery. What is this event?', options:['Atherosclerosis','Aneurysm','Pulmonary embolism','Hypertension'], correct:2, explanation:'Traveling clot lodging in lungs = pulmonary embolism.'},
+  {id:222, chapter:'ch5', question:'Leg pain with walking that eases with rest plus weak pedal pulses. Underlying cause?', options:['Embolism','Atherosclerosis','Vasculitis','Fibromuscular dysplasia'], correct:1, explanation:'Exertional claudication plus weak pulses = atherosclerotic peripheral artery disease.'},
+  {id:223, chapter:'ch5', question:'Pulsatile abdominal mass found on routine exam, no rupture. Likely?', options:['Aortic dissection','Renal colic','Abdominal aortic aneurysm','Mesenteric ischemia'], correct:2, explanation:'Pulsatile mass = AAA (weakened wall bulge).'},
+  {id:224, chapter:'ch5', question:'BP 195/125 with papilledema and rising creatinine. Which type?', options:['Essential hypertension','White-coat hypertension','Malignant hypertension','Orthostatic hypotension'], correct:2, explanation:'Severe HTN with acute organ injury = malignant hypertension.'},
+  {id:225, chapter:'ch5', question:'Chest pressure with exertion, relieved by rest and nitrates, normal enzymes. Which?', options:['Myocardial infarction','Stable angina','Pericarditis','Esophageal spasm'], correct:1, explanation:'Exertional, rest-relieved, no enzyme rise = stable angina.'},
+  {id:226, chapter:'ch5', question:'Fever, new murmur, Osler nodes, vegetations on echo. Which disease?', options:['Myocarditis','Pericarditis','Endocarditis','Takotsubo cardiomyopathy'], correct:2, explanation:'Vegetations plus embolic nodes plus murmur = endocarditis.'},
+  {id:227, chapter:'ch5', question:'Fatigue, pallor, spoon nails, and craving ice. Which anemia?', options:['B12 deficiency','Iron deficiency anemia','Aplastic anemia','Hemolytic anemia'], correct:1, explanation:'Koilonychia plus pica = iron deficiency.'},
+  {id:228, chapter:'ch5', question:'Jaundice, splenomegaly, and spherocytes after RBC destruction. Which anemia?', options:['Aplastic anemia','Iron deficiency anemia','Anemia of chronic disease','Hemolytic anemia'], correct:3, explanation:'Destruction plus jaundice plus spleen involvement = hemolytic.'},
+
+  {id:229, chapter:'ch6', question:'Barrel chest with pursed-lip breathing and air trapping. Which COPD type?', options:['Asthma','Chronic bronchitis','Emphysema','Pulmonary fibrosis'], correct:2, explanation:'Air trapping plus barrel chest = emphysema (pink puffer).'},
+  {id:230, chapter:'ch6', question:'Productive cough most days for 3 months in 2 consecutive years. Definition of?', options:['Chronic bronchitis','Emphysema','Asthma','Bronchiectasis'], correct:0, explanation:'That exact timeframe defines chronic bronchitis (blue bloater).'},
+  {id:231, chapter:'ch6', question:'COPD exacerbation with retained CO2 and pH 7.31. Which imbalance?', options:['Respiratory alkalosis','Metabolic acidosis','Respiratory acidosis','Metabolic alkalosis'], correct:2, explanation:'High CO2 plus low pH = respiratory acidosis.'},
+  {id:232, chapter:'ch6', question:'COPD patient develops JVD, liver enlargement, and leg edema. Which complication?', options:['Left-sided heart failure','Constrictive pericarditis','Mitral stenosis','Cor pulmonale'], correct:3, explanation:'Lung disease causing right-heart failure = cor pulmonale.'},
+
+  {id:233, chapter:'ch7', question:'After hemorrhage: rising creatinine with oliguria that improves with fluids. Which AKI type?', options:['Intrinsic renal failure','Postrenal obstruction','Prerenal acute kidney injury','Chronic kidney disease'], correct:2, explanation:'Volume-responsive azotemia = prerenal AKI.'},
+  {id:234, chapter:'ch7', question:'58yo with epigastric pain that worsens with meals. More likely?', options:['Duodenal ulcer','GERD','Gastric ulcer','Pancreatitis'], correct:2, explanation:'Food-worsened ulcer pain = gastric (duodenal improves with food).'},
+  {id:235, chapter:'ch7', question:'Diabetic with neuropathy, constant dribbling, and large residual volume. Which incontinence?', options:['Stress','Urge','Functional','Overflow'], correct:3, explanation:'Retention with dribbling = overflow from autonomic bladder.'},
+  {id:236, chapter:'ch7', question:'Pruritus, dark urine, and clay stools with blocked bile flow in the liver. Which jaundice?', options:['Hemolytic jaundice','Gilbert syndrome','Intrahepatic obstructive jaundice','Hepatocellular failure'], correct:2, explanation:'Blocked bile plus pale stools plus itch = obstructive (intrahepatic) jaundice.'},
+
+  {id:237, chapter:'ch8', question:'Hypotension, hyponatremia, hyperkalemia, and skin hyperpigmentation. Which?', options:['Cushing syndrome','SIADH','Addison disease','Primary hyperaldosteronism'], correct:2, explanation:'Low cortisol plus low aldo plus ACTH-driven pigment = Addison.'},
+  {id:238, chapter:'ch8', question:'Polyuria, polydipsia, weight loss, fruity breath with ketones. Which diabetes?', options:['Type 2 diabetes','Diabetes insipidus','Type 1 diabetes','Psychogenic polydipsia'], correct:2, explanation:'Ketosis-prone, lean, abrupt onset = type 1.'},
+  {id:239, chapter:'ch8', question:'Ascending flaccid weakness 2 weeks after a diarrheal illness. Which disease?', options:['Transverse myelitis','Tick paralysis','Guillain-Barre syndrome','Multiple sclerosis'], correct:2, explanation:'Post-infectious ascending flaccid paralysis = Guillain-Barre syndrome.'},
+  {id:240, chapter:'ch8', question:'Resting tremor, rigidity, and bradykinesia in an older adult. Which disorder?', options:['Essential tremor','Huntington disease','Parkinson disease','Wilson disease'], correct:2, explanation:'Resting tremor plus rigidity plus slow movement = Parkinson disease.'},
+  {id:241, chapter:'ch8', question:'Painless, gradual vision loss with a cloudy lens in an older adult. Which?', options:['Cataract','Glaucoma','Macular degeneration','Diabetic retinopathy'], correct:0, explanation:'Cloudy lens = cataract.'},
+  {id:242, chapter:'ch8', question:'Lower abdominal pain, fever, cervical motion tenderness, RUQ pain (Fitz-Hugh-Curtis). Which?', options:['Appendicitis','Cholecystitis','Pelvic inflammatory disease','Ectopic pregnancy'], correct:2, explanation:'PID with perihepatitis (Fitz-Hugh-Curtis) follows gonorrhea or chlamydia.'},
+  {id:243, chapter:'ch8', question:'Most common sexually transmitted infection in the US overall?', options:['Chlamydia','Gonorrhea','HPV','Syphilis'], correct:2, explanation:'HPV is most common overall; chlamydia is the most common reportable bacterial STI.'},
+
+  {id:244, chapter:'all', question:'ABG: pH 7.30, CO2 60, HCO3 26. Which imbalance?', options:['Metabolic acidosis','Respiratory alkalosis','Metabolic alkalosis','Respiratory acidosis'], correct:3, explanation:'Low pH with high CO2 = respiratory acidosis.'},
+  {id:245, chapter:'all', question:'Deep rapid Kussmaul respirations compensate for which primary disorder?', options:['Metabolic alkalosis','Respiratory acidosis','Respiratory alkalosis','Metabolic acidosis'], correct:3, explanation:'Kussmaul blows off CO2 to offset metabolic acidosis.'},
+  {id:246, chapter:'all', question:'Stationary clot in deep leg veins with swelling but no travel yet. What is it?', options:['Embolism','Aneurysm','Thrombosis (DVT)','Vasculitis'], correct:2, explanation:'Fixed clot at formation site = thrombosis; it becomes an embolism if it travels.'},
+  {id:247, chapter:'all', question:'Warm, red, tender cord along a surface vein after IV removal. Which?', options:['Cellulitis','Deep vein thrombosis','Lymphedema','Superficial thrombophlebitis'], correct:3, explanation:'Palpable tender cord along a vein = superficial thrombophlebitis.'},
+  {id:248, chapter:'all', question:'Nosebleeds, gum bleeding, and petechiae with low platelets. Which cause?', options:['Hemophilia A','von Willebrand disease','Thrombocytopenia','Vitamin K deficiency'], correct:2, explanation:'Mucosal bleeding plus low platelet count = thrombocytopenia.'},
+  {id:249, chapter:'all', question:'Episodic wheezing with reversible airflow obstruction. Which condition?', options:['COPD with emphysema','Pneumonia','Asthma','Pulmonary edema'], correct:2, explanation:'Reversible obstruction = asthma (COPD is fixed).'},
+  {id:250, chapter:'all', question:'Anemia with sore tongue, numb feet, and no response to iron. Which deficiency?', options:['Iron deficiency','Folate deficiency','Vitamin B12 deficiency','Anemia of chronic disease'], correct:2, explanation:'Neuro symptoms plus no iron response = B12 deficiency (folate lacks cord involvement).'},
+];
+
 let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
-  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null, 
+  known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null,
   examOrder:[], examIdx:0, lastExamId:null,
+  examOrder2:[], examIdx2:0, lastExamId2:null,
   missedOnly:false,
   theme: localStorage.getItem('wgu236_theme')||'dark'
 };
@@ -539,33 +606,57 @@ function getFilteredExam(){
   return arr;
 }
 function rebuild(){
-  const f=getFiltered(); 
+  const f=getFiltered();
   state.order=f.map(c=>c.id);
   // default shuffle on
-  for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
+  shuffleArr(state.order);
   if(state.idx>=state.order.length) state.idx=0;
   const ef=getFilteredExam();
   state.examOrder=ef.map(c=>c.id);
-  for(let i=state.examOrder.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.examOrder[i],state.examOrder[j]]=[state.examOrder[j],state.examOrder[i]]; }
+  shuffleArr(state.examOrder);
   if(state.examIdx>=state.examOrder.length) state.examIdx=0;
+  const ef2=getFilteredExam2();
+  state.examOrder2=ef2.map(c=>c.id);
+  shuffleArr(state.examOrder2);
+  if(state.examIdx2>=state.examOrder2.length) state.examIdx2=0;
   state.quizAnswered=false;
   state.lastQuizId=null;
   state.lastExamId=null;
+  state.lastExamId2=null;
   state.flipped=false;
   render();
 }
 function shuffle(){
   if(state.mode==='quiz'){
-    for(let i=state.examOrder.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.examOrder[i],state.examOrder[j]]=[state.examOrder[j],state.examOrder[i]]; }
+    shuffleArr(state.examOrder);
     state.examIdx=0;
+  }else if(state.mode==='quiz2'){
+    shuffleArr(state.examOrder2);
+    state.examIdx2=0;
   }else{
-    for(let i=state.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.order[i],state.order[j]]=[state.order[j],state.order[i]]; }
+    shuffleArr(state.order);
     state.idx=0;
   }
-  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render();
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
 function current(){ return state.order.length? flashcards.find(c=>c.id===state.order[state.idx]) : null; }
 function currentExam(){ return state.examOrder.length? examQuestions.find(q=>q.id===state.examOrder[state.examIdx]) : null; }
+function currentExam2(){ return state.examOrder2.length? examQuestions2.find(q=>q.id===state.examOrder2[state.examIdx2]) : null; }
+function getFilteredExam2(){
+  let arr=examQuestions2;
+  if(state.chapter!=='all'){
+    arr=arr.filter(q=>q.chapter===state.chapter);
+  }
+  if(state.missedOnly) arr=arr.filter(q=>!state.known.has(q.id));
+  if(state.search.trim()){
+    const tokens = state.search.toLowerCase().trim().split(/\s+/).filter(t=>t);
+    arr=arr.filter(q=>{
+      const hay = (q.question + ' ' + q.options.join(' ') + ' ' + q.explanation).toLowerCase();
+      return tokens.every(t=>hay.includes(t));
+    });
+  }
+  return arr;
+}
 
 function renderChapters(){
   const sel=document.getElementById('chapterSelect');
@@ -573,7 +664,7 @@ function renderChapters(){
   sel.innerHTML='';
   chapters.forEach(ch=>{
     const count = ch.id==='all'? flashcards.length : flashcards.filter(f=>f.chapter===ch.id).length;
-    const examCount = ch.id==='all'? examQuestions.length : examQuestions.filter(q=>q.chapter===ch.id).length;
+    const examCount = ch.id==='all'? (examQuestions.length+examQuestions2.length) : (examQuestions.filter(q=>q.chapter===ch.id).length+examQuestions2.filter(q=>q.chapter===ch.id).length);
     const opt=document.createElement('option');
     opt.value=ch.id;
     opt.textContent=`${ch.emoji} ${ch.name} — ${count} cards / ${examCount} quiz`;
@@ -582,7 +673,7 @@ function renderChapters(){
   });
   const lbl=document.getElementById('chapterCountLabel');
   if(lbl){
-    const filtered = state.mode==='quiz'? getFilteredExam() : getFiltered();
+    const filtered = state.mode==='quiz'? getFilteredExam() : state.mode==='quiz2'? getFilteredExam2() : getFiltered();
     lbl.textContent=`${filtered.length} items`;
   }
 }
@@ -590,6 +681,10 @@ function renderStats(){
   let filtered, known, pct;
   if(state.mode==='quiz'){
     filtered=getFilteredExam();
+    known=filtered.filter(c=>state.known.has(c.id)).length;
+    pct=filtered.length? Math.round(known/filtered.length*100):0;
+  }else if(state.mode==='quiz2'){
+    filtered=getFilteredExam2();
     known=filtered.filter(c=>state.known.has(c.id)).length;
     pct=filtered.length? Math.round(known/filtered.length*100):0;
   }else{
@@ -611,8 +706,10 @@ function renderStats(){
     if(state.missedOnly){
       const actualMissed = (state.mode==='quiz'? getFilteredExam().length : getFiltered().length);
       // getFiltered already respects missedOnly, so to get true left we need unfiltered left
-      let allFiltered = state.mode==='quiz' 
-        ? examQuestions.filter(q=> state.chapter==='all' || q.chapter===state.chapter) 
+      let allFiltered = state.mode==='quiz'
+        ? examQuestions.filter(q=> state.chapter==='all' || q.chapter===state.chapter)
+        : state.mode==='quiz2'
+        ? examQuestions2.filter(q=> state.chapter==='all' || q.chapter===state.chapter)
         : flashcards.filter(c=> state.chapter==='all' || c.chapter===state.chapter);
       const left = allFiltered.filter(c=>!state.known.has(c.id)).length;
       missedBtn.textContent = `🎯 Missed Only: ON (${left} left)`;
@@ -625,28 +722,32 @@ function renderStats(){
 function renderCard(){
   const quizBox=document.getElementById('quizOptions');
   
-  // EXAM QUIZ MODE uses examQuestions (OA-like)
-  if(state.mode==='quiz'){
-    const eq = currentExam();
+  // EXAM QUIZ MODES use examQuestions (Quiz 1) or examQuestions2 (Quiz 2)
+  if(state.mode==='quiz' || state.mode==='quiz2'){
+    const isQ2 = state.mode==='quiz2';
+    const eq = isQ2 ? currentExam2() : currentExam();
+    const lastKey = isQ2 ? 'lastExamId2' : 'lastExamId';
     if(!eq){
-      document.getElementById('cardTerm').textContent='No exam questions for this filter – try Whole Book';
+      document.getElementById('cardTerm').textContent='No exam questions for this filter – try Whole OA';
       document.getElementById('cardDef').textContent='Switch to Study mode to see flashcards.';
       document.getElementById('cardChapter').textContent='—';
       document.getElementById('cardCount').textContent='0 / 0';
       quizBox.style.display='none';
       return;
     }
+    const exIdx = isQ2 ? state.examIdx2 : state.examIdx;
+    const exLen = isQ2 ? state.examOrder2.length : state.examOrder.length;
     const ch=chapters.find(c=>c.id===eq.chapter);
     document.getElementById('cardChapter').textContent=ch? `${ch.emoji} ${ch.name}`:eq.chapter;
     document.getElementById('cardChapter').className='badge'+(ch?.id==='all'?' all':'');
-    document.getElementById('cardCount').textContent=`${state.examIdx+1} / ${state.examOrder.length} • Exam Mode`;
+    document.getElementById('cardCount').textContent=`${exIdx+1} / ${exLen} • ${isQ2?'Exam 2 Mode':'Exam Mode'}`;
     document.getElementById('cardTerm').textContent=eq.question;
-    document.getElementById('cardTermSmall').textContent='Question '+(state.examIdx+1);
+    document.getElementById('cardTermSmall').textContent='Question '+(exIdx+1);
     document.getElementById('cardDef').innerHTML=`<div style="font-size:0.95rem"><b>Explanation:</b> ${eq.explanation}</div>`;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
     quizBox.style.display='grid';
-    if(state.lastExamId !== eq.id){
-      genQuizExam(eq);
+    if(state[lastKey] !== eq.id){
+      genQuizExam(eq, lastKey);
     }
     return;
   }
@@ -698,11 +799,11 @@ function renderCard(){
   quizBox.style.display='none';
 }
 function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-function genQuizExam(eq){
+function genQuizExam(eq, lastKey){
   const quizBox=document.getElementById('quizOptions');
-  quizBox.innerHTML=''; 
+  quizBox.innerHTML='';
   state.quizAnswered=false;
-  state.lastExamId=eq.id;
+  state[lastKey||'lastExamId']=eq.id;
   state.lastQuizId=eq.id;
   state.flipped=false;
   document.getElementById('flashCard').classList.remove('flipped');
@@ -860,28 +961,34 @@ function render(){
     document.getElementById('listArea').style.display='none';
   }
 }
-function next(){ 
+function next(){
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx+1)%state.examOrder.length;
+  }else if(state.mode==='quiz2'){
+    if(!state.examOrder2.length) return;
+    state.examIdx2=(state.examIdx2+1)%state.examOrder2.length;
   }else{
     if(!state.order.length) return;
     state.idx=(state.idx+1)%state.order.length;
   }
-  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render(); 
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
-function prev(){ 
+function prev(){
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx-1+state.examOrder.length)%state.examOrder.length;
+  }else if(state.mode==='quiz2'){
+    if(!state.examOrder2.length) return;
+    state.examIdx2=(state.examIdx2-1+state.examOrder2.length)%state.examOrder2.length;
   }else{
     if(!state.order.length) return;
     state.idx=(state.idx-1+state.order.length)%state.order.length;
   }
-  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; render(); 
+  state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
-function flip(){ 
-  if(state.mode==='quiz' && !state.quizAnswered){
+function flip(){
+  if((state.mode==='quiz'||state.mode==='quiz2') && !state.quizAnswered){
     state.flipped=!state.flipped;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
     return;
