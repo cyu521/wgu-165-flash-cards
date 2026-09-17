@@ -431,70 +431,70 @@ const flashcards = [
 // --- EXAM-STYLE QUESTIONS (D236 OA-like, from NY01 v2 + Megan/Shay + OA verified) ---
 const examQuestions = [
   // Injury, Burns & Inflammation
-  {id:101, chapter:'ch1', question:'A 35-year-old male has pain, edema, tissue ischemia, hypovolemia, acidosis, and tissue damage after a thermal injury. Which condition is this?', options:['Acute burn injury','First-degree burn only','Compartment syndrome','Contact dermatitis'], correct:0, explanation:'Systemic burn picture: pain + edema + ischemia + hypovolemia + acidosis = acute burn injury.'},
-  {id:102, chapter:'ch1', question:'A patient sustained severe burns in a vehicle fire. Which complications are expected?', options:['Hypovolemia, water loss, sepsis, electrolyte imbalance','Hypertension and bradycardia','Hyperthermia only','No systemic effects'], correct:0, explanation:'Large burns → plasma loss (hypovolemia), water loss, sepsis, electrolyte shifts.'},
-  {id:103, chapter:'ch1', question:'A burn from hot water affects the epidermis only. What degree?', options:['First-degree','Second-degree deep partial','Third-degree full thickness','Fourth-degree'], correct:0, explanation:'Epidermis only = first-degree (red, painful, no blisters).'},
-  {id:104, chapter:'ch1', question:'Bleeding from a forearm fracture causes rising pressure, pain, and ischemia. What is the condition?', options:['Acute compartment syndrome','Cellulitis','Strain','Osteoarthritis'], correct:0, explanation:'Fracture bleed into closed compartment → acute compartment syndrome.'},
-  {id:105, chapter:'ch1', question:'A basketball player jumped and hurt the calf muscle. The injury involves muscle/tendon. What is it?', options:['Strain','Sprain','Fracture','Dislocation'], correct:0, explanation:'Muscle/tendon = strain. Ligament = sprain.'},
-  {id:106, chapter:'ch1', question:'A puncture wound is invaded by bacteria. Which cell phagocytoses bacteria and damaged cells?', options:['Neutrophil','Erythrocyte','Thrombocyte','Osteoblast'], correct:0, explanation:'Neutrophils are first-responder phagocytes of innate immunity.'},
+  {id:101, chapter:'ch1', question:'A 35-year-old male has pain, edema, tissue ischemia, hypovolemia, acidosis, and tissue damage after a thermal injury. Which condition is this?', options:['Second-degree partial-thickness burn','Acute compartment syndrome','Acute burn injury','Necrotizing fasciitis'], correct:2, explanation:'Systemic burn picture: pain + edema + ischemia + hypovolemia + acidosis = acute burn injury.'},
+  {id:102, chapter:'ch1', question:'A patient sustained severe burns in a vehicle fire. Which complications are expected?', options:['Hypervolemia, polycythemia, hypertension','Hypovolemia, water loss, sepsis, electrolyte imbalance','Hypoglycemia and hyperthermia only','Leukopenia with fluid retention'], correct:1, explanation:'Large burns → plasma loss (hypovolemia), water loss, sepsis, electrolyte shifts.'},
+  {id:103, chapter:'ch1', question:'A burn from hot water affects the epidermis only. What degree?', options:['Second-degree superficial partial-thickness','First-degree','Third-degree full-thickness','Fourth-degree'], correct:1, explanation:'Epidermis only = first-degree (red, painful, no blisters).'},
+  {id:104, chapter:'ch1', question:'Bleeding from a forearm fracture causes rising pressure, pain, and ischemia. What is the condition?', options:['Cellulitis','Acute compartment syndrome','Deep vein thrombosis','Peripheral neuropathy'], correct:1, explanation:'Fracture bleed into closed compartment → acute compartment syndrome.'},
+  {id:105, chapter:'ch1', question:'A basketball player jumped and hurt the calf muscle. The injury involves muscle/tendon. What is it?', options:['Sprain','Strain','Tendinopathy','Compartment syndrome'], correct:1, explanation:'Muscle/tendon = strain. Ligament = sprain; chronic overuse = tendinopathy.'},
+  {id:106, chapter:'ch1', question:'A puncture wound is invaded by bacteria. Which cell phagocytoses bacteria and damaged cells?', options:['Macrophage','Erythrocyte','Neutrophil','Thrombocyte'], correct:2, explanation:'Neutrophils are first-responder phagocytes of innate immunity (macrophages arrive later).'},
 
   // Fluids, Electrolytes & Acid-Base (Megan/Shay + OA verified)
-  {id:107, chapter:'ch2', question:'What is the primary determinant of oncotic pressure?', options:['Albumin','Sodium','Glucose','Hemoglobin'], correct:0, explanation:'Albumin exerts plasma oncotic pressure; low albumin → edema.'},
-  {id:108, chapter:'ch2', question:'Vomiting illness with pH 7.53, elevated CO2, slow breathing. What condition?', options:['Metabolic alkalosis with respiratory compensation','Metabolic acidosis','Respiratory acidosis','Normal ABGs'], correct:0, explanation:'pH and CO2 rise together = metabolic alkalosis; lungs retain CO2 to compensate.'},
-  {id:109, chapter:'ch2', question:'Which are normal values? (select the correct set)', options:['pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145','pH 7.55-7.65, CO2 55-65, HCO3 32-36, Na 155-165','pH 7.00-7.10, CO2 15-25, HCO3 10-14, Na 115-125','pH 7.45-7.55, CO2 45-55, HCO3 26-30, Na 145-155'], correct:0, explanation:'Memorize: pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145.'},
-  {id:110, chapter:'ch2', question:'What are two pulmonary causes of respiratory acidosis? (OA verified)', options:['Cystic fibrosis and hypoventilation','Hyperventilation and fever','Anemia and pain','Asthma recovery and exercise'], correct:0, explanation:'OA answer: cystic fibrosis and hypoventilation cause CO2 retention.'},
-  {id:111, chapter:'ch2', question:'CHF patient with fluid overload. Which elevated hormone shows the body trying to reduce volume?', options:['Brain natriuretic peptide (BNP)','Aldosterone','Renin','Cortisol'], correct:0, explanation:'BNP is released in fluid volume excess.'},
-  {id:112, chapter:'ch2', question:'Which can trigger respiratory alkalosis?', options:['Anxiety/panic hyperventilation, fever, early salicylate intoxication','Hypoventilation and CF','Renal failure','Hypothermia'], correct:0, explanation:'Hyperventilation blows off CO2 → alkalosis: anxiety, fever, salicylates, hypoxemia.'},
-  {id:113, chapter:'ch2', question:'Pulmonary edema leads to respiratory acidosis. Which BMP changes occur? (choose the trio)', options:['High CO2, low Na, high K+','Low CO2, high Na, low K+','High CO2, high Na, high Ca','Low CO2, low Na, low K+'], correct:0, explanation:'CO2 retained; Na diluted by hypervolemia; H+ into cells pushes K+ out.'},
+  {id:107, chapter:'ch2', question:'What is the primary determinant of oncotic pressure?', options:['Globulin','Albumin','Sodium','Fibrinogen'], correct:1, explanation:'Albumin exerts plasma oncotic pressure; low albumin → edema.'},
+  {id:108, chapter:'ch2', question:'Vomiting illness with pH 7.53, elevated CO2, slow breathing. What condition?', options:['Respiratory alkalosis with renal compensation','Metabolic acidosis with respiratory compensation','Metabolic alkalosis with respiratory compensation','Mixed respiratory acidosis and metabolic alkalosis'], correct:2, explanation:'pH and CO2 rise together = metabolic alkalosis; lungs retain CO2 to compensate.'},
+  {id:109, chapter:'ch2', question:'Which are normal values? (select the correct set — only one value differs per option)', options:['pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145','pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 125-135','pH 7.35-7.45, CO2 45-55, HCO3 22-26, Na 135-145','pH 7.25-7.35, CO2 35-45, HCO3 18-22, Na 135-145'], correct:0, explanation:'Memorize: pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145.'},
+  {id:110, chapter:'ch2', question:'What are two pulmonary causes of respiratory acidosis? (OA verified)', options:['Hyperventilation and fever','Cystic fibrosis and hypoventilation','Anxiety with early salicylate use','Vomiting with metabolic alkalosis'], correct:1, explanation:'OA answer: cystic fibrosis and hypoventilation cause CO2 retention.'},
+  {id:111, chapter:'ch2', question:'CHF patient with fluid overload. Which elevated hormone shows the body trying to reduce volume?', options:['Aldosterone','Renin','Brain natriuretic peptide (BNP)','Antidiuretic hormone (ADH)'], correct:2, explanation:'BNP is released in fluid volume excess (ADH/aldosterone/renin retain volume instead).'},
+  {id:112, chapter:'ch2', question:'Which can trigger respiratory alkalosis?', options:['Hypoventilation and narcotic overdose','Anxiety/panic hyperventilation, fever, early salicylates','DKA with Kussmaul respirations','Renal failure with oliguria'], correct:1, explanation:'Hyperventilation blows off CO2 → alkalosis: anxiety, fever, salicylates, hypoxemia.'},
+  {id:113, chapter:'ch2', question:'Pulmonary edema leads to respiratory acidosis. Which BMP changes occur? (choose the trio)', options:['High CO2, low Na, high K+','Low CO2, high Na, low K+','High CO2, low Na, low K+','High CO2, high Na, high K+'], correct:0, explanation:'CO2 retained; Na diluted by hypervolemia; H+ into cells pushes K+ out.'},
   // Genetics & Development
-  {id:114, chapter:'ch3', question:'Sterility, female-like breasts, small testes, sparse hair, tall stature, XXY. Which condition?', options:['Klinefelter syndrome','Turner syndrome','Down syndrome','Marfan syndrome'], correct:0, explanation:'XXY (two X + Y) = Klinefelter.'},
-  {id:115, chapter:'ch3', question:'Why do those with Down syndrome have reduced survival?', options:['Increased likelihood of congenital heart defects','Increased height','Decreased infection risk','Higher IQ'], correct:0, explanation:'Congenital heart defects drive mortality in Down syndrome.'},
-  {id:116, chapter:'ch3', question:'Neural tube fails to close during fetal development. Which disorder?', options:['Spina bifida','Hydrocephalus','Cerebral palsy','Muscular dystrophy'], correct:0, explanation:'Failed neural tube closure = spina bifida.'},
+  {id:114, chapter:'ch3', question:'Sterility, female-like breasts, small testes, sparse hair, tall stature, XXY. Which condition?', options:['Turner syndrome','Kallmann syndrome','Klinefelter syndrome','Marfan syndrome'], correct:2, explanation:'XXY (two X + Y) = Klinefelter (Kallmann also causes hypogonadism but is anosmia + GnRH defect).'},
+  {id:115, chapter:'ch3', question:'Why do those with Down syndrome have reduced survival?', options:['Earlier-onset Alzheimer disease','Increased likelihood of congenital heart defects','Increased height velocity','Decreased infection susceptibility'], correct:1, explanation:'Congenital heart defects drive mortality in Down syndrome.'},
+  {id:116, chapter:'ch3', question:'Neural tube fails to close during fetal development. Which disorder?', options:['Anencephaly','Hydrocephalus','Spina bifida','Cerebral palsy'], correct:2, explanation:'Failed neural tube closure = spina bifida (anencephaly is the cranial-end defect).'},
 
   // Immunity & Infection
-  {id:117, chapter:'ch4', question:'Arthritis, rash, vasculitis, renal disease, hematologic and cardiac abnormalities. Which disorder?', options:['Systemic lupus erythematosus','Rheumatoid arthritis only','Osteoarthritis','Gout'], correct:0, explanation:'Multi-system autoimmune picture = SLE.'},
-  {id:118, chapter:'ch4', question:'Capsid with two enzymes and RNA infecting host cells to replicate. What is it?', options:['HIV','Staphylococcus','Candida','Plasmodium'], correct:0, explanation:'RNA + enzymes in capsid = HIV retrovirus.'},
-  {id:119, chapter:'ch4', question:'Which class of microorganisms does poliomyelitis belong to?', options:['Viruses','Bacteria','Fungi','Parasites'], correct:0, explanation:'Polio = enterovirus.'},
-  {id:120, chapter:'ch4', question:'What significantly contributes to the spread of tuberculosis?', options:['Crowded institutional settings','Cold weather alone','Exercise','Vegetarian diet'], correct:0, explanation:'Crowding → airborne TB spread.'},
+  {id:117, chapter:'ch4', question:'Arthritis, rash, vasculitis, renal disease, hematologic and cardiac abnormalities. Which disorder?', options:['Rheumatoid arthritis','Systemic lupus erythematosus','Systemic sclerosis','Sjogren syndrome'], correct:1, explanation:'Multi-system autoimmune picture with renal + hematologic disease = SLE.'},
+  {id:118, chapter:'ch4', question:'Capsid with two enzymes and RNA infecting host cells to replicate. What is it?', options:['HTLV','HIV','Staphylococcus aureus','Plasmodium falciparum'], correct:1, explanation:'RNA + enzymes in capsid = HIV retrovirus.'},
+  {id:119, chapter:'ch4', question:'Which class of microorganisms does poliomyelitis belong to?', options:['Bacteria','Viruses','Fungi','Prions'], correct:1, explanation:'Polio = enterovirus.'},
+  {id:120, chapter:'ch4', question:'What significantly contributes to the spread of tuberculosis?', options:['Crowded institutional settings','Cold weather alone','High altitude','Vegetarian diet'], correct:0, explanation:'Crowding + poor ventilation → airborne TB spread.'},
   // Blood & Cardiovascular
-  {id:121, chapter:'ch5', question:'Blood clot blocking circulation in vessels. Which condition?', options:['Embolism','Aneurysm','Hypertension','Anemia'], correct:0, explanation:'Clot blocking flow = embolism.'},
-  {id:122, chapter:'ch5', question:'Lipid-laden macrophages in the arterial wall cause which condition?', options:['Atherosclerosis','Embolism','Aneurysm','Pericarditis'], correct:0, explanation:'Foam cells (lipid macrophages) = atherosclerosis.'},
-  {id:123, chapter:'ch5', question:'Weakening of a vessel wall characterizes which condition?', options:['Aneurysm','Embolism','Pneumonia','Dermatitis'], correct:0, explanation:'Weak wall → aneurysm.'},
-  {id:124, chapter:'ch5', question:'Muffled heart sounds, pulsus paradoxus, JVD, cardiomegaly, dyspnea. Which condition?', options:['Pericardial effusion','Asthma','Pneumonia','Anemia'], correct:0, explanation:'Fluid around heart compresses chambers → effusion/tamponade signs.'},
+  {id:121, chapter:'ch5', question:'Blood clot blocking circulation in vessels. Which condition?', options:['Thrombosis','Aneurysm','Embolism','Atherosclerosis'], correct:2, explanation:'Traveling clot blocking flow = embolism (thrombosis is clot at its formation site).'},
+  {id:122, chapter:'ch5', question:'Lipid-laden macrophages in the arterial wall cause which condition?', options:['Aneurysm','Atherosclerosis','Embolism','Vasculitis'], correct:1, explanation:'Foam cells (lipid macrophages) = atherosclerosis.'},
+  {id:123, chapter:'ch5', question:'Weakening of a vessel wall characterizes which condition?', options:['Aneurysm','Varicose veins','Atherosclerosis','Embolism'], correct:0, explanation:'Weak wall → aneurysm.'},
+  {id:124, chapter:'ch5', question:'Muffled heart sounds, pulsus paradoxus, JVD, cardiomegaly, dyspnea. Which condition?', options:['Acute pericarditis','Pericardial effusion','Restrictive cardiomyopathy','Tension pneumothorax'], correct:1, explanation:'Fluid around heart compresses chambers → effusion/tamponade signs.'},
 
   // Blood & Cardiovascular continued (OA verified)
-  {id:125, chapter:'ch5', question:'Fatigue, fever, night sweats + vegetations on echo. Which disease?', options:['Endocarditis','Pericarditis','Stenosis','Myocarditis'], correct:0, explanation:'Vegetations = endocarditis.'},
-  {id:126, chapter:'ch5', question:'Crushing chest pain radiating to back/jaw + elevated cardiac enzymes. Which condition?', options:['Myocardial infarction','Angina only','Atrial fibrillation','CHF'], correct:0, explanation:'Radiating crushing pain + enzymes = MI.'},
-  {id:127, chapter:'ch5', question:'Absent RBC production with infection risk and bleeding tendency. Which anemia?', options:['Aplastic anemia','Iron deficiency','Pernicious','Folic acid deficiency'], correct:0, explanation:'Marrow failure = aplastic anemia (pancytopenia).'},
-  {id:128, chapter:'ch5', question:'BP typically above 180/120, organ damage, emergency. Which hypertension type?', options:['Malignant','Essential','Pulmonary','White-coat'], correct:0, explanation:'>180/120 emergency = malignant hypertension.'},
+  {id:125, chapter:'ch5', question:'Fatigue, fever, night sweats + vegetations on echo. Which disease?', options:['Pericarditis','Endocarditis','Myocarditis','Rheumatic fever'], correct:1, explanation:'Vegetations on valves = endocarditis.'},
+  {id:126, chapter:'ch5', question:'Crushing chest pain radiating to back/jaw + elevated cardiac enzymes. Which condition?', options:['Unstable angina','Pericarditis','Myocardial infarction','Aortic dissection'], correct:2, explanation:'Radiating crushing pain + troponin/enzymes = MI (unstable angina lacks enzyme rise).'},
+  {id:127, chapter:'ch5', question:'Absent RBC production with infection risk and bleeding tendency. Which anemia?', options:['Myelodysplastic syndrome','Iron deficiency anemia','Aplastic anemia','Hemolytic anemia'], correct:2, explanation:'Marrow failure with pancytopenia = aplastic anemia.'},
+  {id:128, chapter:'ch5', question:'BP typically above 180/120, organ damage, emergency. Which hypertension type?', options:['Malignant','Essential (primary)','Secondary renal','Pulmonary'], correct:0, explanation:'>180/120 emergency = malignant hypertension (risk factor: kidney failure).'},
   // Respiratory
-  {id:129, chapter:'ch6', question:'20yo man: URI then cough, dyspnea, fever, chills, pleuritic pain, consolidation. Which condition?', options:['Pneumonia','Asthma','Emphysema','Pneumothorax'], correct:0, explanation:'Consolidation + febrile URI course = pneumonia.'},
-  {id:130, chapter:'ch6', question:'62yo female: cough, fever, decreased breath sounds, cyanosis, tachycardia, pleural pain. Which?', options:['Empyema','Asthma','Bronchitis','Anemia'], correct:0, explanation:'Pleural-space infection vignette = empyema.'},
-  {id:131, chapter:'ch6', question:'Destruction of alveoli via elastin breakdown in septa. Which condition?', options:['Emphysema','Pneumonia','Empyema','Asthma'], correct:0, explanation:'Elastin loss → emphysema.'},
-  {id:132, chapter:'ch6', question:'Chronic RV pressure overload from pulmonary artery hypertension. Which condition?', options:['Cor pulmonale','Left heart failure','Aortic stenosis','Mitral prolapse'], correct:0, explanation:'Lung HTN → RV overload = cor pulmonale.'},
+  {id:129, chapter:'ch6', question:'20yo man: URI then cough, dyspnea, fever, chills, pleuritic pain, consolidation. Which condition?', options:['Acute bronchitis','Pneumonia','Pulmonary embolism','Pneumothorax'], correct:1, explanation:'Consolidation + febrile URI course = pneumonia.'},
+  {id:130, chapter:'ch6', question:'62yo female: cough, fever, decreased breath sounds, cyanosis, tachycardia, pleural pain. Which?', options:['Parapneumonic transudative effusion','Lobar pneumonia without effusion','Empyema','Pleurisy without effusion'], correct:2, explanation:'Infected pleural-space vignette = empyema.'},
+  {id:131, chapter:'ch6', question:'Destruction of alveoli via elastin breakdown in septa. Which condition?', options:['Chronic bronchitis','Asthma','Emphysema','Bronchiectasis'], correct:2, explanation:'Elastin loss in septa → emphysema (all four are obstructive, only emphysema destroys septa).'},
+  {id:132, chapter:'ch6', question:'Chronic RV pressure overload from pulmonary artery hypertension. Which condition?', options:['Left-sided heart failure','Cor pulmonale','Aortic stenosis','Pulmonary embolism'], correct:1, explanation:'Lung HTN → RV overload = cor pulmonale.'},
 
   // Renal, GI & Hepatic
-  {id:133, chapter:'ch7', question:'Volume depletion + decreased renal blood flow + cell injury altering function. Which?', options:['Acute kidney injury','Chronic liver failure','Pneumonia','Dermatitis'], correct:0, explanation:'Prerenal + injury = acute kidney injury.'},
-  {id:134, chapter:'ch7', question:'51yo woman: chronic epigastric pain relieved rapidly by food. Likely?', options:['Duodenal ulcer','Gastric ulcer','Appendicitis','Cholecystitis'], correct:0, explanation:'Pain-food-relief = duodenal ulcer.'},
-  {id:135, chapter:'ch7', question:'42yo man: incomplete emptying, frequency, nocturia, urgency, poor stream. Likely?', options:['Lower urinary tract obstruction','UTI only','Overactive bladder without obstruction','Renal colic'], correct:0, explanation:'Obstructive voiding picture = lower urinary tract obstruction.'},
-  {id:136, chapter:'ch7', question:'Bladder overdistention leads to which incontinence type?', options:['Overflow','Stress','Urge','Functional'], correct:0, explanation:'Overfull bladder → overflow incontinence.'},
+  {id:133, chapter:'ch7', question:'Volume depletion + decreased renal blood flow + cell injury altering function. Which?', options:['Chronic kidney disease','Acute kidney injury','Glomerulonephritis','Nephrotic syndrome'], correct:1, explanation:'Prerenal + injury = acute kidney injury.'},
+  {id:134, chapter:'ch7', question:'51yo woman: chronic epigastric pain relieved rapidly by food. Likely?', options:['Gastric ulcer','Duodenal ulcer','GERD','Cholelithiasis'], correct:1, explanation:'Pain-food-relief = duodenal ulcer (gastric ulcer worsens with food).'},
+  {id:135, chapter:'ch7', question:'42yo man: incomplete emptying, frequency, nocturia, urgency, poor stream. Likely?', options:['Overactive bladder','Lower urinary tract obstruction','Urinary tract infection','Interstitial cystitis'], correct:1, explanation:'Obstructive voiding picture = lower urinary tract obstruction.'},
+  {id:136, chapter:'ch7', question:'Bladder overdistention leads to which incontinence type?', options:['Stress','Urge','Overflow','Functional'], correct:2, explanation:'Overfull bladder → overflow incontinence.'},
   // Endocrine, Neuro, MSK, Skin & Senses
-  {id:137, chapter:'ch8', question:'Adrenals cannot produce adrenocortical hormones. Which condition?', options:['Addison disease','Cushing syndrome','Diabetes insipidus','Grave disease'], correct:0, explanation:'Adrenal failure = Addison disease.'},
-  {id:138, chapter:'ch8', question:'71yo man: obesity, dyslipidemia, hyperinsulinemia, HTN, acanthosis nigricans, neuropathy. Which?', options:['Type 2 diabetes mellitus','Type 1 diabetes','Addison disease','Hyperthyroidism'], correct:0, explanation:'Insulin resistance + metabolic syndrome = T2DM.'},
-  {id:139, chapter:'ch8', question:'Beta-cell destruction with absolute insulin deficiency. Which diabetes?', options:['Type 1','Type 2','Gestational only','Secondary'], correct:0, explanation:'Autoimmune beta-cell loss = type 1.'},
-  {id:140, chapter:'ch8', question:'Autoimmune response in genetically susceptible people causing CNS demyelination. Which?', options:['Multiple sclerosis','GBS','ALS','Myasthenia only'], correct:0, explanation:'Autoimmune CNS demyelination = MS.'},
-  {id:141, chapter:'ch8', question:'91yo: ascending paralysis, areflexia, respiratory insufficiency, autonomic instability. Which?', options:['Guillain-Barré syndrome','Multiple sclerosis','Stroke','Parkinson disease'], correct:0, explanation:'Ascending flaccid paralysis = GBS.'},
-  {id:142, chapter:'ch8', question:'Myopia is classified as which vision disorder?', options:['Alteration in refraction','Cataract','Glaucoma','Retinopathy'], correct:0, explanation:'Myopia = refraction error.'},
-  {id:143, chapter:'ch8', question:'Traction, severe myopia, vitreous degeneration, trauma → retinal issue. Which?', options:['Rhegmatogenous retinal detachment','Cataract','Glaucoma','Conjunctivitis'], correct:0, explanation:'Tear-mediated detachment = rhegmatogenous.'},
+  {id:137, chapter:'ch8', question:'Adrenals cannot produce adrenocortical hormones. Which condition?', options:['Cushing syndrome','Secondary adrenal insufficiency','Addison disease','Pheochromocytoma'], correct:2, explanation:'Primary adrenal failure = Addison disease.'},
+  {id:138, chapter:'ch8', question:'71yo man: obesity, dyslipidemia, hyperinsulinemia, HTN, acanthosis nigricans, neuropathy. Which?', options:['Type 1 diabetes','MODY','Type 2 diabetes mellitus','Cushing syndrome'], correct:2, explanation:'Insulin resistance + metabolic syndrome = T2DM.'},
+  {id:139, chapter:'ch8', question:'Beta-cell destruction with absolute insulin deficiency. Which diabetes?', options:['Type 2','Gestational','Type 1','Secondary pancreatic'], correct:2, explanation:'Autoimmune beta-cell loss = type 1.'},
+  {id:140, chapter:'ch8', question:'Autoimmune response in genetically susceptible people causing CNS demyelination. Which?', options:['Guillain-Barre syndrome','ALS','Multiple sclerosis','Transverse myelitis'], correct:2, explanation:'Autoimmune CNS demyelination = MS.'},
+  {id:141, chapter:'ch8', question:'91yo: ascending paralysis, areflexia, respiratory insufficiency, autonomic instability. Which?', options:['Myasthenia gravis','Botulism','Guillain-Barre syndrome','Multiple sclerosis'], correct:2, explanation:'Ascending flaccid paralysis = GBS.'},
+  {id:142, chapter:'ch8', question:'Myopia is classified as which vision disorder?', options:['Alteration in accommodation','Cataract','Alteration in refraction','Glaucoma'], correct:2, explanation:'Myopia = refraction error.'},
+  {id:143, chapter:'ch8', question:'Traction, severe myopia, vitreous degeneration, trauma → retinal issue. Which?', options:['Tractional retinal detachment','Exudative retinal detachment','Rhegmatogenous retinal detachment','Retinal vein occlusion'], correct:2, explanation:'Tear-mediated detachment = rhegmatogenous (vs tractional vs exudative).'},
 
   // Mixed high-yield D236
-  {id:144, chapter:'all', question:'Which condition is caused by premature destruction of erythrocytes?', options:['Hemolytic anemia','Aplastic anemia','Iron deficiency only','Thalassemia only'], correct:0, explanation:'Premature RBC destruction = hemolytic anemia.'},
-  {id:145, chapter:'all', question:'Which complications are associated with atherosclerosis?', options:['Thrombosis, tissue infarction, myocardial ischemia, stroke','Only hypertension','Only bradycardia','No complications'], correct:0, explanation:'Plaque → thrombosis, infarction, ischemia, stroke.'},
-  {id:146, chapter:'all', question:'Hematoma in frontal/temporal lobes or deep white matter. Which type?', options:['Intracerebral hematoma','Epidural hematoma','Subdural only','Subarachnoid only'], correct:0, explanation:'Frontal/temporal/deep white matter = intracerebral.'},
-  {id:147, chapter:'all', question:'Third-degree muscle strain is characterized by what?', options:['Muscle rupture, fascia tearing, bleeding','Mild stretch only','Bruise only','Tendonitis'], correct:0, explanation:'Grade III = rupture + fascia tear + bleed.'},
-  {id:148, chapter:'all', question:'Gonorrhea complications include which?', options:['Disseminated gonococcal infection and pelvic inflammatory disease','Only pharyngitis','Only conjunctivitis','No complications'], correct:0, explanation:'DGI + PID are classic gonorrhea complications.'},
-  {id:149, chapter:'all', question:'Reduced arterial blood oxygenation from pulmonary dysfunction is which?', options:['Hypoxemia','Hyperoxia','Alkalosis','Polycythemia only'], correct:0, explanation:'Low arterial O2 = hypoxemia; with cyanosis from lungs = central cyanosis.'},
-  {id:150, chapter:'all', question:'Involuntary muscle spasm with attempted penetration. Which?', options:['Vaginismus','Dysmenorrhea','Endometriosis','Vulvitis'], correct:0, explanation:'Involuntary spasm = vaginismus.'},
+  {id:144, chapter:'all', question:'Which condition is caused by premature destruction of erythrocytes?', options:['Aplastic anemia','Hemolytic anemia','Iron deficiency anemia','Anemia of chronic disease'], correct:1, explanation:'Premature RBC destruction = hemolytic anemia (vs marrow failure = aplastic).'},
+  {id:145, chapter:'all', question:'Which complications are associated with atherosclerosis?', options:['Thrombosis, tissue infarction, myocardial ischemia, stroke','Thrombosis, aneurysm, hypertension only','Embolism, bradycardia, hyperlipidemia','Vasospasm, anemia, leukopenia'], correct:0, explanation:'Plaque → thrombosis, infarction, ischemia, stroke.'},
+  {id:146, chapter:'all', question:'Hematoma in frontal/temporal lobes or deep white matter. Which type?', options:['Subdural hematoma','Epidural hematoma','Intracerebral hematoma','Subarachnoid hemorrhage'], correct:2, explanation:'Frontal/temporal/deep white matter bleed = intracerebral.'},
+  {id:147, chapter:'all', question:'Third-degree muscle strain is characterized by what?', options:['Partial tear without rupture','Muscle rupture, fascia tearing, bleeding','Mild stretch with no tear','Tendon inflammation only'], correct:1, explanation:'Grade III = rupture + fascia tear + bleed.'},
+  {id:148, chapter:'all', question:'Gonorrhea complications include which?', options:['Syphilitic chancre and rash','Disseminated gonococcal infection and PID','Chlamydial cervicitis only','Bacterial vaginosis'], correct:1, explanation:'DGI + PID are classic gonorrhea complications.'},
+  {id:149, chapter:'all', question:'Reduced arterial blood oxygenation from pulmonary dysfunction is which?', options:['Hypoxia','Hypercapnia','Hypoxemia','Dyspnea'], correct:2, explanation:'Low arterial O2 content = hypoxemia (hypoxia = low O2 at tissue level).'},
+  {id:150, chapter:'all', question:'Involuntary muscle spasm with attempted penetration. Which?', options:['Dyspareunia','Vulvodynia','Endometriosis','Vaginismus'], correct:3, explanation:'Involuntary pelvic floor spasm = vaginismus.'},
 ];
 
 let state={
@@ -697,6 +697,7 @@ function renderCard(){
   document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
   quizBox.style.display='none';
 }
+function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function genQuizExam(eq){
   const quizBox=document.getElementById('quizOptions');
   quizBox.innerHTML=''; 
@@ -706,8 +707,7 @@ function genQuizExam(eq){
   state.flipped=false;
   document.getElementById('flashCard').classList.remove('flipped');
 
-  const opts = eq.options.map((text,i)=>({text, isCorrect:i===eq.correct}))
-                         .sort(()=>Math.random()-0.5);
+  const opts = shuffleArr(eq.options.map((text,i)=>({text, isCorrect:i===eq.correct})));
 
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
@@ -751,7 +751,7 @@ function genQuizFlash(card){
 
   // 2 wrong from same chapter
   let sameChapter = flashcards.filter(c=>c.id!==card.id && c.chapter===card.chapter);
-  sameChapter = [...sameChapter].sort(()=>Math.random()-0.5);
+  sameChapter = shuffleArr([...sameChapter]);
   let twoFromSame = sameChapter.slice(0,2);
 
   // 1 wrong similar to correct answer (from anywhere, most keyword overlap)
@@ -777,9 +777,8 @@ function genQuizFlash(card){
 
   const wrongs = [...twoFromSame, ...oneSimilar].slice(0,3);
 
-  const opts = [{def:card.definition, ok:true, origin:'correct'}, 
-                ...wrongs.map((c,i)=>({def:c.definition, ok:false, origin: i<twoFromSame.length?'same-chapter':'similar'}))]
-                .sort(()=>Math.random()-0.5);
+  const opts = shuffleArr([{def:card.definition, ok:true, origin:'correct'},
+                ...wrongs.map((c,i)=>({def:c.definition, ok:false, origin: i<twoFromSame.length?'same-chapter':'similar'}))]);
 
   opts.forEach(o=>{
     const btn=document.createElement('button'); btn.className='quiz-opt';
