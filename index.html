@@ -251,6 +251,7 @@
       <button class="mode-btn active" data-mode="study"><span>📚</span> Flashcards</button>
       <button class="mode-btn" data-mode="quiz"><span>🧠</span> Exam Quiz</button>
       <button class="mode-btn" data-mode="quiz2"><span>🔁</span> Exam Quiz 2</button>
+      <button class="mode-btn" data-mode="oasim"><span>🎓</span> OA Practice Exam</button>
       <button class="mode-btn" data-mode="flashquiz"><span>📝</span> Flashcard Quiz</button>
       <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
     </div>
@@ -275,7 +276,7 @@
     <div class="card-mini" style="font-size:0.78rem;line-height:1.5">
       <h4>📝 OA Tips</h4>
       <div style="color:var(--muted)">
-        D236 OA is scenario-based. High-yield: fluid/electrolyte & ABGs (pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145), MI vs angina, HF/BNP, anemias, pneumonia vs empyema, AKI, DKA/T1 vs T2, Addison, MS/GBS, burns, compartment syndrome. Sources: NY01 v2 (54) + Megan/Shay guides.
+        D236 OA is scenario-based. High-yield: fluid/electrolyte & ABGs (pH 7.35-7.45, CO2 35-45, HCO3 22-26, Na 135-145), MI vs angina, HF/BNP, anemias, pneumonia vs empyema, AKI, DKA/T1 vs T2, Addison, MS/GBS, burns, compartment syndrome. Sources: NY01 v2 (54) + Megan/Shay guides. 🎓 OA Practice Exam = 50-Q locked-answer run with scorecard.
       </div>
     </div>
 
@@ -563,11 +564,15 @@ const examQuestions2 = [
   {id:250, chapter:'all', question:'Anemia with sore tongue, numb feet, and no response to iron. Which deficiency?', options:['Iron deficiency','Folate deficiency','Vitamin B12 deficiency','Anemia of chronic disease'], correct:2, explanation:'Neuro symptoms plus no iron response = B12 deficiency (folate lacks cord involvement).'},
 ];
 
+// Combined pool (Forms A+B) used by the OA Practice Exam simulator
+const allExamBank = examQuestions.concat(examQuestions2);
+
 let state={
   chapter:'all', search:'', order:[], idx:0, flipped:false,
   known:new Set(), mode:'study', quizAnswered:false, lastQuizId:null,
   examOrder:[], examIdx:0, lastExamId:null,
   examOrder2:[], examIdx2:0, lastExamId2:null,
+  oasimQs:[], oasimIdx:0, oasimAnswers:{}, oasimScore:{correct:0,answered:0}, oasimDone:false,
   missedOnly:false,
   theme: localStorage.getItem('wgu236_theme')||'dark'
 };
@@ -619,6 +624,11 @@ function rebuild(){
   state.examOrder2=ef2.map(c=>c.id);
   shuffleArr(state.examOrder2);
   if(state.examIdx2>=state.examOrder2.length) state.examIdx2=0;
+  // OA Practice Exam: fresh 50-Q sample from the combined pool (Forms A+B)
+  const pool=shuffleArr([...getFilteredExam(), ...getFilteredExam2()]);
+  state.oasimQs=pool.slice(0,50);
+  if(state.oasimIdx>=state.oasimQs.length) state.oasimIdx=0;
+  state.oasimAnswers={}; state.oasimScore={correct:0,answered:0}; state.oasimDone=false;
   state.quizAnswered=false;
   state.lastQuizId=null;
   state.lastExamId=null;
@@ -633,6 +643,8 @@ function shuffle(){
   }else if(state.mode==='quiz2'){
     shuffleArr(state.examOrder2);
     state.examIdx2=0;
+  }else if(state.mode==='oasim'){
+    rebuild(); return; // Shuffle button = fresh 50-Q exam
   }else{
     shuffleArr(state.order);
     state.idx=0;
@@ -642,6 +654,7 @@ function shuffle(){
 function current(){ return state.order.length? flashcards.find(c=>c.id===state.order[state.idx]) : null; }
 function currentExam(){ return state.examOrder.length? examQuestions.find(q=>q.id===state.examOrder[state.examIdx]) : null; }
 function currentExam2(){ return state.examOrder2.length? examQuestions2.find(q=>q.id===state.examOrder2[state.examIdx2]) : null; }
+function currentOasim(){ return state.oasimQs.length? state.oasimQs[state.oasimIdx] : null; }
 function getFilteredExam2(){
   let arr=examQuestions2;
   if(state.chapter!=='all'){
@@ -673,7 +686,7 @@ function renderChapters(){
   });
   const lbl=document.getElementById('chapterCountLabel');
   if(lbl){
-    const filtered = state.mode==='quiz'? getFilteredExam() : state.mode==='quiz2'? getFilteredExam2() : getFiltered();
+    const filtered = state.mode==='quiz'? getFilteredExam() : state.mode==='quiz2'? getFilteredExam2() : state.mode==='oasim'? state.oasimQs : getFiltered();
     lbl.textContent=`${filtered.length} items`;
   }
 }
@@ -685,6 +698,10 @@ function renderStats(){
     pct=filtered.length? Math.round(known/filtered.length*100):0;
   }else if(state.mode==='quiz2'){
     filtered=getFilteredExam2();
+    known=filtered.filter(c=>state.known.has(c.id)).length;
+    pct=filtered.length? Math.round(known/filtered.length*100):0;
+  }else if(state.mode==='oasim'){
+    filtered=state.oasimQs;
     known=filtered.filter(c=>state.known.has(c.id)).length;
     pct=filtered.length? Math.round(known/filtered.length*100):0;
   }else{
@@ -710,6 +727,8 @@ function renderStats(){
         ? examQuestions.filter(q=> state.chapter==='all' || q.chapter===state.chapter)
         : state.mode==='quiz2'
         ? examQuestions2.filter(q=> state.chapter==='all' || q.chapter===state.chapter)
+        : (state.mode==='oasim')
+        ? allExamBank.filter(q=> state.chapter==='all' || q.chapter===state.chapter)
         : flashcards.filter(c=> state.chapter==='all' || c.chapter===state.chapter);
       const left = allFiltered.filter(c=>!state.known.has(c.id)).length;
       missedBtn.textContent = `🎯 Missed Only: ON (${left} left)`;
@@ -749,6 +768,45 @@ function renderCard(){
     if(state[lastKey] !== eq.id){
       genQuizExam(eq, lastKey);
     }
+    return;
+  }
+
+  // OA PRACTICE EXAM — fixed 50-Q run, locked answers, scorecard at end
+  if(state.mode==='oasim'){
+    const eq = currentOasim();
+    if(!eq){
+      document.getElementById('cardTerm').textContent='No exam questions for this filter – try Whole OA';
+      document.getElementById('cardDef').textContent='';
+      document.getElementById('cardChapter').textContent='—';
+      document.getElementById('cardCount').textContent='0 / 0';
+      quizBox.style.display='none';
+      return;
+    }
+    if(state.oasimDone){
+      const total=state.oasimQs.length, sc=state.oasimScore;
+      const pct=total? Math.round(sc.correct/total*100):0;
+      const missed=state.oasimQs.filter(q=>{ const a=state.oasimAnswers[q.id]; return !a || !a.ok; });
+      const msg = pct>=80 ? 'Competent-level performance — OA ready. Hold 80%+ across runs.' : pct>=65 ? 'Close — review the missed items below, then run a new exam.' : 'Keep studying — hit Flashcards + Missed Only, then retake.';
+      document.getElementById('cardChapter').textContent='🎓 OA Practice Exam • Scorecard';
+      document.getElementById('cardChapter').className='badge all';
+      document.getElementById('cardCount').textContent=`${sc.correct} / ${total} • ${pct}%`;
+      document.getElementById('cardTerm').innerHTML=`<div style="font-size:3rem;font-weight:800;line-height:1">${pct}%</div><div style="font-size:1rem;font-weight:600;color:var(--muted)">${sc.correct} of ${total} correct</div><div style="font-size:0.9rem;margin-top:0.5rem">${msg}</div><div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;justify-content:center"><button class="btn primary" onclick="rebuild()">🔁 New exam</button><button class="btn" onclick="switchMode('study')">📚 Flashcards</button></div><div class="flip-hint">Flip card for missed-item review ↩</div>`;
+      document.getElementById('cardTermSmall').textContent='Scorecard';
+      document.getElementById('cardDef').innerHTML = missed.length ? `<div style="font-size:0.95rem"><b>Missed (${missed.length}) — flip back and forth to review:</b></div>` + missed.map(q=>`<div style="margin-top:0.7rem;padding:0.6rem 0.8rem;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:0.85rem"><b>Q:</b> ${q.question}<br><b style="color:var(--green)">A:</b> ${q.options[q.correct]}<br><span style="color:var(--muted)">${q.explanation}</span></div>`).join('') : '<div style="font-size:1rem"><b>Perfect score — nothing missed. 🎉</b></div>';
+      document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+      quizBox.style.display='none';
+      return;
+    }
+    const ch=chapters.find(c=>c.id===eq.chapter);
+    document.getElementById('cardChapter').textContent=ch? `${ch.emoji} ${ch.name}`:eq.chapter;
+    document.getElementById('cardChapter').className='badge';
+    document.getElementById('cardCount').textContent=`Q ${state.oasimIdx+1} / ${state.oasimQs.length} • ✅ ${state.oasimScore.correct}/${state.oasimScore.answered}`;
+    document.getElementById('cardTerm').textContent=eq.question;
+    document.getElementById('cardTermSmall').textContent='Answer locks — no peeking';
+    document.getElementById('cardDef').innerHTML=`<div style="font-size:0.95rem"><b>Explanation:</b> ${eq.explanation}</div>`;
+    document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
+    quizBox.style.display='grid';
+    genQuizOasim(eq);
     return;
   }
 
@@ -836,6 +894,52 @@ function genQuizExam(eq, lastKey){
     };
     quizBox.appendChild(btn);
   });
+}
+
+function genQuizOasim(eq){
+  const quizBox=document.getElementById('quizOptions');
+  quizBox.innerHTML='';
+  const prev=state.oasimAnswers[eq.id];
+  state.quizAnswered=!!prev;
+  state.flipped=!!prev;
+  document.getElementById('flashCard').classList.remove('flipped');
+  const opts = shuffleArr(eq.options.map((text,i)=>({text, isCorrect:i===eq.correct})));
+  opts.forEach(o=>{
+    const btn=document.createElement('button'); btn.className='quiz-opt';
+    btn.innerHTML=`<div style="font-weight:500">${o.text}</div>`;
+    if(prev){
+      btn.style.pointerEvents='none';
+      if(o.isCorrect) btn.classList.add('correct');
+      else if(o.text===prev.picked) btn.classList.add('wrong');
+    }else{
+      btn.onclick=()=>{
+        if(state.oasimAnswers[eq.id]) return;
+        const ok=o.isCorrect;
+        state.oasimAnswers[eq.id]={picked:o.text, ok};
+        state.oasimScore.answered++;
+        document.querySelectorAll('.quiz-opt').forEach(b=>b.style.pointerEvents='none');
+        if(ok){
+          btn.classList.add('correct');
+          state.known.add(eq.id); save();
+        }else{
+          btn.classList.add('wrong');
+          document.querySelectorAll('.quiz-opt').forEach(b=>{
+            if(b.textContent.trim()===eq.options[eq.correct].trim()) b.classList.add('correct');
+          });
+        }
+        state.quizAnswered=true;
+        state.flipped=true;
+        document.getElementById('flashCard').classList.add('flipped');
+        renderStats();
+        document.getElementById('cardCount').textContent=`Q ${state.oasimIdx+1} / ${state.oasimQs.length} • ✅ ${state.oasimScore.correct}/${state.oasimScore.answered}`;
+        if(state.oasimScore.answered>=state.oasimQs.length){
+          setTimeout(()=>{ state.oasimDone=true; state.flipped=false; render(); }, 1400);
+        }
+      };
+    }
+    quizBox.appendChild(btn);
+  });
+  if(prev) document.getElementById('flashCard').classList.add('flipped');
 }
 
 function genQuizFlash(card){
@@ -968,6 +1072,9 @@ function next(){
   }else if(state.mode==='quiz2'){
     if(!state.examOrder2.length) return;
     state.examIdx2=(state.examIdx2+1)%state.examOrder2.length;
+  }else if(state.mode==='oasim'){
+    if(!state.oasimQs.length) return;
+    state.oasimIdx=(state.oasimIdx+1)%state.oasimQs.length;
   }else{
     if(!state.order.length) return;
     state.idx=(state.idx+1)%state.order.length;
@@ -981,6 +1088,9 @@ function prev(){
   }else if(state.mode==='quiz2'){
     if(!state.examOrder2.length) return;
     state.examIdx2=(state.examIdx2-1+state.examOrder2.length)%state.examOrder2.length;
+  }else if(state.mode==='oasim'){
+    if(!state.oasimQs.length) return;
+    state.oasimIdx=(state.oasimIdx-1+state.oasimQs.length)%state.oasimQs.length;
   }else{
     if(!state.order.length) return;
     state.idx=(state.idx-1+state.order.length)%state.order.length;
@@ -993,7 +1103,12 @@ function flip(){
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
     return;
   }
-  state.flipped=!state.flipped; render(); 
+  if(state.mode==='oasim'){
+    const eq=currentOasim();
+    if(eq && !state.oasimAnswers[eq.id]) return; // exam rules: answer locks, no peeking
+    state.flipped=!state.flipped; render(); return;
+  }
+  state.flipped=!state.flipped; render();
 }
 function switchMode(m){
   state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
