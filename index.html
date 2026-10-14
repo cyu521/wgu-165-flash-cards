@@ -309,7 +309,6 @@
       <button class="mode-btn" data-mode="quiz2"><span>🔁</span> Exam Quiz 2</button>
       <button class="mode-btn" data-mode="oasim"><span>🎓</span> OA Practice Exam</button>
       <button class="mode-btn" data-mode="flashquiz"><span>📝</span> Flashcard Quiz</button>
-      <button class="mode-btn" data-mode="podcast"><span>🎙️</span> Podcast</button>
       <button class="mode-btn" data-mode="learn"><span>🌟</span> Smart Learn Lab</button>
       <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
     </div>
@@ -392,10 +391,8 @@
     <div class="feat-bar" id="featBar">
       <button class="tgl" id="shortBtn">⚡ Short: OFF</button>
       <button class="tgl on" id="visualBtn">🖼️ Diagram: ON</button>
-      <button class="tgl" id="listenBtn">🔊 Listen to card</button>
     </div>
 
-    <div class="pod-wrap" id="podWrap" style="display:none"></div>
     <div class="learn-wrap" id="learnWrap" style="display:none"></div>
 
     <div class="quiz-grid" id="quizOptions" style="display:none"></div>
@@ -764,137 +761,6 @@ languageareas:{cap:'Broca produces (frontal) • Wernicke understands (temporal)
 hanoi:{cap:'Tower of Hanoi: shrink the start–goal gap with subgoals, one disc at a time', html:`<div style="font-size:1.1rem">🟥🟧🟨<br>📍start ➡️ 🎯goal<br><span style="font-size:0.78rem;color:var(--muted)">means-end: compare → subgoal → move</span></div>`},
 };
 
-// --- PODCAST: two-host dialog per chapter, played aloud with device voices (Maya + Leo) ---
-const PODCASTS = [
-{id:'ch1', title:'Ep 1 · Foundations — A Night-Before-the-OA Time Machine', mins:'≈4 min', lines:[
- {s:'maya', t:'It is the night before your OA. Notes everywhere, coffee going cold, brain buffering. I am Maya, and this is CogCast, the little podcast that walks you into that exam calm.'},
- {s:'leo', t:'And I am Leo, your co-pilot. Buckle up, because tonight we time-travel. Leipzig, 1879. Wilhelm Wundt opens the very first psychology lab and declares: let us dissect experience itself.'},
- {s:'maya', t:'His recipe was structuralism, right? Chop experience into tiny sensations, like a periodic table of the mind?'},
- {s:'leo', t:'Exactly. And his kitchen tool was analytic introspection: trained volunteers narrating their own thoughts out loud. Wildly subjective, sure. But every science starts somewhere messy.'},
- {s:'maya', t:'Okay, but rewind eleven years before that lab even exists. Donders is already timing thoughts. How do you time something invisible?'},
- {s:'leo', t:'He plays detective with subtraction. Flash one light, press one button: simple reaction time. Flash red or green, left button or right button: choice reaction time. The gap, about a tenth of a second, is the decision itself.'},
- {s:'maya', t:'Choice minus simple equals decision time. Oh, that is sneaky and brilliant. So what is Ebbinghaus doing, torturing himself with gibberish?'},
- {s:'leo', t:'Memorizing thousands of nonsense syllables, forgetting them, relearning them. Original time minus relearn time is his savings score. Relearn it fast, and the memory secretly survived. Slow relearn, and it is gone.'},
- {s:'maya', t:'Then Watson kicks the door down. Stop feeling, start measuring. Behavior only.'},
- {s:'leo', t:'Behaviorism in one breath: only stimulus-response links count. Dog drools at a tone, student works for a reward. See a question map a tone to salivation? The answer is Watson. Every single time.'},
- {s:'maya', t:'Plot twist. The 1950s. Computers arrive, information theory explodes, and the exiled mind stages a comeback. The cognitive revolution.'},
- {s:'leo', t:'And the mind becomes a staged computer. Atkinson and Shiffrin hand us the assembly line: senses hold it for milliseconds, short-term holds it for seconds, rehearsal files it for years. See it, repeat it, store it.'},
- {s:'maya', t:'Meanwhile Piaget watches kids climb four thinking stages, Vygotsky insists kids learn through people, and two elders argue in the corner: fluid versus crystallized.'},
- {s:'leo', t:'Fluid cracks brand-new puzzles and fades with age. Crystallized is everything you have banked, and it keeps growing. Walk in holding that contrast, and the first question is already yours. Next stop: a waterslide ride through your own brain.'},
-]},
-{id:'ch2', title:'Ep 2 · Brain, Sleep & Drugs — A Waterslide Through Your Head', mins:'≈4 min', lines:[
- {s:'maya', t:'Episode two. Picture a waterslide curling through the dark inside your skull. You are the rider. I am Maya.'},
- {s:'leo', t:'And I am Leo, your lifeguard, and yes, this gets splashy. You catch at the dendrites, whoosh down the axon as an action potential, and splash out as neurotransmitter into the next neuron. Receive, carry, release.'},
- {s:'maya', t:'Wait, the entire control room is only three millimeters thick? That wrinkly cortex runs everything?'},
- {s:'leo', t:'Three millimeters of mission control. Up front, the frontal lobe steers your behavior. Around the side, the temporal lobe names faces, objects, and language. And there is a tiny VIP desk, the fusiform face area, that spots someone you know across a packed room.'},
- {s:'maya', t:'So if the temporal side gets damaged, language comprehension falls apart. Filed away. Now tell me who runs my sleep clock, because mine is clearly broken.'},
- {s:'leo', t:'Ha! Meet the suprachiasmatic nucleus, the SCN, taking orders from the hypothalamus and reading daylight through your retina. At dusk your pineal gland pours melatonin like night syrup, and the pituitary ships growth hormones while you dream.'},
- {s:'maya', t:'And circadian rhythm is that whole show on a twenty-four-hour loop, with my cooling body pulling the curtain. No wonder warm rooms make me drowsy.'},
- {s:'leo', t:'Curtain call, exactly. Now the numbers the exam adores, so lean in. Babies log twelve to eighteen hours a night. Adults get seven to nine. Every age between steps down like stairs. Picture the staircase.'},
- {s:'maya', t:'Staircase pictured. Lightning round the sleep clinic. Four doors: insomnia, apnea, narcolepsy, SIDS. What is behind each?'},
- {s:'leo', t:'Door one, insomnia: you cannot fall asleep or stay asleep. Door two, apnea: you wake up over and over, and the sleep is shredded. Door three, narcolepsy: sudden sleep attacks, treated with stimulants. Door four, SIDS: the overheated nursery. Hot room, high risk. That detail saves points.'},
- {s:'maya', t:'Thirty-second pharmacy dash. The shelves are spinning. Go!'},
- {s:'leo', t:'Depressants dim the whole brain through GABA, and alcohol pours in even more GABA. Stimulants crank the dial, and meth brings euphoria. Opioids numb pain: codeine is the mild one, methadone rescues people from withdrawal. Dopamine cheers for reward, serotonin steadies mood, acetylcholine flexes your muscles.'},
- {s:'maya', t:'Let me see if I stocked the shelves right. Agonist boosts a signal, antagonist blocks it, dependence means stopping hurts. And dual processing is me signaling my turn on purpose while my foot handles the speed on autopilot.'},
- {s:'leo', t:'Perfect inventory. And here is your bedtime-story moral: sleep tonight, because sleep literally files today into memory. Next episode: a loud party where your attention gets pickpocketed.'},
-]},
-{id:'ch3', title:'Ep 3 · Attention & Perception — The Party Pickpocket', mins:'≈4 min', lines:[
- {s:'maya', t:'You are at the loudest party of your life. One friend talking, twenty strangers shouting, a clock ticking like a bomb. Somehow you follow your friend. I am Maya.'},
- {s:'leo', t:'And I am Leo, and that magic trick has a name: Broadbent filter. Picture a bouncer at the door of your mind. Early selection by physical cues. The loud concierge struts in, the lobby chatter gets bounced before its meaning is ever checked.'},
- {s:'maya', t:'But Treisman caught that bouncer taking bribes.'},
- {s:'leo', t:'The leaky filter! Her attenuator only turns the volume down instead of off. Important stuff, your name, a familiar word, slips through the back door. Two inspection stages: first the sound, then the language and meaning. Exam alert: a name breaking through noise is Treisman, never Broadbent.'},
- {s:'maya', t:'That is the cocktail party effect in action. And Cherry proved it by feeding a different voice into each ear. Dichotic listening, literally divided hearing.'},
- {s:'leo', t:'Now the crime scene. You are counting basketball passes, laser focused, and a person in a gorilla suit strolls through. You never see it. A driver following directions sails past a stop sign. Jack watches his kid score and totally misses the foul. That is inattentional blindness: looked straight at it, never saw it.'},
- {s:'maya', t:'And the swapped host nobody notices? Two photos, one sneaky difference?'},
- {s:'leo', t:'Change blindness. No attention parked at that spot, no change detected. The person-swap experiment is the classic: the conversation partner changes mid-sentence and nobody blinks. Change detection tasks hunt exactly that.'},
- {s:'maya', t:'So who glues this chaos back into whole objects?' },
- {s:'leo', t:'Binding, powered by focused attention. It fuses separate features, color plus shape, into one thing. Familiar objects glue faster, so fewer illusory mix-ups. And a busy mind under high perceptual load actually shrugs off distractors, because capacity is limited.'},
- {s:'maya', t:'Flip the coin to perception. Am I seeing the world, or predicting it?'},
- {s:'leo', t:'Both, and that is the great debate. Top-down predicts from knowledge. Bottom-up builds from raw senses. Helmholtz whispers that your brain is secretly betting on the likeliest cause of every pattern, spending memories like poker chips. That is unconscious inference, plus his likelihood principle.'},
- {s:'maya', t:'And the Gestalt crew says: wholes first, simplest wins, rules built in, experience barely matters.'},
- {s:'leo', t:'Pragnanz in a nutshell. Verticals and horizontals win every race because nature is full of them, the oblique effect. The dorsal where-pathway runs occipital to parietal and guides your reaching hand. And viewpoint invariance means the toy is recognized from absolutely any angle. Oh, and Strayer and Johnston proved phones wreck driving attention and reaction time. Put the phone down, pass the OA.'},
-]},
-{id:'ch4', title:'Ep 4 · Working Memory — Lunch Rush at the Mind Diner', mins:'≈4 min', lines:[
- {s:'maya', t:'Welcome to the Mind Diner, lunch rush, tickets flying, fryer screaming. I am Maya, your new short-order cook.'},
- {s:'leo', t:'And I am Leo, the head chef. This diner is your working memory. And here is the first rule of the kitchen: holding a ticket is not cooking it. In mental math, digits just sit in short-term memory while working memory does the carrying and borrowing. Hold versus manipulate.'},
- {s:'maya', t:'So who runs this kitchen? Because orders are piling up.'},
- {s:'leo', t:'Baddeley built the crew. The central executive expedites, shouting what matters now. The phonological loop is the cook muttering the ticket under his breath, silently repeating the lecture before writing it down. The sketchpad maps the kitchen in space, like tracking trail hazards while chatting with a friend.'},
- {s:'maya', t:'And the new hire, the episodic buffer? What is their job?'},
- {s:'leo', t:'The binder. Seven upside-down actor faces flash by, and the buffer pulls long-term face and name knowledge straight into the now. It binds the archives into the rush. Without it, the faces mean nothing.'},
- {s:'maya', t:'Rumor says one cook works in total silence. Activity-silent memory. Sounds like someone napping on shift.'},
- {s:'leo', t:'Silent but seasoned. The neural connections strengthen without constant firing, and mental rotation still improves. The trace sleeps, the skill stays. Quiet kitchen, better cooking.'},
- {s:'maya', t:'Chef, two signature dishes the exam always orders: the fish tree and the pastry cards.'},
- {s:'leo', t:'Two legends. Dish one: imagine each fish hanging on a tree of fish categories. Visual imagery plus organization. Dish two: the bakery trainee hand-makes flashcards and rates how tasty each pastry looks. Generation plus self-reference. Both recipes go deep into long-term storage.'},
- {s:'maya', t:'The pantry only holds seven items, give or take two. Miller pantry. So how do I fit an eight-digit account number?'},
- {s:'leo', t:'You chunk it. Group digits into meaningful sets, like packing groceries into bags instead of juggling loose cans. Then climb the rehearsal ladder: articulatory rehearsal mutters it and holds it briefly. Elaborative rehearsal links it to your life and laminates it forever. Maintenance rehearsal just repeats it dryly, and it fades like pencil in rain. Meaning beats repetition.'},
- {s:'maya', t:'Tickets cleared, kitchen calm. Next episode, we open the attic where a lifetime of memories is stored. And one of the ghost stories is lying to you.'},
- {s:'leo', t:'Bring a flashlight. Episode five: the haunted archive of long-term memory.'},
-]},
-{id:'ch5', title:'Ep 5 · Long-Term Memory — The Haunted Archive', mins:'≈4 min', lines:[
- {s:'maya', t:'Flashlight on. We are in the attic of your mind, trunks of old birthdays, shelves of facts, and one shelf that whispers. I am Maya.'},
- {s:'leo', t:'And I am Leo, your archivist. See that scrapbook labeled ocean trip? Jumping in the waves is the episode, the temperature that day is the fact. Event plus fact equals autobiographical memory. Roses on the cover flip you straight back to childhood. That is the whole OA sentence in one book.'},
- {s:'maya', t:'Two archivists are arguing by the lake-trip trunk. What are they fighting about?'},
- {s:'leo', t:'The hippocampus question. The standard guide says it helps file the memory early, then retires. The multiple-trace guide says it never leaves, staying active even for ancient episodic memories. Early-only versus always-involved. If the scan still glows at age thirty, multiple-trace wins the point.'},
- {s:'maya', t:'Why does this archive keep survival manuals and steamy novels, but lose my grocery lists?'},
- {s:'leo', t:'Nairne cracked that. Memory evolved to keep you alive, so protection-useful words get the vault. Taboo words muscle in through sheer arousal. Your brain is a survivalist with a gossip habit.'},
- {s:'maya', t:'Now the creepy shelf. The ghost story trunk. Every time I open it, the story is shorter and somehow more... me.'},
- {s:'leo', t:'That is Bartlett at work. Retell a tale repeatedly and it shrinks, simplifies, and reshapes into your own culture. The War of Ghosts proved it: more time passing, more inaccuracies and omissions, all bent toward the teller. Retell it, reshape it, resemble you.'},
- {s:'maya', t:'But the nice ghost is the smell of chopped wood dragging me back to the family cabin.'},
- {s:'leo', t:'The Proust effect, odor-evoked autobiographical memory. And Westmacott and Moscovitch add the gold-star rule: personally significant facts stick, like the actor you once spotted in an airport years ago. Meaning is glue.'},
- {s:'maya', t:'And I suppose I keep the diploma framed because it matches who I think I am.'},
- {s:'leo', t:'The self-image hypothesis, exactly. Graduations stay, embarrassments fade. Now the strength kit that laminates any page: long-term potentiation, repeated firing that strengthens synapses. Emotional stress hormones like cortisol. Sleep, which files everything overnight. And generating material yourself instead of rereading, because rereading only sells the illusion of learning.'},
- {s:'maya', t:'Last riddle, archivist. Same classroom, answers flow. Same mood, memories return. Why?'},
- {s:'leo', t:'Two keys, two doors. Same room is encoding specificity, matching outer context. Same mood is state-dependence, matching inner state. And remember the warning on the door: every recall loosens the binding, the hippocampus replays it at night, and it reconsolidates or it is lost. Memory is a work in progress. Handle with care. Next: we take the stand, and the witness is lying.'},
- {s:'maya', t:'Court is in session. Episode six.'},
-]},
-{id:'ch6', title:'Ep 6 · Forgetting & False Memory — The Trial of Memory', mins:'≈4 min', lines:[
- {s:'maya', t:'Order in the court! Memory itself is on trial today, charged with lying under oath. I am Maya, for the prosecution.'},
- {s:'leo', t:'And I am Leo, for the defense, though honestly my client is guilty. Exhibit A: the eyewitness. She stared at the gun, so weapon focus narrowed everything onto it, and the face slipped away. Stress and leading questions rewrote the rest. Yet she points, certain. Confident, but wrong.'},
- {s:'maya', t:'Exhibit B: the lineup. The witness picks the familiar teacher. Three times likelier, just because she once saw him read to students. Familiar feels guilty. Is that really how thin justice is?'},
- {s:'leo', t:'Thinner. Add post-identification feedback: one confirming word from the officer, and suddenly she also believes in a happy camp childhood that never happened. Confirming feedback implants false certainty. Familiarity misleads, feedback cements.'},
- {s:'maya', t:'Exhibit C is chilling. Nash and Wade roll a doctored video of the suspect cheating. He signs a confession for something he has zero memory of doing.'},
- {s:'leo', t:'Fake film, false admission. Suggestive tactics plus doctored proof manufacture guilt from thin air. And the remedy carries Kassin name: forbid presenting false evidence in interrogations. The verdict the exam wants, word for word.'},
- {s:'maya', t:'Smaller crimes now. I remember an obscure artist, but not where I learned them. What do you call that?'},
- {s:'leo', t:'A source monitoring slip. Right fact, wrong from-where. And its cousin, misinformation: false details heard after the event quietly rewrite the report. Spin after rewrites before.'},
- {s:'maya', t:'The defense calls everyday forgetting to the stand. Decay, interference, motivated forgetting. Speak, witnesses.'},
- {s:'leo', t:'Decay testifies first: unused traces simply fade, like last summer locker combination. Proactive interference: old learning blocks new, your Spanish heckling your Italian. Retroactive: new buries old. And motivated forgetting shelves the painful stuff where nobody looks.'},
- {s:'maya', t:'But the defense has one rescue: cues. Same classroom, answers flow. Same smell, childhood returns. Right cue, found memory.'},
- {s:'leo', t:'Because retrieval failure is usually access failure, not erasure. The file exists; you lost the path. The court finds memory unreliable but recoverable. Next case: a toddler says goed, a horse crashes a barn, and two dinner guests start shouting in sync.'},
- {s:'maya', t:'Language and imagery, episode seven. The prosecution rests.'},
-]},
-{id:'ch7', title:'Ep 7 · Language & Imagery — The Toddler, the Horse, and the Loud Dinner', mins:'≈4 min', lines:[
- {s:'maya', t:'A toddler points at breakfast and announces: Daddy, I goed to the kitchen! The courtroom of language is now in session. I am Maya.'},
- {s:'leo', t:'And I am Leo, and that toddler just proved Chomsky right. Nobody taught her goed. She built the rule herself. Overregularization is the smoking gun for the language acquisition device: innate grammar, running on sparse input.'},
- {s:'maya', t:'So every kid carries a mental dictionary, the lexicon: meanings, sounds, and how each word behaves in a sentence.'},
- {s:'leo', t:'And that dictionary has express lanes. Common words fly. Rare words crawl, with eyes lingering longer on low-frequency words. Light is a triple agent with many meanings, classic lexical ambiguity. And toddlers slice the river of speech into single words using word segmentation.'},
- {s:'maya', t:'I heard driver, and suddenly car popped into my head faster. Someone preheated my brain.'},
- {s:'leo', t:'Lexical priming. One word warms up its neighbors. Now brace yourself, because here comes the most famous trap in the chapter. The horse raced past the barn fell.'},
- {s:'maya', t:'My brain tripped on barn and face-planted on fell. What just happened?'},
- {s:'leo', t:'A garden path ambush. Your parser committed to the wrong subject and had to reanalyze mid-sentence. Same with the car and hills kid: first they blame the motion for the beauty, a causal inference error, then they switch the subject from car to hills. Misled, then repaired. Constraint-based parsing says use every cue available, not just syntax. And when it chases the dog across sentences, that link is anaphoric inference.'},
- {s:'maya', t:'Scene change. Dinner party. Both guests start talking louder and louder, waving their hands in perfect sync. Should I be worried?'},
- {s:'leo', t:'Delighted, not worried. That is entrainment on common ground: conversation partners converging in volume and gesture, reusing each other grammar through syntactic priming. Sync the chat, share the ground.'},
- {s:'maya', t:'Final gallery exhibit. Pictures in the head, or sentences in the head? The imagery debate.'},
- {s:'leo', t:'Kosslyn hangs the spatial paintings: scanning farther across a mental map takes longer, bigger rotations take longer. Picture-like wins. The propositional side frames abstract symbols instead. And Aristotle gets escorted out, because people who cannot visualize at all still think perfectly well.'},
- {s:'maya', t:'So I will store all of this in my memory palace: groceries along the hallway, method of loci, one-bun rhymes for the pegword list, and concrete nouns glowing brighter than abstract ones.'},
- {s:'leo', t:'Paivio applauds. And the two caretakers of it all: Broca up front produces speech but speaks haltingly when hurt, understanding intact. Wernicke in the temporal wing understands, and when hurt, chatters fluently about nothing. Say little but get all, or say much but mean little. Next: the finale, a heist through every bias in the book.'},
-]},
-{id:'ch8', title:'Ep 8 · Decisions & Problem Solving — The Great Bias Heist', mins:'≈4 min', lines:[
- {s:'maya', t:'Finale. Tonight we are pulling a heist: breaking into the vault of human judgment, where every bias is a laser grid. I am Maya, your getaway driver.'},
- {s:'leo', t:'And I am Leo, on comms. The building blueprint first. You start at the initial state, the goal glows across the problem space, and means-end analysis tunnels toward it with subgoals. That is the Tower of Hanoi crew, moving one disc at a time, always shrinking the gap.'},
- {s:'maya', t:'First laser: I am staring at the vault door doing math harder and harder, and getting nowhere.'},
- {s:'leo', t:'Stop calculating, start re-seeing. The Gestalt move is restructuring: redraw the problem until the door becomes a window. But two traps guard it. Mental set drags in your old habits, and functional fixedness swears the box is only a tack holder. The two-string puzzle hangs there to prove it: the box can be a platform if you dare.'},
- {s:'maya', t:'I am stuck, lasers everywhere. Orders?'},
- {s:'leo', t:'Walk away. That is not quitting, that is incubation. The programmers crack the bug over lunch. The musician finishes the song alone in the mountains. The pun finally lands in the shower. Insight hides its progress, non-insight climbs visibly, and mind wandering on the break is the crew working in the dark.'},
- {s:'maya', t:'Inside! The vault is full of old winning plans. Which do we steal?'},
- {s:'leo', t:'All of them, that is analogical transfer. The engineer studies a rotting cup and grows clean biodegradable pots. The teacher maps the heart as pumps and pipes. The club reprints the flyers that once won votes. Compare two problems, extract the principle: that is analogical encoding. Deduction guarantees it from general rules, like sixteen means a license. Induction merely suggests it from patterns.'},
- {s:'maya', t:'Guard round! Three of them: representativeness, availability, belief bias. Talk me past them.'},
- {s:'leo', t:'Guard one checks your costume: the shy poet must be a librarian, base rates ignored. That is representativeness. Guard two waves bloody shark headlines until the beach feels deadly. That is availability, vivid recall inflating the odds. Guard three reads your valid logic and rejects it because the conclusion sounds weird, like the hungry-dogs syllogism. That is belief bias. Fit, recall-ease, believability: all three lie.'},
- {s:'maya', t:'The surgeon offers me two doors: ninety percent survive, or ten percent die. Same numbers. Why do my feet move on their own?'},
- {s:'leo', t:'Framing. Wording flips identical choices, and predicted losses loom larger than equal gains, so you dodge risk. The tree crowd cheers eighty percent saved and boos twenty percent lost. Same forest. And one robbery branding a whole nation? Illusory correlation. Expected utility tells you how you should choose; Mateo feeding the slots shows how you actually do.'},
- {s:'maya', t:'The vault brain is voting too. I can feel it.'},
- {s:'leo', t:'That is neuroeconomics. Your insula vetoes unfair splits and rejects the offer. Your prefrontal cortex reaches to buy. The ultimatum game measures exactly that tug. Heist complete. Eight episodes, one vault emptied: flashcards for facts, podcast for the ride, Smart Learn Lab for the traps. See you on the competent side of eighty percent.'},
-]},
-];
 
 // --- SMART LEARN LAB: mnemonics, confusable contrasts with OA traps, memory-palace stories ---
 const MNEMONICS = {
@@ -946,309 +812,6 @@ function shortHTML(card){
   return `<div class="short-box">⚡ <span class="kw">${getShort(card)}</span></div>`;
 }
 
-// --- SPEECH ENGINE: two voices for the podcast, one voice for card read-aloud ---
-let VOICES=[];
-function loadVoices(){ try{ VOICES=(window.speechSynthesis? window.speechSynthesis.getVoices():[])||[]; }catch(e){ VOICES=[]; } }
-function ttsOK(){ return ('speechSynthesis' in window); }
-function pickVoice(who){ return preferredVoice(who); }
-// voice casting: user picks win; otherwise prefer known-natural voices (Edge Aria/Jenny/Guy, Google, Samantha)
-let voicePrefs={maya:'',leo:''};
-try{ Object.assign(voicePrefs, JSON.parse(localStorage.getItem('wgu570_voices')||'{}')); }catch(e){}
-function saveVoices(){ try{ localStorage.setItem('wgu570_voices', JSON.stringify(voicePrefs)); }catch(e){} }
-function englishPool(){
-  const en=(VOICES||[]).filter(v=>v.lang && /^en/i.test(v.lang));
-  return en.length?en:(VOICES||[]);
-}
-function voiceScore(v){
-  const n=((v&&v.name)||'')+' '+((v&&v.voiceURI)||'');
-  let s=0;
-  if(/natural|neural/i.test(n)) s+=4;
-  if(/premium|enhanced|siri/i.test(n)) s+=3;
-  if(/google us english/i.test(n)) s+=3;
-  if(/google uk english (female|male)/i.test(n)) s+=2;
-  if(/aria|jenny|guy|davis|christopher|emma|amber/i.test(n)) s+=2;
-  if(/samantha|zira|tessa|moira|karen|serena|daniel|alex|fred|thomas|james|female|male/i.test(n)) s+=1;
-  if(/^en/i.test((v&&v.lang)||'')) s+=1;
-  if(/espeak|festival|flite|pico|robot|sapi|compact|boron/i.test(n)) s-=6;
-  return s;
-}
-function rankedPool(){
-  const pool=englishPool();
-  const premium=pool.filter(v=>voiceScore(v)>=3);
-  const base=premium.length?pool.filter(v=>voiceScore(v)>-2):pool;
-  return base.slice().sort((a,b)=>voiceScore(b)-voiceScore(a));
-}
-function hiddenRobotCount(){
-  return englishPool().length-rankedPool().length;
-}
-function preferredVoice(who){
-  const pool=rankedPool();
-  if(!pool.length) return (VOICES||[])[0]||null;
-  const saved=voicePrefs[who];
-  if(saved){ const f=pool.find(v=>v.voiceURI===saved)||(VOICES||[]).find(v=>v.voiceURI===saved); if(f) return f; }
-  const pats = who==='maya'
-    ? [/aria/i,/jenny/i,/emma/i,/samantha/i,/zira/i,/google us english female/i,/tessa/i,/moira/i,/female/i,/natural/i,/neural/i]
-    : [/guy/i,/davis/i,/daniel/i,/christopher/i,/alex/i,/fred/i,/google uk english male/i,/thomas/i,/james/i,/male/i,/natural/i,/neural/i];
-  for(const p of pats){ const f=pool.find(v=>p.test(v.name)); if(f) return f; }
-  return pool[0];
-}
-function escAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-function voiceOptions(selWho){
-  const pool=rankedPool();
-  if(!pool.length) return '<option value="">(no voices found)</option>';
-  const cur=preferredVoice(selWho);
-  return pool.map((v,i)=>`<option value="${escAttr(v.voiceURI)}"${cur&&cur.voiceURI===v.voiceURI?' selected':''}>${i===0?'⭐ ':''}${escAttr(v.name)} (${escAttr(v.lang)})</option>`).join('');
-}
-function robotNote(){
-  let h=0; try{ h=hiddenRobotCount(); }catch(e){}
-  return h>0?` <span style="font-weight:700">🚫 ${h} robotic legacy voice${h>1?'s':''} hidden — better voices found on this device.</span>`:'';
-}
-// human pacing: split into sentences, speak each with its own breath, lift questions, vary pace
-function sentencesOf(t){
-  const m=String(t).match(/[^.!?]+[.!?]+["']?|\S[^.!?]+$/g);
-  return ((m&&m.length)?m:[t]).map(s=>s.trim()).filter(Boolean);
-}
-function speakSentences(sents, who, baseRate, onDone){
-  let i=0;
-  (function next(){
-    if(i>=sents.length){ if(onDone) onDone(); return; }
-    const s=sents[i];
-    const u=new SpeechSynthesisUtterance(s);
-    u.rate=Math.min(1.5,Math.max(0.7,(baseRate||1)*(0.95+((i%3)*0.04))));
-    let p=(who==='maya')?1.12:0.88;
-    if(/\?\s*["']?$/.test(s)) p+=0.14;
-    else if(/!\s*["']?$/.test(s)) p+=0.07;
-    u.pitch=Math.min(1.5,Math.max(0.5,p));
-    const v=preferredVoice(who); if(v) u.voice=v;
-    u.onend=()=>{ i++; setTimeout(next, /[?!]\s*["']?$/.test(s)?300:190); };
-    u.onerror=(e)=>{ if(e && e.error==='interrupted') return; if(onDone) onDone(true); };
-    try{ window.speechSynthesis.speak(u); }catch(err){ if(onDone) onDone(true); }
-  })();
-}
-// --- CLOUD ENGINE: free keyless Google voices (needs internet, no account, no key of any kind) ---
-// Plain <audio> playback of short speech chunks. Nothing is fetched via script (the endpoint
-// sends no CORS headers), no credentials exist anywhere — just a public synthesis URL.
-// Maya speaks US English, Leo speaks GB English, so the two hosts sound like two people.
-try{
-  const e=localStorage.getItem('wgu570_engine')||'device';
-  state.podEngine=(e==='edge')?'cloud':e;
-}catch(e){}
-function saveEngine(){ try{ localStorage.setItem('wgu570_engine',state.podEngine); }catch(e){} }
-function cloudURL(text,who){
-  const tl=who==='maya'?'en-US':'en-GB';
-  return 'https://translate.google.com/translate_tts?ie=UTF-8&client=gtx&tl='+tl+'&q='+encodeURIComponent(text);
-}
-function cloudChunks(text){
-  const sents=sentencesOf(text); const out=[]; let cur='';
-  const push=()=>{ if(cur.trim()) out.push(cur.trim()); cur=''; };
-  sents.forEach(s=>{
-    if((cur+' '+s).trim().length>190) push();
-    cur=(cur+' '+s).trim();
-    if(cur.length>190){
-      const words=cur.split(/\s+/); cur='';
-      words.forEach(w=>{ if((cur+' '+w).trim().length>190) push(); cur=(cur+' '+w).trim(); });
-    }
-  });
-  push();
-  return out.length?out:[String(text).slice(0,190)];
-}
-let cloudAudio=null, cloudToken=0, cloudElA=null, cloudElB=null;
-function ensureCloudEls(){ try{ if(!cloudElA){ cloudElA=new Audio(); cloudElA.preload='auto'; } if(!cloudElB){ cloudElB=new Audio(); cloudElB.preload='auto'; } }catch(e){} }
-function cloudStop(){ cloudToken++; try{ if(cloudAudio){ cloudAudio.pause(); cloudAudio=null; } }catch(e){} }
-function cloudRate(who){ return Math.min(1.4,Math.max(0.7,(state.podRate||1)*(who==='leo'?0.9:1))); }
-function cloudRun(ep,startIdx,token){
-  state.podPlaying=true; renderPodcast();
-  ensureCloudEls();
-  const items=[];
-  for(let i=startIdx;i<ep.lines.length;i++){
-    const L=ep.lines[i];
-    cloudChunks(L.t).forEach(t=>items.push({line:i,who:L.s,text:t}));
-  }
-  let k=0, consecFail=0;
-  function failAbort(err){ if(token!==cloudToken) return; state.podPlaying=false; renderPodcast(); alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); }
-  function playChunk(){
-    if(token!==cloudToken||!state.podPlaying) return;
-    if(k>=items.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
-    const it=items[k];
-    state.podIdx=it.line; renderPodcast();
-    const el=(k%2===0)?cloudElA:cloudElB;
-    if(!el){ failAbort(new Error('audio unavailable in this browser')); return; }
-    cloudAudio=el;
-    try{ el.playbackRate=cloudRate(it.who); }catch(e){}
-    try{ el.src=cloudURL(it.text,it.who); }catch(e){ retryOrSkip(e); return; }
-    try{ el.load(); }catch(e){}
-    if(k+1<items.length){ try{ const w=(k%2===0)?cloudElB:cloudElA; if(w){ w.src=cloudURL(items[k+1].text,items[k+1].who); w.load(); } }catch(e){} }
-    el.onended=()=>{ consecFail=0; if(token!==cloudToken||!state.podPlaying) return; k++; playChunk(); };
-    el.onerror=()=>{ retryOrSkip(new Error('chunk failed to load')); };
-    let pr=null;
-    try{ pr=el.play(); }catch(e){ retryOrSkip(e); return; }
-    if(pr&&pr.catch) pr.catch((e)=>retryOrSkip(e));
-  }
-  function retryOrSkip(e){
-    if(token!==cloudToken||!state.podPlaying) return;
-    if(e&&e.name==='NotAllowedError'){ failAbort(new Error('playback blocked by browser — tap Play again')); return; }
-    consecFail++;
-    if(consecFail>=3){ failAbort(new Error('no audio received — check internet')); return; }
-    setTimeout(()=>{ if(token!==cloudToken||!state.podPlaying) return; playChunk(); },700);
-  }
-  playChunk();
-}
-function cloudSpeakText(text,who){
-  return new Promise((res,rej)=>{
-    ensureCloudEls();
-    const items=cloudChunks(text); let k=0, fails=0; const token=cloudToken;
-    function step(){
-      if(token!==cloudToken){ res(); return; }
-      if(k>=items.length){ res(); return; }
-      const el=cloudElA||cloudElB;
-      if(!el){ rej(new Error('audio unavailable in this browser')); return; }
-      cloudAudio=el;
-      try{ el.playbackRate=cloudRate(who); }catch(e){}
-      try{ el.src=cloudURL(items[k],who); }catch(e){ rej(e); return; }
-      try{ el.load(); }catch(e){}
-      el.onended=()=>{ fails=0; k++; step(); };
-      el.onerror=()=>{ again(new Error('chunk failed to load')); };
-      let pr=null;
-      try{ pr=el.play(); }catch(e){ again(e); return; }
-      if(pr&&pr.catch) pr.catch(again);
-    }
-    function again(e){
-      if(token!==cloudToken){ res(); return; }
-      if(e&&e.name==='NotAllowedError'){ rej(e); return; }
-      if(++fails>=3){ rej(new Error('no audio received — check internet')); return; }
-      setTimeout(step,700);
-    }
-    step();
-  });
-}
-function stopSpeech(){ try{ if(ttsOK()){ state.podPlaying=false; window.speechSynthesis.cancel(); } }catch(e){} try{ cloudStop(); }catch(e){} }
-function speakCard(){
-  const c=current(); if(!c) return;
-  const text=c.term+'. '+c.definition+(c.example? ' Example: '+c.example:'');
-  stopSpeech();
-  if(state.podEngine==='cloud'){
-    cloudSpeakText(text,'maya').catch(err=>{ alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
-    return;
-  }
-  if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
-  speakSentences(sentencesOf(text), 'maya', 1);
-}
-function podEpisodes(){
-  if(state.chapter==='all') return PODCASTS;
-  const one=PODCASTS.filter(e=>e.id===state.chapter);
-  return one.length?one:PODCASTS;
-}
-function podCurrent(){
-  const eps=podEpisodes();
-  let ep=eps.find(e=>e.id===state.podEp);
-  if(!ep){ ep=eps[0]; state.podEp=ep.id; state.podIdx=0; }
-  return ep;
-}
-function podPlay(fromIdx){
-  const ep=podCurrent();
-  if(typeof fromIdx==='number') state.podIdx=fromIdx;
-  stopSpeech();
-  if(state.podEngine==='cloud'){
-    const token=++cloudToken;
-    state.podIdx=(typeof fromIdx==='number')?fromIdx:state.podIdx;
-    cloudRun(ep, state.podIdx, token);
-    return;
-  }
-  if(!ttsOK()){ alert('🎙️ Podcast playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
-  state.podPlaying=true;
-  podSpeakLine(ep, state.podIdx);
-  renderPodcast();
-}
-function podSpeakLine(ep, i){
-  if(i>=ep.lines.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
-  state.podIdx=i;
-  renderPodcast();
-  const line=ep.lines[i];
-  speakSentences(sentencesOf(line.t), line.s, state.podRate||1, (err)=>{
-    if(err){ state.podPlaying=false; renderPodcast(); return; }
-    if(!state.podPlaying) return;
-    podSpeakLine(ep, i+1);
-  });
-}
-function podPause(){
-  try{
-    if(state.podEngine==='cloud'){
-      if(!cloudAudio) return;
-      if(cloudAudio.paused){ cloudAudio.play().catch(()=>{}); }
-      else { cloudAudio.pause(); }
-    }else{
-      if(!ttsOK()) return;
-      if(window.speechSynthesis.paused){ window.speechSynthesis.resume(); }
-      else { window.speechSynthesis.pause(); }
-    }
-  }catch(e){}
-  renderPodcast();
-}
-function renderPodcast(){
-  const wrap=document.getElementById('podWrap');
-  if(!wrap || state.mode!=='podcast') return;
-  const eps=podEpisodes();
-  const ep=podCurrent();
-  const chName=(id)=>{ const c=chapters.find(x=>x.id===id); return c?c.emoji+' '+c.name:id; };
-  wrap.innerHTML=`
-    <div class="pod-player">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap">
-        <div style="font-weight:800;font-size:1.05rem">🎙️ CogCast — ${ep.title}</div>
-        <span class="badge">${ep.mins} • Maya 👩 + Leo 🧑</span>
-      </div>
-      <div style="font-size:0.82rem;color:var(--muted);margin-top:0.35rem">${chName(ep.id)} • Two hosts trade questions and answers across the whole chapter. Transcript highlights as it plays.</div>
-      ${ttsOK()?'':'<div class="vs-trap">⚠️ This browser has no speech support — transcript still reads fine below. Try Chrome, Edge, or Safari for audio.</div>'}
-      <div class="pod-controls">
-        <button class="btn primary" id="podPlayBtn">${state.podPlaying?'▶ Playing… restart':'▶ Play episode'}</button>
-        <button class="btn" id="podPauseBtn">⏸ Pause / Resume</button>
-        <button class="btn red" id="podStopBtn">⏹ Stop</button>
-      </div>
-      <div class="rate-row">
-        <label for="podRate">🎚️ Speed:</label>
-        <input type="range" id="podRate" min="0.8" max="1.4" step="0.1" value="${state.podRate}" style="width:130px">
-        <span id="podRateLbl">${state.podRate.toFixed(1)}×</span>
-        <span style="margin-left:auto">📍 Line ${Math.min(state.podIdx+1,ep.lines.length)} / ${ep.lines.length}</span>
-      </div>
-      <div class="rate-row">
-        <span style="font-weight:700">🔊 Engine:</span>
-        <button class="tgl${state.podEngine==='device'?' on':''}" id="engDevice">📱 Device</button>
-        <button class="tgl${state.podEngine==='cloud'?' on':''}" id="engEdge">☁️ Google Voice · free</button>
-      </div>
-      ${state.podEngine==='cloud'?`
-      <div style="font-size:0.78rem;color:var(--muted)">☁️ Free Google voices over the internet — no key, no account. 👩 Maya speaks US English, 🧑 Leo speaks GB English. Needs connection; the transcript always works offline.</div>` : `
-      <div class="rate-row">
-        <label for="voiceMaya">👩 Maya voice:</label>
-        <select id="voiceMaya" style="max-width:190px;padding:0.35rem 0.5rem;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.78rem">${voiceOptions('maya')}</select>
-        <label for="voiceLeo">🧑 Leo voice:</label>
-        <select id="voiceLeo" style="max-width:190px;padding:0.35rem 0.5rem;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.78rem">${voiceOptions('leo')}</select>
-      </div>
-      <div style="font-size:0.75rem;color:var(--muted)">🎧 Tip: on Edge or Chrome, pick a “Natural” voice (⭐ = best on this device) for the most human sound. Your picks are remembered.${robotNote()}</div>`}
-    </div>
-    <div class="pod-player">
-      <div style="font-weight:800;margin-bottom:0.6rem">📻 Episodes ${state.chapter!=='all'?'(filtered: '+chName(state.chapter)+')':'(all 8 chapters)'}</div>
-      <div class="pod-ep-list">
-        ${eps.map(e=>`<button class="pod-ep${e.id===ep.id?' active':''}" data-ep="${e.id}">🎙️ ${e.title}<small>${e.mins} • ${e.lines.length} exchanges • ${chName(e.id)}</small></button>`).join('')}
-      </div>
-    </div>
-    <div class="pod-player">
-      <div style="font-weight:800;margin-bottom:0.6rem">📝 Transcript — tap any line to play from there</div>
-      <div class="pod-script" id="podScript">
-        ${ep.lines.map((l,i)=>`<div class="line ${l.s}${i===state.podIdx&&state.podPlaying?' speaking':''}" data-line="${i}"><span class="who">${l.s==='maya'?'👩 Maya':'🧑 Leo'}</span><br>${l.t}</div>`).join('')}
-      </div>
-    </div>`;
-  document.getElementById('podPlayBtn').onclick=()=>podPlay(0);
-  document.getElementById('podPauseBtn').onclick=podPause;
-  document.getElementById('podStopBtn').onclick=()=>{ stopSpeech(); state.podIdx=0; renderPodcast(); };
-  document.getElementById('podRate').oninput=(e)=>{ state.podRate=parseFloat(e.target.value); document.getElementById('podRateLbl').textContent=state.podRate.toFixed(1)+'×'; };
-  const vm=document.getElementById('voiceMaya'); if(vm) vm.onchange=(e)=>{ voicePrefs.maya=e.target.value; saveVoices(); };
-  const vl=document.getElementById('voiceLeo'); if(vl) vl.onchange=(e)=>{ voicePrefs.leo=e.target.value; saveVoices(); };
-  const ed=document.getElementById('engDevice'); if(ed) ed.onclick=()=>{ stopSpeech(); state.podEngine='device'; saveEngine(); renderPodcast(); };
-  const ee=document.getElementById('engEdge'); if(ee) ee.onclick=()=>{ stopSpeech(); state.podEngine='cloud'; saveEngine(); renderPodcast(); };
-  wrap.querySelectorAll('.pod-ep').forEach(b=>b.onclick=()=>{ stopSpeech(); state.podEp=b.dataset.ep; state.podIdx=0; renderPodcast(); });
-  wrap.querySelectorAll('.line').forEach(el=>el.onclick=()=>{ podPlay(parseInt(el.dataset.line,10)); });
-  const cur=wrap.querySelector('.line.speaking');
-  if(cur && cur.scrollIntoView){ try{ cur.scrollIntoView({block:'nearest',behavior:'smooth'}); }catch(e){} }
-}
 // --- SMART LEARN LAB renderer ---
 function learnCards(){
   const arr=(state.chapter==='all')?flashcards:flashcards.filter(c=>c.chapter===state.chapter);
@@ -1273,7 +836,7 @@ function renderLearn(){
   }else if(state.learnSub==='story'){
     const keys=(state.chapter==='all')?Object.keys(STORIES):[state.chapter];
     body='<div style="font-size:0.85rem;color:var(--muted)">A memory-palace walk per chapter: every <b>bold</b> stop is a tested term. Read it once, retell it once — that is Bartlett-approved encoding.</div>'
-      +keys.map(k=>`<div style="margin-top:0.7rem"><span class="badge">${chName(k)}</span><div class="story">🗺️ ${STORIES[k]}</div><div style="margin-top:0.4rem"><button class="tgl" data-say="${k}">🔊 Listen to this story</button></div></div>`).join('');
+      +keys.map(k=>`<div style="margin-top:0.7rem"><span class="badge">${chName(k)}</span><div class="story">🗺️ ${STORIES[k]}</div></div>`).join('');
   }else{
     if(!state.rf) newRapidFire();
     const q=state.rf.qs[state.rf.idx];
@@ -1298,16 +861,6 @@ function renderLearn(){
       <div id="learnBody">${body}</div>
     </div>`;
   wrap.querySelectorAll('.subtab').forEach(b=>b.onclick=()=>{ state.learnSub=b.dataset.sub; if(state.learnSub==='rf') state.rf=null; renderLearn(); });
-  wrap.querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>{
-    stopSpeech();
-    const tmp=document.createElement('div'); tmp.innerHTML=STORIES[b.dataset.say];
-    if(state.podEngine==='cloud'){
-      cloudSpeakText(tmp.textContent,'leo').catch(err=>{ alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
-      return;
-    }
-    if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support.'); return; }
-    speakSentences(sentencesOf(tmp.textContent), 'leo', 1);
-  });
   const nb=document.getElementById('rfNew'); if(nb) nb.onclick=()=>{ newRapidFire(); renderLearn(); };
   const rt=document.getElementById('rfTrue'); if(rt) rt.onclick=()=>rfAnswer(true);
   const rf2=document.getElementById('rfFalse'); if(rf2) rf2.onclick=()=>rfAnswer(false);
@@ -1479,7 +1032,6 @@ let state={
   examOrder2:[], examIdx2:0, lastExamId2:null,
   oasimQs:[], oasimIdx:0, oasimAnswers:{}, oasimScore:{correct:0,answered:0}, oasimDone:false,
   missedOnly:false, shortMode:false, visualsOn:true,
-  podEp:'ch1', podIdx:0, podPlaying:false, podRate:1,
   learnSub:'mnem', rf:null,
   theme: localStorage.getItem('wgu570_theme')||'dark'
 };
@@ -1647,7 +1199,6 @@ function renderStats(){
 }
 function renderCard(){
   const quizBox=document.getElementById('quizOptions');
-  if(state.mode==='podcast'){ renderPodcast(); return; }
   if(state.mode==='learn'){ renderLearn(); return; }
   
   // EXAM QUIZ MODES use examQuestions (Quiz 1) or examQuestions2 (Quiz 2)
@@ -1976,10 +1527,9 @@ function render(){
     document.getElementById('studyArea').style.display='flex';
     document.getElementById('listArea').style.display='none';
     const sb2=document.querySelector('.main .sidebar'); if(sb2) sb2.style.display='';
-    const hideCardUI=(state.mode==='podcast'||state.mode==='learn');
+    const hideCardUI=(state.mode==='learn');
     document.querySelectorAll('#studyArea .scene, #studyArea .controls-row, #studyArea .kbd-hints, #featBar').forEach(el=>{ el.style.display=hideCardUI?'none':''; });
     const qo=document.getElementById('quizOptions'); if(qo && hideCardUI) qo.style.display='none';
-    const pw=document.getElementById('podWrap'); if(pw) pw.style.display=(state.mode==='podcast')?'flex':'none';
     const lw=document.getElementById('learnWrap'); if(lw) lw.style.display=(state.mode==='learn')?'flex':'none';
     syncFeatBar();
   }
@@ -1999,7 +1549,7 @@ function syncFeatBar(){
 function setShortMode(on){ state.shortMode=on; render(); }
 function setVisualsMode(on){ state.visualsOn=on; render(); }
 function next(){
-  if(state.mode==='podcast'||state.mode==='learn') return;
+  if(state.mode==='learn') return;
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx+1)%state.examOrder.length;
@@ -2016,7 +1566,7 @@ function next(){
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
 function prev(){
-  if(state.mode==='podcast'||state.mode==='learn') return;
+  if(state.mode==='learn') return;
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx-1+state.examOrder.length)%state.examOrder.length;
@@ -2033,7 +1583,7 @@ function prev(){
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
 function flip(){
-  if(state.mode==='podcast'||state.mode==='learn') return;
+  if(state.mode==='learn') return;
   if((state.mode==='quiz'||state.mode==='quiz2') && !state.quizAnswered){
     state.flipped=!state.flipped;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
@@ -2047,10 +1597,8 @@ function flip(){
   state.flipped=!state.flipped; render();
 }
 function switchMode(m){
-  stopSpeech();
   state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null;
-  if(m==='podcast'){ const eps=podEpisodes(); if(!eps.find(e=>e.id===state.podEp)){ state.podEp=eps[0].id; state.podIdx=0; } }
   if(m==='learn') state.rf=null;
   render();
 }
@@ -2091,7 +1639,7 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
 document.addEventListener('keydown', e=>{
   const isTyping = e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA' || e.target.tagName==='SELECT' || e.target.isContentEditable;
   if(isTyping) return;
-  if(state.mode==='podcast'||state.mode==='learn') return;
+  if(state.mode==='learn') return;
   if(e.code==='Space'){ e.preventDefault(); flip(); }
   if(e.code==='ArrowRight') next();
   if(e.code==='ArrowLeft') prev();
@@ -2108,8 +1656,6 @@ document.getElementById('shortBtn').addEventListener('click', ()=>setShortMode(!
 document.getElementById('visualBtn').addEventListener('click', ()=>setVisualsMode(!state.visualsOn));
 document.getElementById('shortTgl').addEventListener('click', ()=>setShortMode(!state.shortMode));
 document.getElementById('visualTgl').addEventListener('click', ()=>setVisualsMode(!state.visualsOn));
-document.getElementById('listenBtn').addEventListener('click', speakCard);
-if(ttsOK()){ loadVoices(); try{ window.speechSynthesis.onvoiceschanged=()=>{ loadVoices(); if(state.mode==='podcast') renderPodcast(); }; }catch(e){} }
 load(); renderChapters(); rebuild();
 </script>
 </body>
