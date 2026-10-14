@@ -1052,47 +1052,71 @@ function cloudChunks(text){
   push();
   return out.length?out:[String(text).slice(0,190)];
 }
-let cloudAudio=null, cloudToken=0;
+let cloudAudio=null, cloudToken=0, cloudElA=null, cloudElB=null;
+function ensureCloudEls(){ try{ if(!cloudElA){ cloudElA=new Audio(); cloudElA.preload='auto'; } if(!cloudElB){ cloudElB=new Audio(); cloudElB.preload='auto'; } }catch(e){} }
 function cloudStop(){ cloudToken++; try{ if(cloudAudio){ cloudAudio.pause(); cloudAudio=null; } }catch(e){} }
 function cloudRate(who){ return Math.min(1.4,Math.max(0.7,(state.podRate||1)*(who==='leo'?0.9:1))); }
 function cloudRun(ep,startIdx,token){
   state.podPlaying=true; renderPodcast();
+  ensureCloudEls();
   const items=[];
   for(let i=startIdx;i<ep.lines.length;i++){
     const L=ep.lines[i];
     cloudChunks(L.t).forEach(t=>items.push({line:i,who:L.s,text:t}));
   }
-  let k=0; const warmed={};
-  const warm=(u)=>{ if(warmed[u]) return; warmed[u]=1; try{ const a=new Audio(u); a.preload='auto'; }catch(e){} };
-  function fail(err){ if(token!==cloudToken) return; state.podPlaying=false; renderPodcast(); alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); }
-  function step(){
+  let k=0, consecFail=0;
+  function failAbort(err){ if(token!==cloudToken) return; state.podPlaying=false; renderPodcast(); alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); }
+  function playChunk(){
     if(token!==cloudToken||!state.podPlaying) return;
     if(k>=items.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
     const it=items[k];
     state.podIdx=it.line; renderPodcast();
-    let a; try{ a=new Audio(cloudURL(it.text,it.who)); }catch(e){ fail(e); return; }
-    cloudAudio=a;
-    try{ a.playbackRate=cloudRate(it.who); }catch(e){}
-    a.preload='auto';
-    if(k+1<items.length) warm(cloudURL(items[k+1].text,items[k+1].who));
-    a.onended=()=>{ if(token!==cloudToken||!state.podPlaying) return; k++; step(); };
-    a.onerror=()=>{ if(token!==cloudToken||!state.podPlaying) return; k++; step(); };
-    try{ const pr=a.play(); if(pr&&pr.catch) pr.catch(()=>fail(new Error('playback blocked — tap Play again'))); }catch(e){ fail(e); }
+    const el=(k%2===0)?cloudElA:cloudElB;
+    if(!el){ failAbort(new Error('audio unavailable in this browser')); return; }
+    cloudAudio=el;
+    try{ el.playbackRate=cloudRate(it.who); }catch(e){}
+    try{ el.src=cloudURL(it.text,it.who); }catch(e){ retryOrSkip(e); return; }
+    try{ el.load(); }catch(e){}
+    if(k+1<items.length){ try{ const w=(k%2===0)?cloudElB:cloudElA; if(w){ w.src=cloudURL(items[k+1].text,items[k+1].who); w.load(); } }catch(e){} }
+    el.onended=()=>{ consecFail=0; if(token!==cloudToken||!state.podPlaying) return; k++; playChunk(); };
+    el.onerror=()=>{ retryOrSkip(new Error('chunk failed to load')); };
+    let pr=null;
+    try{ pr=el.play(); }catch(e){ retryOrSkip(e); return; }
+    if(pr&&pr.catch) pr.catch((e)=>retryOrSkip(e));
   }
-  step();
+  function retryOrSkip(e){
+    if(token!==cloudToken||!state.podPlaying) return;
+    if(e&&e.name==='NotAllowedError'){ failAbort(new Error('playback blocked by browser — tap Play again')); return; }
+    consecFail++;
+    if(consecFail>=3){ failAbort(new Error('no audio received — check internet')); return; }
+    setTimeout(()=>{ if(token!==cloudToken||!state.podPlaying) return; playChunk(); },700);
+  }
+  playChunk();
 }
 function cloudSpeakText(text,who){
   return new Promise((res,rej)=>{
-    const items=cloudChunks(text); let k=0; const token=cloudToken;
+    ensureCloudEls();
+    const items=cloudChunks(text); let k=0, fails=0; const token=cloudToken;
     function step(){
       if(token!==cloudToken){ res(); return; }
       if(k>=items.length){ res(); return; }
-      let a; try{ a=new Audio(cloudURL(items[k],who)); }catch(e){ rej(e); return; }
-      cloudAudio=a;
-      try{ a.playbackRate=cloudRate(who); }catch(e){}
-      a.onended=()=>{ k++; step(); };
-      a.onerror=()=>{ k++; step(); };
-      try{ const pr=a.play(); if(pr&&pr.catch) pr.catch(rej); }catch(e){ rej(e); }
+      const el=cloudElA||cloudElB;
+      if(!el){ rej(new Error('audio unavailable in this browser')); return; }
+      cloudAudio=el;
+      try{ el.playbackRate=cloudRate(who); }catch(e){}
+      try{ el.src=cloudURL(items[k],who); }catch(e){ rej(e); return; }
+      try{ el.load(); }catch(e){}
+      el.onended=()=>{ fails=0; k++; step(); };
+      el.onerror=()=>{ again(new Error('chunk failed to load')); };
+      let pr=null;
+      try{ pr=el.play(); }catch(e){ again(e); return; }
+      if(pr&&pr.catch) pr.catch(again);
+    }
+    function again(e){
+      if(token!==cloudToken){ res(); return; }
+      if(e&&e.name==='NotAllowedError'){ rej(e); return; }
+      if(++fails>=3){ rej(new Error('no audio received — check internet')); return; }
+      setTimeout(step,700);
     }
     step();
   });
