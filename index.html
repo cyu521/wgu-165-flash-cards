@@ -217,6 +217,62 @@
 
   .kbd-hints{display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem}
   .kbd{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.45rem;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+
+  /* Feature toolbar (short / visual / listen) */
+  .feat-bar{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;max-width:720px;margin:0 auto;width:100%}
+  .tgl{padding:0.5rem 0.85rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);
+    color:var(--muted);font-weight:700;font-size:0.8rem;cursor:pointer;transition:.15s;box-shadow:var(--shadow)}
+  .tgl:hover{transform:translateY(-1px);color:var(--text);border-color:var(--accent)}
+  .tgl.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border-color:transparent}
+  .short-box{width:100%;padding:0.8rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(14,165,233,0.12),rgba(99,102,241,0.12));
+    border:1px solid var(--accent);font-size:0.95rem;font-weight:600}
+  .short-box .kw{color:var(--accent-2);font-weight:800}
+  .visual-box{width:100%;margin-top:0.6rem;padding:0.9rem;border-radius:12px;background:var(--surface2);
+    border:1px solid var(--border);font-size:0.9rem;text-align:center}
+  .visual-box svg{max-width:100%;height:auto}
+  .visual-cap{font-size:0.75rem;color:var(--muted);margin-top:0.4rem}
+
+  /* Podcast mode */
+  .pod-wrap{max-width:720px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:0.9rem}
+  .pod-player{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.2rem;box-shadow:var(--shadow-lg);overflow:hidden;position:relative}
+  .pod-player::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#a855f7,#ec4899,var(--accent))}
+  .pod-ep-list{display:grid;gap:0.5rem}
+  .pod-ep{text-align:left;padding:0.75rem 0.9rem;border-radius:12px;border:1px solid var(--border);background:var(--surface2);
+    cursor:pointer;font-size:0.88rem;font-weight:600;transition:.15s;color:var(--text)}
+  .pod-ep:hover{border-color:#a855f7;transform:translateY(-1px)}
+  .pod-ep.active{background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.15));border-color:#a855f7}
+  .pod-ep small{display:block;font-weight:400;color:var(--muted);font-size:0.75rem;margin-top:0.15rem}
+  .pod-controls{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:0.8rem}
+  .pod-script{display:flex;flex-direction:column;gap:0.55rem;max-height:420px;overflow-y:auto;padding-right:0.2rem}
+  .line{padding:0.7rem 0.9rem;border-radius:12px;background:var(--surface);border:1px solid var(--border);font-size:0.9rem;line-height:1.55}
+  .line.speaking{border-color:#a855f7;box-shadow:0 0 0 2px rgba(168,85,247,0.25)}
+  .line .who{display:inline-block;font-size:0.7rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;
+    padding:0.15rem 0.5rem;border-radius:20px;margin-bottom:0.35rem}
+  .line.maya .who{background:rgba(14,165,233,0.15);color:var(--accent)}
+  .line.leo .who{background:rgba(168,85,247,0.15);color:#a855f7}
+  .rate-row{display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;color:var(--muted);margin-top:0.7rem;flex-wrap:wrap}
+
+  /* Smart Learn Lab */
+  .learn-wrap{max-width:720px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:0.9rem}
+  .learn-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.2rem;box-shadow:var(--shadow-lg);overflow:hidden;position:relative}
+  .learn-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--accent),var(--accent-2))}
+  .subtabs{display:flex;gap:0.45rem;flex-wrap:wrap;margin:0.8rem 0}
+  .subtab{padding:0.5rem 0.85rem;border-radius:20px;border:1px solid var(--border);background:var(--surface2);
+    font-size:0.8rem;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s}
+  .subtab:hover{color:var(--text);border-color:var(--accent)}
+  .subtab.active{background:var(--text);color:var(--bg2);border-color:var(--text)}
+  .mnem{padding:0.65rem 0.8rem;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:0.88rem;margin-top:0.5rem;line-height:1.55}
+  .mnem b{color:var(--accent-2)}
+  .versus{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.6rem}
+  @media(max-width:560px){.versus{grid-template-columns:1fr}}
+  .vs-cell{padding:0.7rem 0.85rem;border-radius:12px;border:1px solid var(--border);font-size:0.85rem;line-height:1.55}
+  .vs-cell.left{background:rgba(14,165,233,0.08);border-color:rgba(14,165,233,0.4)}
+  .vs-cell.right{background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.4)}
+  .vs-cell b{display:block;margin-bottom:0.25rem}
+  .vs-trap{margin-top:0.5rem;padding:0.6rem 0.8rem;border-radius:10px;background:var(--red-bg);border:1px solid var(--red);font-size:0.82rem}
+  .story{padding:0.8rem 0.95rem;border-radius:12px;background:var(--surface2);border:1px dashed var(--accent);font-size:0.9rem;line-height:1.65;margin-top:0.6rem}
+  .story b{color:var(--accent-2)}
+  .rf-opt{display:grid;gap:0.5rem;margin-top:0.7rem}
 </style>
 </head>
 <body data-theme="dark">
@@ -253,7 +309,15 @@
       <button class="mode-btn" data-mode="quiz2"><span>🔁</span> Exam Quiz 2</button>
       <button class="mode-btn" data-mode="oasim"><span>🎓</span> OA Practice Exam</button>
       <button class="mode-btn" data-mode="flashquiz"><span>📝</span> Flashcard Quiz</button>
+      <button class="mode-btn" data-mode="podcast"><span>🎙️</span> Podcast</button>
+      <button class="mode-btn" data-mode="learn"><span>🌟</span> Smart Learn Lab</button>
       <button class="mode-btn" data-mode="list"><span>📋</span> List</button>
+    </div>
+
+    <div class="card-mini">
+      <h4>⚡ Display</h4>
+      <button class="mode-btn" id="shortTgl"><span>⚡</span> Short definitions: OFF</button>
+      <button class="mode-btn" id="visualTgl"><span>🖼️</span> Diagrams: ON</button>
     </div>
 
     <div class="card-mini">
@@ -324,6 +388,15 @@
       <button class="btn red" id="unknownBtn">✕ Don't know</button>
       <button class="btn green" id="knownBtn">✓ I know this</button>
     </div>
+
+    <div class="feat-bar" id="featBar">
+      <button class="tgl" id="shortBtn">⚡ Short: OFF</button>
+      <button class="tgl on" id="visualBtn">🖼️ Diagram: ON</button>
+      <button class="tgl" id="listenBtn">🔊 Listen to card</button>
+    </div>
+
+    <div class="pod-wrap" id="podWrap" style="display:none"></div>
+    <div class="learn-wrap" id="learnWrap" style="display:none"></div>
 
     <div class="quiz-grid" id="quizOptions" style="display:none"></div>
     <div class="kbd-hints">
@@ -507,7 +580,558 @@ const flashcards = [
   {id:359, chapter:'ch8', term:'Analogical encoding', definition:'Finding similarities between two problems to grasp the underlying principle — restaurant vs tech marketing teaches customer engagement.', example:'Compare cases → find principle'},
   {id:360, chapter:'ch8', term:'Analogical problem solving', definition:'Solving a new problem with a past similar solution — low-angle radiation that treated one tumor guides treating another.', example:'Old solution → new tumor'},
   {id:361, chapter:'ch8', term:'Heuristic', definition:'Mental shortcut for fast, efficient judgments — side streets at rush hour because they are usually faster.', example:'Fast rule of thumb'},
+
+  // --- Full Quizlet _fr0p85 coverage batch (missing glossary + vignettes) ---
+  // ch1 Foundations & history catch-up
+  {id:362, chapter:'ch1', term:'Analytic introspection', definition:'Wundt technique: trained participants describe their experiences and thought processes in response to stimuli.', example:'Trained self-report of experience', short:'trained self-report, experience + thought'},
+  {id:363, chapter:'ch1', term:'Artificial intelligence (McCarthy, Dartmouth)', definition:'Field aiming to make machines behave in ways that count as intelligent if a human did it; named by John McCarthy at the Dartmouth conference.', example:'Machines behaving intelligently', short:'machines, human-like intelligence, McCarthy'},
+  {id:364, chapter:'ch1', term:'Behaviorism (Watson)', definition:'Approach founded by John Watson: study observable behavior and stimulus-response relationships; reject introspection and unobservable mental processes.', example:'Only observable behavior counts', short:'observable behavior, stimulus-response, no introspection', visual:'behaviorism'},
+  {id:365, chapter:'ch1', term:'Classical conditioning (Pavlov + Watson)', definition:'Neutral stimulus paired with a meaningful stimulus comes to trigger a learned response; for example, a tone predicting food changes salivation. Tone-shock pairing: a neutral tone plus an aversive shock in classical conditioning.', example:'Tone predicts food → salivation', short:'neutral + meaningful pairing, learned response'},
+  {id:366, chapter:'ch1', term:'Operant conditioning (Skinner)', definition:'Behavior strengthened by positive reinforcers or by withdrawal of negative reinforcers.', example:'Reward it → repeat it', short:'reinforcement strengthens behavior'},
+  {id:367, chapter:'ch1', term:'Cognitive paradigm + cognitive revolution', definition:'1950s shift from behaviorism to studying mental processes, marked by conferences on artificial intelligence and information theory.', example:'1950s: mind returns to psychology', short:'1950s shift, behaviorism → mental processes'},
+  {id:368, chapter:'ch1', term:'Information processing approach', definition:'AI-inspired framework: the mind works in stages or sequential mental operations, like a computer processing attention, perception, and memory.', example:'Mind as staged computer', short:'staged, sequential mental operations'},
+  {id:369, chapter:'ch1', term:'Atkinson-Shiffrin modal model (3 stages)', definition:'Memory flows through sensory store (fraction of a second) → short-term memory (seconds, limited) → long-term memory (years). Control processes such as rehearsal move items along.', example:'See → repeat → store', short:'sensory (ms) → short-term (s) → long-term (yrs)', visual:'modal'},
+  {id:370, chapter:'ch1', term:'Piaget four stages — overview', definition:'Sensorimotor (birth-2, object permanence), preoperational (2-7, words and images, centration), concrete operational (7-11, math reasoning, conservation), formal operational (11+, abstract thought).', example:'Think in 4 growing stages', short:'sensorimotor, preop 2-7, concrete 7-11, formal 11+', visual:'piaget'},
+  {id:371, chapter:'ch1', term:'Centration (Piaget)', definition:'Preoperational tendency to fixate on just one aspect of a problem or object, such as the height of liquid while ignoring width.', example:'Tall thin glass “holds more”', short:'fixate one aspect, ignore rest'},
+  {id:372, chapter:'ch1', term:'Object permanence', definition:'Understanding that objects continue to exist even when out of sight; the hallmark of the sensorimotor stage.', example:'Hidden toy still exists', short:'out of sight ≠ gone'},
+  {id:373, chapter:'ch1', term:'Schemas (Piaget)', definition:'Mental frameworks used in learning to organize and interpret information; restaurant and classroom scripts are schemas in action.', example:'Seated → menu → order → pay', short:'organized knowledge frameworks'},
+  {id:374, chapter:'ch1', term:'Fluid intelligence vs crystallized intelligence', definition:'Fluid: information-processing abilities such as logical reasoning, spatial ability, and reaction time; declines with age. Crystallized: accumulated knowledge and experience used for gaining knowledge; grows with age.', example:'Solve new puzzles vs use known facts', short:'fluid = process new, crystallized = use knowledge'},
+  {id:375, chapter:'ch1', term:'Vygotsky — child development', definition:'Social interaction and culture are important drivers of development in children; learning grows through other people.', example:'Learn with others, not alone', short:'social interaction + culture drive development'},
+  {id:376, chapter:'ch1', term:'Learning vs memory (definitions)', definition:'Learning: improvement of responses through acquisition of new information. Memory: capacity for acquisition, storage, and retrieval — famously fragile.', example:'Acquire it (learning) → keep it (memory)', short:'learning = acquire, memory = store + retrieve'},
+  {id:377, chapter:'ch1', term:'Neuroplasticity + experience-dependent plasticity', definition:'The brain capacity to reorganize and adapt; experience changes neural connections and structure.', example:'Practice rewires the brain', short:'brain rewires with experience'},
+  {id:378, chapter:'ch1', term:'Development terms — milestones', definition:'Normative approach studies age-related averages. Developmental milestones are normative stage markers; biological milestones are universal events such as puberty. Genotype is the genetic makeup influencing traits.', example:'Averages, markers, puberty, genes', short:'norms, stage markers, puberty, genotype'},
+  {id:379, chapter:'ch1', term:'Cognitive vs psychosocial development', definition:'Cognitive development: thinking and reasoning abilities, including creativity and language. Psychosocial development: emotions, personality, and social relationships.', example:'Think (cognitive) vs feel + relate (psychosocial)', short:'cognitive = think, psychosocial = feel + relate'},
+
+  // ch2 Brain, sleep, consciousness, drugs catch-up
+  {id:380, chapter:'ch2', term:'Neuron parts — dendrites, axon, neurotransmitter', definition:'Dendrites receive signals from other neurons. The axon transports the electrical signal. After the impulse travels the axon, the neuron releases a neurotransmitter across the synapse to the next neuron.', example:'Receive → carry → release chemical', short:'dendrites receive, axon carries, chemical crosses gap', visual:'neuron'},
+  {id:381, chapter:'ch2', term:'Brain organization — lobes + localization', definition:'Cerebral cortex is a 3 mm tissue layer over the brain. Localization of function: specific areas serve specific jobs — frontal lobe integrates sensory information to guide behavior; temporal lobe handles faces, objects, and language; the fusiform face area identifies familiar faces in crowds.', example:'Temporal damage → cannot comprehend language', short:'cortex 3mm, frontal guides, temporal = faces + language', visual:'lobes'},
+  {id:382, chapter:'ch2', term:'Brain networks — key terms', definition:'Connectome: wiring diagram of neural elements and connections. Structural connectivity: communication via neural pathways. Distributed processing and representation: cognition activates several linked areas. Hierarchical processing: higher areas respond to more complex stimuli.', example:'Many areas, wired together, layered up', short:'connectome wiring, distributed, hierarchical'},
+  {id:383, chapter:'ch2', term:'Feature detectors + hierarchical vision', definition:'Neurons that respond to specific visual properties; lower areas detect simple features and higher areas respond to complex wholes.', example:'Edges first, faces later', short:'feature neurons, simple → complex'},
+  {id:384, chapter:'ch2', term:'EEG — sleep and consciousness test', definition:'The electroencephalogram measures brain activity to determine a person stage of sleep or consciousness.', example:'Scalp electrodes → sleep stage', short:'EEG = brain waves, sleep stage'},
+  {id:385, chapter:'ch2', term:'Sleep needs by age', definition:'0-3 months: 12-18 hours. 3-12 months: 14-15 hours. 1-3 years: 12-14 hours. 3-5 years: 11-13 hours. 5-10 years: 10-11 hours. 10-18 years: 8-10 hours. 18+: 7-9 hours.', example:'Babies ~14h → adults ~8h', short:'baby 12-18h … adult 7-9h', visual:'sleepages'},
+  {id:386, chapter:'ch2', term:'Circadian rhythm + body temperature', definition:'Biological ~24-hour rhythm regulating the sleep-wake cycle and alertness. Decreases in body temperature promote sleepiness.', example:'Cool down → drift off', short:'~24h cycle, cool body = sleepy'},
+  {id:387, chapter:'ch2', term:'Suprachiasmatic nucleus (SCN) + hypothalamus', definition:'The SCN, controlled by the hypothalamus, is the brain biological clock regulating sleep cycles and day-night recognition; it receives light information through a neural pathway from the retina.', example:'Eyes tell clock: it is daytime', short:'SCN clock, hypothalamus, retina light path'},
+  {id:388, chapter:'ch2', term:'Sleep glands — pineal, pituitary, melatonin', definition:'Pineal gland releases melatonin, mainly at night, to signal rest and regulate rhythms and immunity. Pituitary secretes FSH, LH, and growth hormone during sleep, regulating reproduction, growth, and maturation.', example:'Night melatonin → rest; sleep hormones → grow', short:'pineal melatonin night, pituitary growth + repro'},
+  {id:389, chapter:'ch2', term:'Homeostasis + sleep rebound + sleep debt', definition:'Homeostasis maintains biological balance. Homeostatic sleep regulation: after deprivation, a person takes longer to fall asleep and sleeps deeper — sleep rebound. Sleep debt increases reaction time; rotating shift work disrupts regulation, causing insomnia and fatigue.', example:'All-nighter → crash harder tomorrow', short:'debt grows, rebound repays, RT slows'},
+  {id:390, chapter:'ch2', term:'Sleep disorders — insomnia, apnea, narcolepsy, SIDS', definition:'Insomnia: trouble falling and staying asleep. Sleep apnea: waking many times a night, lowering quality. Narcolepsy: treated with stimulant medication. SIDS risk factor: exposure to hyperthermia (overheating).', example:'Cannot sleep / broken sleep / sudden sleep / overheated baby', short:'insomnia onset, apnea broken, narcolepsy stimulant, SIDS heat'},
+  {id:391, chapter:'ch2', term:'NREM1 sleep stage', definition:'Non-rapid eye movement stage 1: decreased respiration, heart rate, body temperature, and muscle tension — and easy to wake from.', example:'Drifting off, easily woken', short:'light sleep, vitals down, easy wake'},
+  {id:392, chapter:'ch2', term:'Consciousness — wakeful state + stream', definition:'Wakeful state: rich multi-sense awareness, such as beach day sights, sounds, sun, salt, and sunscreen. Stream of consciousness (William James): awareness as a continuous, shifting, unbroken flow. Subconscious (Freud): vast unconventional, illogical, personalized awareness hidden from conscious awareness.', example:'Whole beach at once, flowing mind', short:'wakeful = full senses, stream = flowing'},
+  {id:393, chapter:'ch2', term:'Dual processing + driving example', definition:'Unconscious processing runs alongside conscious processing. A driver consciously signals and checks traffic while unconsciously holding speed and reacting to hazards.', example:'Signal on purpose, speed on autopilot', short:'conscious + unconscious in parallel'},
+  {id:394, chapter:'ch2', term:'Dissociation — split consciousness', definition:'A special dual-processing state of split consciousness, such as feeling detached from surroundings or self.', example:'Present but “not there”', short:'split consciousness, detachment'},
+  {id:395, chapter:'ch2', term:'Hypnosis, meditation, ketamine', definition:'Hypnosis: extreme self-focus creating global changes in brain functioning. Meditation: focusing on a single target to increase present-moment awareness. Ketamine: alters consciousness by modifying time perception.', example:'Focus deep / focus now / time warps', short:'hypnosis global, meditation single-target, ketamine time'},
+  {id:396, chapter:'ch2', term:'Depressants — alcohol, barbiturates, benzodiazepines', definition:'Depressants suppress central nervous system activity and consciousness. Alcohol increases the neurotransmitter GABA in the brain. Barbiturates and benzodiazepines act on GABA transmission; benzodiazepines are GABA agonists.', example:'Slow the brain via GABA', short:'depress CNS, alcohol ↑GABA'},
+  {id:397, chapter:'ch2', term:'Opioids — heroin, morphine, methadone, codeine', definition:'Opioids have analgesic (pain-decreasing) properties. Codeine is low-potency, prescribed for minor pain. Methadone is a synthetic opioid managing withdrawal. Reducing minor pain and easing withdrawal are their medical uses.', example:'Strong painkillers, careful doses', short:'analgesic opioids, codeine mild, methadone withdrawal aid'},
+  {id:398, chapter:'ch2', term:'Stimulants + methamphetamine euphoria', definition:'Stimulants such as cocaine, amphetamines, and caffeine increase overall neural activity. Methamphetamine causes euphoric highs of intense elation and pleasure.', example:'Speed everything up, feel intense high', short:'stimulants ↑activity, meth = euphoria'},
+  {id:399, chapter:'ch2', term:'Key neurotransmitters — dopamine, serotonin, acetylcholine, GABA', definition:'Dopamine: reward and craving, hit by stimulants. Serotonin: mood, hit by hallucinogens such as LSD. Acetylcholine: motor neurons plus arousal and reward. GABA: inhibitory system hit by depressants; alcohol raises it.', example:'Want it / mood / move + alert / slow down', short:'dopamine reward, serotonin mood, ACh move, GABA brake'},
+  {id:400, chapter:'ch2', term:'Drug terms — agonist, antagonist, dependence', definition:'Agonist facilitates neurotransmitter activity; antagonist inhibits it. Analgesic decreases pain. Abuse potential is misuse/dependence likelihood. Physical dependence: body adapts, so stopping brings withdrawal. Substance use disorder (DSM-5): compulsive use despite harm; addictive disorders are compulsive use despite consequences.', example:'Boost vs block; hooked body vs hooked life', short:'agonist boosts, antagonist blocks, dependence = withdrawal'},
+  {id:401, chapter:'ch2', term:'Hallucinogens + psychoactive basics', definition:'Hallucinogens cause profound alterations in sensory and perceptual experience. Psychoactive medications alter brain function and consciousness states.', example:'See and feel what is not there', short:'hallucinogens warp senses'},
+  {id:402, chapter:'ch2', term:'Sleep evolution + why we sleep', definition:'Evolutionary psychology: universal behavior patterns evolved by natural selection. Predatory risks hypothesis: sleep patterns evolved as an adaptive response to reduce harm during darkness. The National Sleep Foundation notes sleep keeps weight healthy, lowers stress, improves mood, coordination, cognition, and memory.', example:'Hide at night, thrive by day', short:'evolved safety + health, mood, memory'},
+
+  // ch3 Perception & attention catch-up
+  {id:403, chapter:'ch3', term:'Top-down vs bottom-up processing', definition:'Top-down: prior knowledge and expectations shape perception, such as recognizing an apartment flower because it differs in color from the rest. Bottom-up: built from sensory input upward, such as a differently colored flower popping out via stimulus salience.', example:'Expect it (top-down) vs it pops out (bottom-up)', short:'top-down = knowledge first, bottom-up = senses first', visual:'topdown'},
+  {id:404, chapter:'ch3', term:'Helmholtz — unconscious inference + likelihood', definition:'Perception involves unconscious assumptions from past experience. Likelihood principle: the system picks the object most likely to have caused the stimulus pattern.', example:'Brain bets on the likeliest cause', short:'unconscious past-based bets, likeliest cause wins'},
+  {id:405, chapter:'ch3', term:'Gestalt approach + Pragnanz', definition:'Gestalt (shape/form): the mind perceives whole forms, not part collections, via built-in organizing principles; experience plays only a minor role. Pragnanz: every pattern is seen in the simplest possible stable structure.', example:'Whole first; simplest whole wins', short:'wholes first, simplest wins, built-in rules'},
+  {id:406, chapter:'ch3', term:'Dorsal pathway (where pathway) + object perception', definition:'The dorsal pathway, or where pathway, runs from occipital lobe to parietal lobe, locating objects and guiding actions toward them. Object perception integrates sensory input with prior experience to identify properties. Viewpoint invariance lets a 3D toy be recognized from any angle.', example:'See where it is → reach for it', short:'occipital → parietal, where + how to act'},
+  {id:407, chapter:'ch3', term:'Treisman attenuation (leaky filter)', definition:'Two-stage selection modifying Broadbent: an attenuator analyzes messages by physical traits, language, and meaning. Leaky filter: some unattended messages still pass through, so a familiar word or your name can break through.', example:'Turned down, not fully off', short:'attenuator weakens, important leaks through'},
+  {id:408, chapter:'ch3', term:'Dichotic listening (Cherry) + cocktail party', definition:'Different stimuli to each ear reveal selection by physical cues. The cocktail party effect: track one conversation in noise while filtering the rest — as when following a video despite chatting and a ticking clock.', example:'One voice tracked, rest filtered', short:'one channel by sound, rest ignored'},
+  {id:409, chapter:'ch3', term:'Inattentional blindness + deafness (Simons & Chabris)', definition:'Missing clearly visible stimuli when attention is elsewhere — viewers counting passes miss the costumed walker; a limousine crosses unseen; Jack misses the foul watching his child score. Inattentional deafness: a demanding visual task blocks hearing. Simons and Chabris showed people in specific circumstances miss noteworthy events right in front of them.', example:'Looked but never saw', short:'attended elsewhere = blind (and deaf)'},
+  {id:410, chapter:'ch3', term:'Change blindness + change detection', definition:'Failing to detect visual changes when attention is not at the change location, as in the person-swap experiment. Change detection procedure: show two pictures and ask for the difference.', example:'Swap the person, nobody notices', short:'no attention there = no change seen'},
+  {id:411, chapter:'ch3', term:'Feature integration theory + binding + illusory conjunctions', definition:'Two stages: preattentive independent feature analysis, then focused attention binds features into whole objects — binding turns parts into one perceived thing. Errors called illusory conjunctions fall when objects are familiar (top-down help).', example:'Color + shape glued by attention', short:'features first, attention glues, familiarity helps'},
+  {id:412, chapter:'ch3', term:'Overt vs covert attention + eye strategies', definition:'Overt: eyes move, such as rapidly scanning apartment objects. Covert: eyes stay still while the mind shifts attention. Just-in-time strategy: eyes jump just before the needed information. Pre-cueing a location boosts target processing.', example:'Move eyes vs move mind', short:'overt eyes move, covert mind moves'},
+  {id:413, chapter:'ch3', term:'Perceptual load + processing capacity', definition:'Perceptual load is how much capacity a task consumes. High-load difficult tasks leave little capacity, so people are less distractible; attention directed at a location improves processing there. Selective attention helps survival by focusing on environmental information.', example:'Busy mind = fewer distractions', short:'high load = shielded, capacity limited'},
+  {id:414, chapter:'ch3', term:'Selective attention vignettes', definition:'Coffee-shop student tunes out chatter and music to read; a caller tunes out a street crew to hold a video call; a traveler follows loud lunch advice over lobby noise via filtering.', example:'One stream in, rest out', short:'focus one, tune out rest'},
+  {id:415, chapter:'ch3', term:'Fixation (maze) + Stroop task', definition:'Fixation: over-focusing on one part, such as the maze last step, missing the first steps needed. Stroop interference: naming ink colors slows when color words appear in mismatched fonts.', example:'Stuck on the end; slowed by mismatch', short:'fixation = stuck focus, Stroop = mismatch slows'},
+  {id:416, chapter:'ch3', term:'Strayer & Johnston — phones and driving', definition:'Talking on a mobile device while driving harms both attention and response time.', example:'Call + drive = slower reactions', short:'phone driving hurts attention + RT'},
+  {id:417, chapter:'ch3', term:'Saliency map + stimulus salience', definition:'A saliency map marks visual locations by color, orientation, and intensity. Bottom-up salience identifies the odd flower because its color differs.', example:'Odd one out pops', short:'salient = stands out, found fast'},
+  {id:418, chapter:'ch3', term:'Experience sampling (TV habits)', definition:'Researchers message participants during the day to report whether they are watching TV at that moment — sampling real life in the moment.', example:'Ping now: watching TV?', short:'sample the moment, not memory'},
+  {id:419, chapter:'ch3', term:'Attention bias modification (ABM)', definition:'Cognitive retraining for anxiety-linked implicit attention biases: repetitive training shifts attention from negative to neutral or positive stimuli.', example:'Practice looking at the calm side', short:'retrain attention, ease anxiety'},
+  {id:420, chapter:'ch3', term:'Signal detection vignettes — snake + concierge', definition:'A hiker notices the snake hiss only if recognized as a danger signal. A traveler tracks loud lunch advice over lobby noise. Attention follows relevance and loudness.', example:'Danger + loudness win attention', short:'relevant + loud = noticed'},
+
+  // ch4 Working & short-term memory catch-up
+  {id:421, chapter:'ch4', term:'Sensory memory — iconic + echoic', definition:'Sensory memory holds incoming information for a fraction of a second. Iconic memory: brief visual store for all hitting the receptors, decaying in under a second. Echoic memory: sound persisting a few seconds after the stimulus.', example:'Trails of fireworks; echo of a name', short:'iconic visual <1s, echoic sound ~seconds', visual:'sensory'},
+  {id:422, chapter:'ch4', term:'Control processes + rehearsal + encoding', definition:'Control processes are person-controlled dynamics of the modal model that vary by task. Rehearsal repeats a stimulus, such as a phone number, to keep it in short-term memory; repeating a store name for a minute saves it for later. Encoding transfers information into long-term memory.', example:'Repeat it → keep it → store it', short:'rehearsal holds, encoding stores'},
+  {id:423, chapter:'ch4', term:'Chunking + Miller 7±2 + spelling focus', definition:'Chunking groups small units into larger meaningful units, raising short-term capacity — such as splitting an 8-digit account number into meaningful sets. Attention on complicated word parts aids spelling memory under the modal model.', example:'Chunk digits, focus hard parts', short:'group into chunks, capacity grows'},
+  {id:424, chapter:'ch4', term:'Phonological loop + articulatory suppression', definition:'The loop holds verbal and auditory information via a phonological store plus the articulatory rehearsal process. Articulatory suppression: repeating an irrelevant sound such as “the, the, the” blocks rehearsal and hurts recall.', example:'Say “the” → cannot rehearse digits', short:'speech store + inner voice, blocked by babble'},
+  {id:425, chapter:'ch4', term:'Central executive + pets vignette', definition:'Control center of working memory coordinating the phonological loop and visuospatial sketchpad — for example, focusing on pet-store variety to later recall affordability.', example:'Executive directs, stores hold', short:'executive directs attention + stores'},
+  {id:426, chapter:'ch4', term:'Delayed-response task + ERP + neural dynamics', definition:'Delayed-response: animals hold information across a delay before responding, testing working memory. ERP: scalp-electrode brain responses reflecting working-memory activity. Neural dynamics: continuous firing plus short-term network changes hold memory active.', example:'Monkey waits, scalp records, neurons hum', short:'delay test, scalp ERP, firing holds'},
+  {id:427, chapter:'ch4', term:'Coding in memory — auditory, visual, semantic', definition:'Auditory coding represents information as sound in short- and long-term memory. Semantic coding represents meaning in both stores. Survival and protection judgments encode best.', example:'Sound it, mean it, survive it', short:'sound, meaning, survival codes'},
+
+  // ch5 Long-term & autobiographical memory catch-up
+  {id:428, chapter:'ch5', term:'Memory systems — explicit, implicit, episodic, semantic, procedural', definition:'Explicit (declarative): conscious facts and events you can describe, such as a Paris visit. Implicit: behavior-shaping without awareness, such as bike skills; tacit memory is unexplainable know-how. Episodic long-term memory stores personally experienced events; semantic memory stores facts. Procedural memory stores physical actions.', example:'Declare it / do it without thinking / live it / know it', short:'explicit declare, implicit do, episodic events, semantic facts'},
+  {id:429, chapter:'ch5', term:'Recency + double dissociation + primacy set', definition:'Recency effect: end-of-list words recalled best, tied to short-term memory; primacy: first words win full attention. Double dissociation: short- and long-term memory fail independently, proving separate systems.', example:'First + last remembered, middle lost', short:'first = attention, last = STM, separate stores'},
+  {id:430, chapter:'ch5', term:'Priming types — repetition + pizza + song lyrics', definition:'Repetition priming: the same or similar stimulus speeds later response. Pizza smell now sparks pizza craving tonight. Repeating then associating song lyrics with poem words encodes via levels of processing into long-term memory.', example:'Smell it now, crave it later', short:'prior exposure speeds later response'},
+  {id:431, chapter:'ch5', term:'Retrieval helpers — matching, cues, 6 nouns', definition:'Matching: returning to a childhood home recalls richer old memories. Context and odor cues unlock stored items, such as greeting a co-worker by silently repeating their name, or recalling six nouns hours later from a store-window image.', example:'Go back, cue it, find it', short:'cues + context unlock recall'},
+  {id:432, chapter:'ch5', term:'Fragile memories — Nader + reconsolidation + reactivation', definition:'Nader rat work: retrieved memories turn fragile and can be altered. Reconsolidation: a retrieved memory must consolidate again, risking modification or loss. Reactivation: the hippocampus replays neural activity to cortex during consolidation. Conclusion: memory is a work in progress, constantly remodeled.', example:'Recall it → fragile → rewrite risk', short:'retrieval = fragile, replay = consolidate'},
+  {id:433, chapter:'ch5', term:'Strengthening memories — LTP + stress + sleep + generation', definition:'Long-term potentiation: repeated stimulation strengthens synaptic firing. Stress hormones such as cortisol affect the central nervous system and can strengthen consolidation after emotional events like arguments. Sleep-dependent consolidation: sleep enhances memory. Generation effect: self-generated material beats passively received material. Rereading or highlighting creates the illusion of learning without real retention.', example:'Fire together, feel it, sleep it, make it', short:'repeat, arouse, sleep, generate = strong'},
+  {id:434, chapter:'ch5', term:'Encoding specificity vs state-dependent learning', definition:'Encoding specificity: retrieval wins when outer contexts of encoding and retrieval match. State-dependent learning: retrieval wins when inner states such as mood match between encoding and retrieval.', example:'Same room vs same mood', short:'match place (specificity) or mood (state)'},
+  {id:435, chapter:'ch5', term:'Semanticization of remote memories (x2)', definition:'Remote memories lose episodic detail and keep facts: a child recalls being taught to draw a lion but the classroom colors fade; people know continent names without remembering where they learned them.', example:'Facts remain, sources fade', short:'episodes fade into facts'},
+  {id:436, chapter:'ch5', term:'Temporal memory gems — bump, vividness, repeated recall, free recall', definition:'Reminiscence bump: over-40 adults best recall adolescence and young adulthood, such as a first child at 25 fitting the self-image. Vividness ratings score memory detail. Repeated recall tests participants multiple times across time. Free recall asks for items without cues; graded amnesia hits recent pre-injury events hardest.', example:'Teens stick, details rated, tested again', short:'bump = youth sticks, retest tracks change'},
+
+  // ch6 Forgetting, false memory, eyewitness catch-up
+  {id:437, chapter:'ch6', term:'Weapon focus + familiarity misidentification', definition:'Weapon blindness: a fired weapon narrows attention so faces are missed. Familiarity misidentification: seeing the male teacher read made participants three times likelier to pick him — familiarity mistaken for guilt.', example:'Gun seen, face missed; known face picked', short:'weapon narrows, familiar misleads'},
+  {id:438, chapter:'ch6', term:'Post-event distortion — misinformation + feedback', definition:'Misleading post-event information: false details from another person alter the memory, such as wording that rewrites the report. Post-identification feedback effect: confirming feedback implants false certainty, such as believing in a happy camp childhood that never happened.', example:'Spin after → memory rewritten', short:'after-info rewrites memory'},
+  {id:439, chapter:'ch6', term:'Kassin — false confessions safeguard', definition:'Saul Kassin research outcome: recommend forbidding presentation of false evidence during police interrogations, since suggestive tactics plus doctored proof produce admissions without memory.', example:'No fake evidence in interrogations', short:'ban false evidence, stop false confessions'},
+
+  // ch7 Language, imagery & knowledge catch-up
+  {id:440, chapter:'ch7', term:'Language core — lexicon, parsing, psycholinguistics', definition:'Lexicon: stored entries for all known words — a mental dictionary of meanings, sounds, and uses. Parsing: grouping words into phrases while reading or hearing. Psycholinguistics: psychological study of comprehension, representation, production, and acquisition. Language is a hierarchical, rule-based system.', example:'Dictionary + grammar + science of it', short:'mental dictionary, phrase grouping, language science'},
+  {id:441, chapter:'ch7', term:'Word processing — ambiguity, frequency, segmentation', definition:'Lexical ambiguity: words like light carry multiple meanings. Word frequency effect: common words are processed faster; Rayner and Duffy found longer fixations on low-frequency words. Word segmentation helps children split continuous speech into individual words.', example:'Light = not heavy / not dark; rare words slow eyes', short:'many meanings, common = fast, split the stream'},
+  {id:442, chapter:'ch7', term:'Sentence processing — garden path + constraints + anaphora', definition:'Garden path model: readers commit to one parse, then must reanalyze — THE HORSE RACED PAST THE BARN FELL, or the car/hills child switching the subject from car to hills. Constraint-based approach: parsing uses syntax plus all other cues. Anaphoric inference: linking it to the dog across sentences.', example:'Misled, then repair the parse', short:'first parse misleads, cues repair, it = dog'},
+  {id:443, chapter:'ch7', term:'Conversation — common ground + coordination + priming', definition:'Common ground: shared knowledge enabling engaging discussion. Syntactic coordination: partners converge on grammatical forms. Syntactic priming: hearing one construction raises the odds of reusing it, cutting conversational load. Visual world paradigm: eye movements reveal how scenes guide sentence processing.', example:'Match words, reuse grammar, eyes show it', short:'shared knowledge, matched grammar, primed reuse'},
+  {id:444, chapter:'ch7', term:'Inference types — primary, causal, unconscious', definition:'Primary inference: direct conclusions from facts, such as wet grass meaning rain. Causal inference: cause-and-effect links, such as daily water clearing skin — the car/hills child makes a false one. Unconscious inference: the brain auto-fills missing information from past experience.', example:'See it / cause it / fill it in', short:'direct, causal, auto-filled'},
+  {id:445, chapter:'ch7', term:'Imagery systems — debate, loci, pegs, pairs', definition:'Imagery debate: is imagery spatial (picture-like, Kosslyn) or propositional (equation-like statements)? Method of loci: place 5-7 vivid images along a familiar route in order. Pegword technique: link items to concrete rhyming nouns (one-bun). Paired-associate learning (Paivio): concrete nouns beat abstract ones; conceptual peg hypothesis explains the win. Imageless-thought debate settled: people unable to visualize still think, disproving Aristotle.', example:'Walk your house, rhyme your list, picture nouns', short:'picture vs sentence, loci route, rhyming pegs', visual:'loci'},
+  {id:446, chapter:'ch7', term:'Imagery science — scanning, cortex, propositions', definition:'Spatial correspondence: imagery mirrors perception in space, supported by distance-scaled mental scanning. Visual cortex is organized as a topographic map; spatial representations sit in specific locations. Propositional representations use abstract symbols, not spatial layouts. Comprehension stores gist propositions, not exact wording.', example:'Farther in mind = longer to scan', short:'mind-space mirrors real space, cortex maps it'},
+  {id:447, chapter:'ch7', term:'Speech statistics — regularities + transitional odds', definition:'Statistical regularities: recurring speech patterns aid segmentation. Transitional probabilities (Saffran): infants track how likely one sound follows another, boosting sensitivity to part-words. Semantic segmentation also uses context and word knowledge.', example:'Babies count the odds between syllables', short:'track sound odds, split speech'},
+  {id:448, chapter:'ch7', term:'Broca vs Wernicke — areas + aphasias', definition:'Broca area (frontal lobe): language production; Broca aphasia gives halting speech with intact comprehension. Wernicke area (left temporal lobe): comprehension; Wernicke aphasia gives fluent but nonsensical speech with poor understanding.', example:'Broca: says little, gets all. Wernicke: says much, means little', short:'Broca produces, Wernicke understands', visual:'languageareas'},
+
+  // ch8 Reasoning, problem solving, decisions catch-up
+  {id:449, chapter:'ch8', term:'Problem solving — states, space, means-ends, Hanoi', definition:'Initial state: the problem as it begins; goal state: the solution. Problem space: all possible states between. Means-end analysis: shrink the current-goal gap via subgoals — how the Tower of Hanoi discs move peg to peg. Defining the problem identifies goals and their solutions.', example:'Start → gap → subgoals → solved', short:'start vs goal, gap shrinks via subgoals', visual:'hanoi'},
+  {id:450, chapter:'ch8', term:'Gestalt solving — restructuring, fixation, set, two-string', definition:'Restructuring: re-representing the problem until the solution appears, without equations. Mental set: preconceived approaches from past experience. Functional fixedness: usual-use thinking blocks novelty, shown by the two-string problem of tying distant strings. Fixation also stalls mazes.', example:'See it fresh, not as usual', short:'re-see problem, drop usual use'},
+  {id:451, chapter:'ch8', term:'Insight — incubation, wandering, illumination', definition:'Insight problems hide how close the answer is; non-insight problems show steady progress. Creative incubation: answers surface after setting the problem aside, such as programmers returning from lunch with fixes or a musician composing in mountain solitude. Mind wandering during breaks aids incubation. Classic flash: suddenly getting a pun joke.', example:'Walk away → answer arrives', short:'pause, wander, illuminate'},
+  {id:452, chapter:'ch8', term:'Creativity kit — divergent, ECN, DMN, meditation', definition:'Divergent thinking: open-ended generation of many solutions. Executive control network directs attention during tasks; functional connectivity between networks supports creativity. Open monitoring meditation boosts creativity via default mode network activation. Solitude can free idea generation.', example:'Many ideas, steered attention, quiet mind', short:'many options, ECN steers, DMN dreams'},
+  {id:453, chapter:'ch8', term:'Analogical thinking — transfer, encoding, engineer + club', definition:'Analogical transfer: applying a past solution to a new problem, such as colorful flyers that once raised votes now raising club turnout. Analogical encoding: comparing two problems to extract the principle. The engineer maps leaking-cup decay onto biodegradable pots via semantic knowledge. Target problem: the one being solved; source aids it.', example:'Old win → new win', short:'map old solution onto new problem'},
+  {id:454, chapter:'ch8', term:'Deductive vs inductive + permission schemas + Watson cards', definition:'Deduction: general rule guarantees the specific conclusion; permission schemas govern if-then rules such as licenses at 16. Induction: specific observations suggest probable general truths. Watson four-card problem: performance improves when conditional reasoning is stated in real-world terms; test rules with the falsification principle.', example:'Sun rises daily → rises Tuesday; teens + 16 = license', short:'deduction guarantees, induction suggests, real-world wording helps'},
+  {id:455, chapter:'ch8', term:'Heuristics & biases — availability, representativeness, belief', definition:'Representativeness: judging by stereotype fit while ignoring base rates — shy poet must be a librarian; engineers met must all be outgoing from a tiny sample. Availability: judging frequency by recall ease — shark news makes beaches feel deadly. Belief bias: rejecting valid syllogisms (hungry dogs logic) over unbelievable conclusions.', example:'Stereotype / vivid / believable ≠ correct', short:'fit, recall-ease, believability mislead'},
+  {id:456, chapter:'ch8', term:'Decision traps — framing, loss, illusory, expected utility', definition:'Framing effect: identical options chosen differently by wording — 90% survive vs 10% die; tree group favors 80% saved over 20% lost. Expected emotions: predicted losses outweigh equal gains, driving risk avoidance. Illusory correlation: false group-behavior links, such as one robbery branding a whole country as thieves. Expected utility: how people should decide — Mateo slots shows people often do not.', example:'Wording flips choices; losses loom larger', short:'gains vs losses wording, losses hurt more'},
+  {id:457, chapter:'ch8', term:'Judgment extras — myside, confirmation, backfire, status quo, law of large numbers', definition:'Myside bias: testing hypotheses to favor own opinions. Confirmation bias: seeking only supporting evidence. Backfire effect: opposing facts strengthen the original view. Status quo bias: sticking with the default when deciding. Law of large numbers: bigger samples represent populations better; small samples mislead.', example:'My side, my proof, my rut, my tiny sample', short:'self-sided, self-confirming, default-stuck, small-n fooled'},
+  {id:458, chapter:'ch8', term:'Neuroeconomics & games — insula, TMS, ultimatum, risk, LLMs', definition:'Neuroeconomics links brain activation to gain/loss decisions: higher insula activity rejects more offers; prefrontal cortex drives buy decisions, insula drives no-buy. Ultimatum game studies offer fairness and rejection. Risk-taking strategy prefers uncertain over certain outcomes. Transcranial magnetic stimulation (TMS) briefly deactivates regions via scalp magnets; tDCS stimulates with direct current. Large language models (LLMs) such as GPT-3 generate human-like text and reasoning.', example:'Brain votes on every gamble', short:'insula rejects, prefrontal buys, games reveal fairness'},
+  {id:459, chapter:'ch8', term:'Therapy game vignette (engagement)', definition:'A psychologist treating anxious and depressed youth uses a computer game in weekly sessions because games strengthen client engagement with treatment.', example:'Play → participate → progress', short:'games boost treatment engagement'},
 ];
+
+// --- SHORT DEFINITIONS: keyword gist that keeps every tested detail (orchid-style) ---
+// New cards carry inline `short`. Curated shorts below cover the most-tested classic cards;
+// any card without an explicit short falls back to its example, then to auto-compression.
+const SHORTS = {
+  1:'mental processes: perceive, attend, remember, language, think, reason',
+  6:'simple = 1 stimulus; choice = 2+ stimuli, different responses',
+  9:'relearn faster = memory left; savings = original − relearn',
+  11:'electrical impulse ↓ axon',
+  19:'early filter, physical cues (loudness) pick 1 channel',
+  21:'focused elsewhere = miss visible stimuli',
+  22:'iconic visual store <1s → trails of light',
+  29:'hold digits STM, manipulate in WM',
+  30:'hazards = sketchpad, speech = loop',
+  31:'silent repeat → holds lecture in STM',
+  32:'buffer binds LTM faces + names into WM',
+  39:'event (episodic) + fact (semantic)',
+  41:'standard = hippocampus early only; multiple-trace = always involved',
+  45:'time passes → cultural, gist-shaped errors + omissions',
+  46:'odor cue → autobiographical memory',
+  52:'doctored video + suggestion → false confession, no recall',
+  61:'innate grammar device, fast learning from sparse input',
+  62:'imagery: spatial pictures vs propositional sentences',
+  64:'dialogue partners converge: loudness + gestures match',
+  73:'gains vs losses wording flips identical choices',
+  74:'believable ≠ valid; judge logic, not conclusion',
+  75:'stereotype fit, base rates ignored',
+  76:'recall ease inflates frequency; vivid feels common',
+};
+function autoShort(def){
+  let s = String(def||'').replace(/\(.*?\)/g,'').split(/[—;:]/)[0];
+  const stop = new Set(['the','and','for','with','from','that','this','these','those','are','was','were','has','have','had','been','being','of','to','in','on','is','a','an','it','its','as','by','at','or','be','not','but','also','into','which','can','will','may','more','most','such','than','then','when','what','how','why','does','did','due','a']);
+  const words = s.split(/\s+/).filter(w=>w && !stop.has(w.toLowerCase().replace(/[^a-z]/g,'')));
+  return words.slice(0,12).join(' ').replace(/\s+/g,' ').trim();
+}
+function getShort(card){
+  if(!card) return '';
+  if(card.short) return card.short;
+  if(SHORTS[card.id]) return SHORTS[card.id];
+  if(card.example) return card.example;
+  return autoShort(card.definition);
+}
+
+// Attach diagrams to classic cards (new cards carry inline `visual` keys)
+const VISUAL_ATTACH = [[11,'neuron'],[19,'filter'],[22,'sensory'],[29,'baddeley'],[30,'baddeley'],[41,'consolidation'],[64,'entrain'],[65,'gardenpath'],[73,'framing'],[26,'paperfold'],[369,'modal'],[370,'piaget'],[380,'neuron'],[381,'lobes'],[385,'sleepages'],[403,'topdown'],[421,'sensory'],[445,'loci'],[448,'languageareas'],[449,'hanoi'],[364,'behaviorism']];
+
+// --- DIAGRAMS: inline SVG / emoji visuals rendered on card backs + list cards ---
+const VISUALS = {
+neuron:{cap:'Dendrites receive → axon carries → terminal releases neurotransmitter', html:`<svg viewBox="0 0 340 120" width="320" role="img" aria-label="Neuron diagram"><line x1="150" y1="60" x2="240" y2="60" stroke="#0ea5e9" stroke-width="5"/><circle cx="110" cy="60" r="34" fill="rgba(14,165,233,0.15)" stroke="#0ea5e9" stroke-width="2"/><text x="110" y="56" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">cell body</text><text x="110" y="70" text-anchor="middle" font-size="9" fill="currentColor">dendrites in 🌿</text><rect x="150" y="48" width="90" height="24" rx="12" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="2"/><text x="195" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">axon ⚡</text><circle cx="270" cy="60" r="22" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="2"/><text x="270" y="57" text-anchor="middle" font-size="9" font-weight="700" fill="currentColor">terminal</text><text x="270" y="69" text-anchor="middle" font-size="9" fill="currentColor">💧 release</text><text x="310" y="64" font-size="14">➡️🧠</text></svg>`},
+lobes:{cap:'Frontal guides behavior • Temporal = faces, objects, language (fusiform = familiar faces)', html:`<svg viewBox="0 0 340 130" width="320" role="img" aria-label="Brain lobes"><ellipse cx="170" cy="65" rx="130" ry="52" fill="rgba(14,165,233,0.1)" stroke="#0ea5e9" stroke-width="2"/><line x1="170" y1="13" x2="170" y2="117" stroke="#64748b" stroke-dasharray="5 4"/><text x="105" y="55" text-anchor="middle" font-size="12" font-weight="800" fill="currentColor">FRONTAL 🧭</text><text x="105" y="72" text-anchor="middle" font-size="9" fill="currentColor">guides behavior</text><text x="238" y="55" text-anchor="middle" font-size="12" font-weight="800" fill="currentColor">TEMPORAL 🙂 faces</text><text x="238" y="72" text-anchor="middle" font-size="9" fill="currentColor">objects + language</text><text x="238" y="86" text-anchor="middle" font-size="9" fill="currentColor">fusiform = familiar ✅</text></svg>`},
+modal:{cap:'Atkinson–Shiffrin: senses hold ms → rehearsal holds seconds → encoding keeps years', html:`<div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;flex-wrap:wrap;font-size:0.78rem;font-weight:700"><span style="padding:0.4rem 0.6rem;border-radius:10px;background:rgba(14,165,233,0.15);border:1px solid #0ea5e9">👁 Sensory<br>ms</span><span>➡️<br><small>attend</small></span><span style="padding:0.4rem 0.6rem;border-radius:10px;background:rgba(99,102,241,0.15);border:1px solid #6366f1">🧠 Short-term<br>seconds 7±2</span><span>➡️<br><small>rehearse</small></span><span style="padding:0.4rem 0.6rem;border-radius:10px;background:rgba(16,185,129,0.15);border:1px solid #10b981">💾 Long-term<br>years</span></div>`},
+piaget:{cap:'Sensorimotor → Preoperational (2-7) → Concrete (7-11) → Formal (11+): think in 4 growing stages', html:`<div style="display:flex;gap:0.3rem;justify-content:center;flex-wrap:wrap;font-size:0.75rem;font-weight:700"><span style="padding:0.4rem 0.5rem;border-radius:10px;background:var(--surface);border:1px solid var(--border)">👶 0-2<br>object stays</span><span style="padding:0.4rem 0.5rem;border-radius:10px;background:var(--surface);border:1px solid var(--border)">🎨 2-7<br>words, 1 focus</span><span style="padding:0.4rem 0.5rem;border-radius:10px;background:var(--surface);border:1px solid var(--border)">🔢 7-11<br>math works</span><span style="padding:0.4rem 0.5rem;border-radius:10px;background:var(--surface);border:1px solid var(--border)">🚀 11+<br>abstract</span></div>`},
+sleepages:{cap:'Sleep need shrinks with age: babies ~12-18h → school ~10-11h → adults 7-9h', html:`<div style="font-size:0.8rem;font-weight:600;line-height:2">👶 0-3mo <b>12-18h</b> &nbsp; 🍼 3-12mo <b>14-15h</b><br>🧒 1-3y <b>12-14h</b> &nbsp; 🎠 3-5y <b>11-13h</b><br>📚 5-10y <b>10-11h</b> &nbsp; 🎮 10-18y <b>8-10h</b> &nbsp; 🧑 18+ <b>7-9h</b></div>`},
+behaviorism:{cap:'Watson: only stimulus → response links count; no introspection', html:`<div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.9rem;font-weight:800"><span style="padding:0.5rem 0.8rem;border-radius:12px;background:rgba(14,165,233,0.15);border:1px solid #0ea5e9">🔔 Stimulus</span><span>➡️</span><span style="padding:0.5rem 0.8rem;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid #10b981">🐕 Response</span><span style="font-size:0.75rem;font-weight:400">🚫 introspection</span></div>`},
+filter:{cap:'Broadbent: loudness picks ONE channel early; the rest is blocked', html:`<div style="font-size:0.85rem;font-weight:700">👂🔊 concierge ✅ &nbsp; ➡️ <span style="padding:0.2rem 0.5rem;border-radius:8px;background:rgba(16,185,129,0.15);border:1px solid #10b981">FILTER</span> ➡️ 🧠<br><span style="font-weight:400;color:var(--muted)">👂🔈 lobby chatter ❌ &nbsp; ➡️ 🚫 blocked</span></div>`},
+sensory:{cap:'Iconic (visual <1s) + echoic (sound ~seconds) = persistence of vision and hearing', html:`<div style="font-size:1.3rem;letter-spacing:0.2rem">🎆➡️✨➡️💨 <span style="font-size:0.8rem;letter-spacing:normal">trails = iconic</span> &nbsp; 🔊➡️🔉➡️🔈 <span style="font-size:0.8rem;letter-spacing:normal">echo = echoic</span></div>`},
+baddeley:{cap:'Executive directs; loop holds speech, sketchpad holds space, buffer binds LTM', html:`<div style="font-size:0.8rem;font-weight:700"><div style="padding:0.4rem;border-radius:10px;background:rgba(99,102,241,0.15);border:1px solid #6366f1;margin-bottom:0.3rem">🎛 CENTRAL EXECUTIVE — directs attention</div><div style="display:flex;gap:0.3rem;justify-content:center;flex-wrap:wrap"><span style="padding:0.35rem 0.5rem;border-radius:8px;background:rgba(14,165,233,0.12);border:1px solid #0ea5e9">🗣 loop: words</span><span style="padding:0.35rem 0.5rem;border-radius:8px;background:rgba(16,185,129,0.12);border:1px solid #10b981">🗺 sketchpad: hazards</span><span style="padding:0.35rem 0.5rem;border-radius:8px;background:rgba(168,85,247,0.12);border:1px solid #a855f7">🔗 buffer: LTM faces</span></div></div>`},
+consolidation:{cap:'Standard: hippocampus helps only early. Multiple-trace: hippocampus stays involved', html:`<div style="display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;font-size:0.78rem;font-weight:700"><span style="padding:0.5rem;border-radius:10px;background:rgba(14,165,233,0.12);border:1px solid #0ea5e9">📦 Standard<br>🧠 early → 🚫 late</span><span style="padding:0.5rem;border-radius:10px;background:rgba(168,85,247,0.12);border:1px solid #a855f7">🔗 Multiple-trace<br>🧠 early + late ✅</span></div>`},
+entrain:{cap:'Conversation partners converge: loudness + gestures sync up', html:`<div style="font-size:1.1rem;font-weight:700">🗣🔊〰️🗣🔊 &nbsp; 🙌〰️🙌<br><span style="font-size:0.78rem;font-weight:400;color:var(--muted)">matched volume + matched gestures</span></div>`},
+gardenpath:{cap:'First parse misleads (car = subject) → reanalyze (hills = subject)', html:`<div style="font-size:0.82rem;font-weight:600">🚗 <i>The car was driving…</i> ❌ wrong turn<br>⬇️ reanalyze ⬇️<br>⛰️ <i>…the hills were beautiful</i> ✅ true subject</div>`},
+framing:{cap:'Same outcome, different wording: 90% survive feels safe, 10% die feels scary', html:`<div style="display:flex;gap:0.4rem;justify-content:center;font-size:0.85rem;font-weight:800"><span style="padding:0.6rem 0.9rem;border-radius:12px;background:rgba(16,185,129,0.15);border:2px solid #10b981">💚 90% survive<br><small>choose it ✅</small></span><span style="padding:0.6rem 0.9rem;border-radius:12px;background:rgba(239,68,68,0.12);border:2px solid #ef4444">💀 10% die<br><small>refuse it ❌</small></span></div>`},
+paperfold:{cap:'Paper-folding test: fold → punch → predict the hole pattern (spatial imagery)', html:`<div style="font-size:1.2rem">📄➡️🗞️➡️🕳️❓<br><span style="font-size:0.78rem;color:var(--muted)">fold it, punch it, picture the holes</span></div>`},
+topdown:{cap:'Top-down: knowledge predicts. Bottom-up: senses build up', html:`<div style="font-size:0.85rem;font-weight:700">🧠⬇️👁 top-down: expect it<br>👁⬆️🧠 bottom-up: build it<br><span style="font-weight:400;color:var(--muted)">🌹 odd color pops = bottom-up salience</span></div>`},
+loci:{cap:'Method of loci: walk a familiar route, drop one vivid image per stop, in order', html:`<div style="font-size:1rem;font-weight:700">🚪🍎 ➡️ 🛋🐟 ➡️ 🍳📖 ➡️ 🛏🌙<br><span style="font-size:0.78rem;font-weight:400;color:var(--muted)">door → couch → kitchen → bed: 5-7 stops, fixed path</span></div>`},
+languageareas:{cap:'Broca produces (frontal) • Wernicke understands (temporal)', html:`<div style="display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;font-size:0.8rem;font-weight:700"><span style="padding:0.5rem 0.7rem;border-radius:10px;background:rgba(14,165,233,0.12);border:1px solid #0ea5e9">🗣 BROCA (frontal)<br>says little, gets all</span><span style="padding:0.5rem 0.7rem;border-radius:10px;background:rgba(168,85,247,0.12);border:1px solid #a855f7">👂 WERNICKE (temporal)<br>says much, means little</span></div>`},
+hanoi:{cap:'Tower of Hanoi: shrink the start–goal gap with subgoals, one disc at a time', html:`<div style="font-size:1.1rem">🟥🟧🟨<br>📍start ➡️ 🎯goal<br><span style="font-size:0.78rem;color:var(--muted)">means-end: compare → subgoal → move</span></div>`},
+};
+
+// --- PODCAST: two-host dialog per chapter, played aloud with device voices (Maya + Leo) ---
+const PODCASTS = [
+{id:'ch1', title:'Ep 1 · Foundations — From Wundt to the Cognitive Revolution', mins:'≈3 min', lines:[
+ {s:'maya', t:'Welcome to CogCast, the tiny podcast that gets you through the D570 OA. I am Maya.'},
+ {s:'leo', t:'And I am Leo. Today: foundations. Psychology starts in 1879 with Wilhelm Wundt and his first lab.'},
+ {s:'maya', t:'And his method was structuralism, right? Break experience into tiny sensations, like a periodic table of the mind?'},
+ {s:'leo', t:'Exactly. Trained people described their own thoughts, which was called analytic introspection. Subjective, but it started everything.'},
+ {s:'maya', t:'Then Donders in 1868 does something clever before the lab even exists. What was his trick?'},
+ {s:'leo', t:'Subtraction. Simple reaction time versus choice reaction time. The difference, about a tenth of a second, is the decision itself.'},
+ {s:'maya', t:'So choice minus simple equals decision time. And Ebbinghaus?'},
+ {s:'leo', t:'Nonsense syllables and the savings score: original learning time minus relearning time. Fast relearn means memory survived.'},
+ {s:'maya', t:'Then Watson storms in and says, forget the mind, watch behavior. Stimulus, response, done.'},
+ {s:'leo', t:'That is behaviorism: Pavlov tones, Skinner rewards. The OA loves asking whose tradition a tone-salivation study belongs to. Answer: Watson.'},
+ {s:'maya', t:'And the 1950s cognitive revolution brings the mind back, with AI and information theory.'},
+ {s:'leo', t:'Right. The mind as staged computer: Atkinson and Shiffrin give us sensory, short-term, long-term. Remember: see it, repeat it, store it.'},
+ {s:'maya', t:'Plus Piaget stages, Vygotsky social learning, and fluid versus crystallized intelligence.'},
+ {s:'leo', t:'Fluid solves new puzzles and fades with age. Crystallized is stored knowledge and grows. That contrast is pure OA bait.'},
+]},
+{id:'ch2', title:'Ep 2 · Brain, Sleep & Drugs — The Wiring and the Night Shift', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode two: the brain. Leo, give me the neuron in one breath.'},
+ {s:'leo', t:'Dendrites receive, axon carries the action potential, terminal releases neurotransmitter across the synapse. Receive, carry, release.'},
+ {s:'maya', t:'And the cortex is just three millimeters of tissue doing everything?'},
+ {s:'leo', t:'Three millimeters, yes. Frontal lobe guides behavior. Temporal lobe handles faces, objects, language. The fusiform face area spots familiar faces in a crowd.'},
+ {s:'maya', t:'So temporal damage means language comprehension breaks. Noted. What runs the sleep clock?'},
+ {s:'leo', t:'The suprachiasmatic nucleus, the SCN, driven by the hypothalamus, reading light from the retina. Pineal gland drops melatonin at night; pituitary releases growth and reproductive hormones while you sleep.'},
+ {s:'maya', t:'And circadian rhythm is just the 24-hour version of that, with cooling body temperature making us sleepy.'},
+ {s:'leo', t:'Exactly. Now the OA loves sleep numbers. Babies need twelve to eighteen hours. Adults need seven to nine. Everything else steps down between.'},
+ {s:'maya', t:'Disorders quick-fire: insomnia, apnea, narcolepsy, SIDS?'},
+ {s:'leo', t:'Insomnia cannot fall or stay asleep. Apnea wakes you repeatedly. Narcolepsy gets stimulants. SIDS risk rises with overheating, hyperthermia.'},
+ {s:'maya', t:'Drugs in thirty seconds, go.'},
+ {s:'leo', t:'Depressants slow the brain through GABA; alcohol raises GABA. Stimulants speed it up; meth brings euphoria. Opioids kill pain: codeine is mild, methadone eases withdrawal. Dopamine is reward, serotonin is mood, acetylcholine moves muscles.'},
+ {s:'maya', t:'Agonist boosts, antagonist blocks, dependence means withdrawal if you stop. Dual processing means the driver signals consciously while speed runs on autopilot.'},
+ {s:'leo', t:'You just summarized half the chapter. Sleep it off tonight; sleep consolidates memory, literally.'},
+]},
+{id:'ch3', title:'Ep 3 · Attention & Perception — Filters, Leaks, and Blind Spots', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode three: attention. Broadbent says the mind has a filter. What does it actually do?'},
+ {s:'leo', t:'Early selection by physical cues. The loud concierge wins, lobby chatter gets blocked before meaning is processed.'},
+ {s:'maya', t:'But Treisman says the filter leaks.'},
+ {s:'leo', t:'Right, the attenuator turns the volume down instead of off. Your name or a familiar word still breaks through. Leaky filter, two stages: physical, then language and meaning.'},
+ {s:'maya', t:'Which explains the cocktail party effect: track one voice by its pitch, ignore the rest.'},
+ {s:'leo', t:'Cherry proved it with dichotic listening, different sounds per ear. And when attention is elsewhere, you get inattentional blindness: counters miss the costumed walker, drivers miss stop signs, Jack misses the foul watching his kid score.'},
+ {s:'maya', t:'Same idea behind change blindness, the person-swap experiment. No attention at the spot, no change detected.'},
+ {s:'leo', t:'And binding: focused attention glues separate features into whole objects. Familiar objects glue faster, so fewer illusory conjunctions.'},
+ {s:'maya', t:'Perception side: top-down versus bottom-up?'},
+ {s:'leo', t:'Top-down uses knowledge to predict. Bottom-up builds from senses. Helmholtz says perception is unconscious betting on the likeliest cause. Gestalt says the brain prefers whole, simple forms, built-in, with experience playing a minor role.'},
+ {s:'maya', t:'Oblique effect, dorsal pathway, quick definitions?'},
+ {s:'leo', t:'Horizontals and verticals are seen fastest because they dominate nature. The dorsal where-pathway runs occipital to parietal and guides action. Viewpoint invariance means the toy is recognized from any angle.'},
+ {s:'maya', t:'Plus phones while driving wreck attention and reaction time. Strayer and Johnston proved it. Put the phone down, pass the OA.'},
+ {s:'leo', t:'And high perceptual load shields you from distraction, because capacity is limited. Busy mind, fewer intruders.'},
+]},
+{id:'ch4', title:'Ep 4 · Working Memory — The Mental Workbench', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode four: working memory, the mental workbench. What is the difference between holding and working?'},
+ {s:'leo', t:'The OA classic: in mental math, digits sit in short-term memory while working memory does the carrying and borrowing. Hold versus manipulate.'},
+ {s:'maya', t:'And Baddeley splits the workbench into parts.'},
+ {s:'leo', t:'The central executive directs. The phonological loop holds speech, like silently repeating the lecture before writing it down. The sketchpad holds space, like trail hazards while chatting with a friend.'},
+ {s:'maya', t:'And the episodic buffer is the binder?'},
+ {s:'leo', t:'Exactly. Seven upside-down actor faces get recognized because the buffer pulls long-term face and name knowledge into working memory. It binds LTM into the now.'},
+ {s:'maya', t:'What about activity-silent memory? Silent sounds like off.'},
+ {s:'leo', t:'Silent but strengthened. Neural connections change without constant firing, and mental rotation still improves. The trace sleeps, the skill stays.'},
+ {s:'maya', t:'Encoding tricks the OA loves: fish trees and pastry cards.'},
+ {s:'leo', t:'Imagine each fish on a tree of fish categories: visual imagery plus organization. The bakery trainee makes cards and rates tastiness: generation plus self-reference. Both go deep.'},
+ {s:'maya', t:'Plus Miller seven plus or minus two, chunking, and the rehearsal ladder.'},
+ {s:'leo', t:'Chunk the eight-digit account into meaningful sets. Elaborative rehearsal links terms to your life and lasts. Maintenance rehearsal just repeats and fades. Meaning beats repetition.'},
+]},
+{id:'ch5', title:'Ep 5 · Long-Term Memory — Events, Facts, and Ghost Stories', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode five: long-term memory. Autobiographical memory is just episodic plus semantic, right?'},
+ {s:'leo', t:'That is the OA sentence. Jumping in the waves is the episode; the temperature that day is the fact. Roses trigger the childhood trip the same way.'},
+ {s:'maya', t:'Then the lake-trip debate: standard versus multiple-trace consolidation.'},
+ {s:'leo', t:'Standard says the hippocampus helps only early, then steps back. Multiple-trace says it stays active for remote episodic memories. Early-only versus always-involved.'},
+ {s:'maya', t:'Nairne says memory evolved to keep us alive, so protection-useful words win. And taboo words win through arousal.'},
+ {s:'leo', t:'Right. Now Bartlett: retell a story repeatedly and it gets shorter, simpler, and more like your own culture. The War of Ghosts proved time plus culture equals distortion.'},
+ {s:'maya', t:'The Proust effect is the nice version: chopped wood smell brings back the cabin vacation.'},
+ {s:'leo', t:'Odor-evoked autobiographical memory. And Westmacott and Moscovitch add that personally significant facts stick, like the actor spotted in an airport years ago.'},
+ {s:'maya', t:'Self-image hypothesis: we remember what fits who we think we are, like the law school graduation.'},
+ {s:'leo', t:'Plus the strength kit: long-term potentiation, emotional stress hormones, sleep consolidation, and generating material yourself instead of rereading. Rereading gives the illusion of learning.'},
+ {s:'maya', t:'And retrieval: same room helps through encoding specificity, same mood helps through state-dependence. Memory is a work in progress, constantly remodeled.'},
+ {s:'leo', t:'Fragile on recall, replayed by the hippocampus, reconsolidated or lost. Handle with care.'},
+]},
+{id:'ch6', title:'Ep 6 · Forgetting & False Memory — When Memory Lies', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode six, the courtroom episode. Why should we distrust eyewitnesses?'},
+ {s:'leo', t:'Because witnesses miss most of the incident: weapon focus narrows everything onto the gun, stress and leading questions rewrite the rest, yet confidence stays high. Confident but wrong.'},
+ {s:'maya', t:'And familiarity can frame the wrong person?'},
+ {s:'leo', t:'Seeing the teacher read made participants three times likelier to pick him. Familiar feels guilty. Same with post-identification feedback: confirming words implant false certainty about a camp childhood.'},
+ {s:'maya', t:'Nash and Wade showed fake video can create false confessions.'},
+ {s:'leo', t:'Doctored footage of cheating produced admissions from people with zero recall of cheating. Kassin answer: forbid false evidence in interrogations. Power of suggestion, full stop.'},
+ {s:'maya', t:'Source monitoring is the everyday version: remembering the obscure artist but not where you learned them.'},
+ {s:'leo', t:'Right fact, wrong source. And misinformation after the event rewrites the report. Spin after equals memory rewritten.'},
+ {s:'maya', t:'Everyday forgetting has names too: decay, interference, motivated forgetting.'},
+ {s:'leo', t:'Decay fades unused traces. Proactive interference: old learning blocks new, like Spanish intruding on Italian. Retroactive: new blocks old. Motivated forgetting pushes away painful material.'},
+ {s:'maya', t:'But cues rescue us: same classroom, same smell, first letters. Right cue, found memory.'},
+ {s:'leo', t:'Retrieval failure is usually access failure, not erasure. Which is comforting, honestly.'},
+]},
+{id:'ch7', title:'Ep 7 · Language & Imagery — Words, Pictures, and Garden Paths', mins:'≈3 min', lines:[
+ {s:'maya', t:'Episode seven: language. Chomsky says kids have a language acquisition device. Evidence?'},
+ {s:'leo', t:'Kids say goed instead of went. Nobody taught them that rule; they built it. Overregularization proves innate grammar.'},
+ {s:'maya', t:'And the lexicon is the mental dictionary: meanings, sounds, uses.'},
+ {s:'leo', t:'Common words fly, rare words crawl: longer fixations on low-frequency words. Light has many meanings, which is lexical ambiguity. Kids split the speech stream with word segmentation.'},
+ {s:'maya', t:'Lexical priming: driver speeds up car. One word preheats the next.'},
+ {s:'leo', t:'Then sentences can trick you. The horse raced past the barn fell: first parse wrong, reanalyze. The car and hills kid makes a causal inference error, blaming motion for beauty.'},
+ {s:'maya', t:'Constraint-based parsing says use every cue, not just syntax. Anaphoric inference links it back to the dog.'},
+ {s:'leo', t:'Conversations converge: common ground, matched grammar, syntactic priming reusing structures. That sync is entrainment: both students loud, both gesturing.'},
+ {s:'maya', t:'Imagery debate: pictures in the head or sentences in the head?'},
+ {s:'leo', t:'Kosslyn says spatial and picture-like: scanning farther takes longer, rotation angle scales time. Propositional side says abstract symbols. Aristotle lost: people who cannot visualize still think.'},
+ {s:'maya', t:'Memory palaces to the rescue: loci routes, rhyming pegwords, concrete nouns beating abstract ones.'},
+ {s:'leo', t:'Walk your house, rhyme one-bun, picture the fish. Broca produces up front, Wernicke understands in the temporal lobe. Say little but get all, or say much but mean little.'},
+]},
+{id:'ch8', title:'Ep 8 · Decisions & Problem Solving — Traps, Frames, and Fresh Eyes', mins:'≈3 min', lines:[
+ {s:'maya', t:'Finale episode: reasoning. Start with the problem-solving loop.'},
+ {s:'leo', t:'Initial state versus goal state, with the problem space between. Means-end analysis shrinks the gap with subgoals: that is the Tower of Hanoi, disc by disc.'},
+ {s:'maya', t:'Gestalt says re-see the problem instead of calculating harder.'},
+ {s:'leo', t:'Restructuring, yes. But mental set and functional fixedness trap you: the box is only a tack holder until it becomes a candle platform. The two-string puzzle proves it.'},
+ {s:'maya', t:'Stuck? Walk away. Incubation works: programmers return from lunch with fixes, the musician finishes the song in the mountains, the pun suddenly lands.'},
+ {s:'leo', t:'Insight hides its progress; non-insight shows steady climbing. Mind wandering during breaks feeds incubation.'},
+ {s:'maya', t:'Analogies transfer old wins: leaking cup decay becomes biodegradable pots; heart becomes pump and pipes; flyers that raised votes raise club turnout.'},
+ {s:'leo', t:'Compare two problems to extract the principle: that is analogical encoding. Deduction guarantees from general rules, like licenses at sixteen. Induction suggests from observations.'},
+ {s:'maya', t:'Bias speed round: representativeness, availability, belief bias.'},
+ {s:'leo', t:'Shy poet must be a librarian while ignoring base rates. Shark news makes beaches feel deadly through vivid recall. Valid logic rejected because the conclusion sounds weird. Fit, recall-ease, believability: all mislead.'},
+ {s:'maya', t:'Framing: ninety percent survive versus ten percent die flips the same choice. Losses loom larger than gains, so we avoid risk.'},
+ {s:'leo', t:'The tree group favors eighty percent saved over twenty percent lost. One robbery branding a whole country is illusory correlation. Expected utility says how we should choose; Mateo slots show how we do.'},
+ {s:'maya', t:'Brain votes too: insula rejects unfair offers, prefrontal cortex buys. That is neuroeconomics. And that is the whole OA, eight episodes.'},
+ {s:'leo', t:'Flashcards for facts, podcast for flow, Smart Learn Lab for traps. See you on the competent side of eighty percent.'},
+]},
+];
+
+// --- SMART LEARN LAB: mnemonics, confusable contrasts with OA traps, memory-palace stories ---
+const MNEMONICS = {
+ ch1:[['<b>Wundt 1879</b> → “Wundt Wanted a lab”: first lab, sensations add up (structuralism).','<b>Donders 1868</b> → “Decide minus Do”: choice − simple = decision (~1/10 s).','<b>Ebbinghaus</b> → “Every Boring Syllable Saves”: savings = original − relearn.','<b>Watson</b> → “Watch behavior only”: stimulus-response, no introspection.','<b>1950s revolution</b> → “AI returns the mind”: computers + information theory.','<b>Fluid vs crystallized</b> → “Flow fades, crystal keeps”: new-puzzle skill declines, knowledge grows.']],
+ ch2:[['<b>Neuron</b> → “Receive, Carry, Release”: dendrites → axon → neurotransmitter.','<b>Lobes</b> → “Front guides, Temporal tells”: frontal behavior, temporal faces + language.','<b>SCN</b> → “Supra = above it all”: the clock above, lit by the retina.','<b>Sleep hours</b> → “Babies 12+, adults 7+”: every stage steps down between.','<b>Disorders</b> → “I Am Nauseous, So hot”: Insomnia onset, Apnea broken, Narcolepsy stimulant, SIDS heat.','<b>Drugs</b> → “Downers GABA, Uppers rush, Opioids soothe”: alcohol ↑GABA, meth euphoria, codeine mild.']],
+ ch3:[['<b>Broadbent</b> → “Bouncer at the door”: loudness picks one channel, early block.','<b>Treisman</b> → “Turned-down, not off”: leaky attenuator, names slip through.','<b>Blindnesses</b> → “Looked but lost”: inattentional (miss walker), change (miss swap).','<b>Binding</b> → “Glue needs attention”: features + focus = whole object.','<b>Top vs bottom</b> → “Know-down, build-up”: expectations predict, senses construct.','<b>Load</b> → “Busy = shielded”: high perceptual load blocks distractors.']],
+ ch4:[['<b>Hold vs work</b> → “Digits sit, mind lifts”: STM holds, WM manipulates.','<b>Baddeley</b> → “Executive conducts three players”: loop speaks, sketchpad maps, buffer binds.','<b>Rehearsal ladder</b> → “Say it, mean it, keep it”: articulatory holds, elaborative lasts, maintenance fades.','<b>7±2</b> → “Groceries, not warehouse”: chunk digits into sets.','<b>Depth wins</b> → “Fish tree + pastry rate”: imagery + organization, generation + self-reference.']],
+ ch5:[['<b>Autobiographical</b> → “Event + fact = life story”: waves (episode) + temperature (semantic).','<b>Lake debate</b> → “Early-only vs always”: standard exits, multiple-trace stays.','<b>Bartlett</b> → “Retell, reshape, resemble you”: shorter, simpler, own culture.','<b>Proust</b> → “Smell = time machine”: odor unlocks childhood.','<b>Strength kit</b> → “Fire, feel, sleep, make”: LTP, stress hormones, sleep, generation.','<b>Specificity vs state</b> → “Place vs mood”: same room, same feeling.']],
+ ch6:[['<b>Eyewitness</b> → “Confident but wrong”: partial view + stress + leading words.','<b>False confession</b> → “Fake film, false admission”: Nash & Wade video, ban it (Kassin).','<b>Source</b> → “Right fact, wrong from-where”: monitor the origin.','<b>Interference</b> → “Pro = old blocks new; Retro = new blocks old”.','<b>Misinformation</b> → “Spin after rewrites before”.']],
+ ch7:[['<b>LAD</b> → “Goed proves the device”: unheard rules = innate grammar.','<b>Frequency</b> → “Common flies, rare crawls”: eyes linger on rare words.','<b>Garden path</b> → “Horse trips, then repairs”: first parse wrong, reanalyze.','<b>Entrainment</b> → “Sync the chat”: loudness + gestures converge.','<b>Imagery</b> → “Scan far = slow; angle big = slow”: spatial wins.','<b>Loci + pegs</b> → “Walk rooms, rhyme buns”: 5-7 stops, concrete nouns win.','<b>Aphasias</b> → “Broca brief, Wernicke wordy”: produce vs understand.']],
+ ch8:[['<b>Means-end</b> → “Gap → subgoal → step”: Hanoi disc by disc.','<b>Fixation</b> → “Box is not just a box”: beat functional fixedness.','<b>Incubation</b> → “Leave it, land it”: lunch, mountains, pun.','<b>Heuristics</b> → “Fit, recall, believable: all fib”: representativeness, availability, belief bias.','<b>Framing</b> → “90 live vs 10 die”: wording flips choice; losses loom larger.','<b>Deduction vs induction</b> → “Guarantee vs guess”: rules prove, observations suggest.']],
+};
+const VERSUS = [
+ {ch:'ch1', a:['<b>Simple reaction time</b>','One stimulus, react to presence/absence. One light → one button.'], b:['<b>Choice reaction time</b>','Two+ stimuli, different response each. Red vs green → two buttons.'], trap:'OA trap: “different response per stimulus” always means <b>choice</b>, even with only two lights.'},
+ {ch:'ch1', a:['<b>Fluid intelligence</b>','Processing new info: reasoning, spatial, speed. Declines with age.'], b:['<b>Crystallized intelligence</b>','Stored knowledge + experience. Grows with age.'], trap:'OA trap: painting something original at 70 = <b>cognitive/creativity</b>, not fluid decline.'},
+ {ch:'ch2', a:['<b>Agonist</b>','Boosts neurotransmitter activity (benzodiazepines → GABA).'], b:['<b>Antagonist</b>','Blocks neurotransmitter activity.'], trap:'OA trap: alcohol <b>raises</b> GABA (agonist-like); it does not block it.'},
+ {ch:'ch2', a:['<b>Insomnia</b>','Cannot fall or stay asleep.'], b:['<b>Sleep apnea</b>','Wakes many times a night; quality destroyed.'], trap:'OA trap: “wakes repeatedly” = <b>apnea</b>, not insomnia.'},
+ {ch:'ch3', a:['<b>Broadbent filter</b>','Hard early block by physical cues; unattended = gone.'], b:['<b>Treisman attenuator</b>','Soft turn-down; important unattended leaks through.'], trap:'OA trap: hearing your <b>name</b> through noise proves <b>leaky</b> Treisman, not Broadbent.'},
+ {ch:'ch3', a:['<b>Inattentional blindness</b>','Miss visible things (walker, limo, foul).'], b:['<b>Change blindness</b>','Miss changes (person swap, picture differences).'], trap:'OA trap: a <b>moving limo unnoticed</b> while counting = inattentional, not change.'},
+ {ch:'ch4', a:['<b>Phonological loop</b>','Speech + rehearsal (“the, the, the” blocks it).'], b:['<b>Visuospatial sketchpad</b>','Hazards, locations, imagery.'], trap:'OA trap: <b>friend words</b> = loop; <b>trail hazards</b> = sketchpad. Never swap.'},
+ {ch:'ch4', a:['<b>Elaborative rehearsal</b>','Meaning links → durable LTM.'], b:['<b>Maintenance rehearsal</b>','Rote repetition → fast fade.'], trap:'OA trap: laptop <b>transcribing</b> = shallow maintenance; handwriting = deep.'},
+ {ch:'ch5', a:['<b>Standard consolidation</b>','Hippocampus needed only early.'], b:['<b>Multiple-trace</b>','Hippocampus stays active long-term.'], trap:'OA trap: hippocampus <b>still lit at 30</b> for age-5 memory = multiple-trace.'},
+ {ch:'ch5', a:['<b>Encoding specificity</b>','Match the <b>place/context</b>.'], b:['<b>State-dependent</b>','Match the inner <b>mood/state</b>.'], trap:'OA trap: same <b>mood</b> at study + test = state-dependent, not specificity.'},
+ {ch:'ch6', a:['<b>Proactive interference</b>','OLD blocks NEW (Spanish vs Italian).'], b:['<b>Retroactive interference</b>','NEW blocks OLD.'], trap:'OA trap: last-semester language intruding = <b>proactive</b> (forward-acting).'},
+ {ch:'ch7', a:['<b>Causal inference error</b>','False cause fills the gap (car → hills beauty).'], b:['<b>Garden-path reanalysis</b>','First parse fails; switch subject (car → hills).'], trap:'OA trap: “infers hills caused by car” = <b>causal</b>; “switches subject mid-sentence” = <b>garden path</b>.'},
+ {ch:'ch7', a:['<b>Broca aphasia</b>','Halting speech, comprehension intact.'], b:['<b>Wernicke aphasia</b>','Fluent nonsense, comprehension broken.'], trap:'OA trap: “fluent but meaningless” = <b>Wernicke</b>, every time.'},
+ {ch:'ch8', a:['<b>Representativeness</b>','Stereotype fit, base rates ignored (shy poet = librarian).'], b:['<b>Availability</b>','Recall ease inflates frequency (shark news = deadly beaches).'], trap:'OA trap: <b>vivid news</b> driving fear = availability, not representativeness.'},
+ {ch:'ch8', a:['<b>Framing effect</b>','Wording flips identical choices (90% survive vs 10% die).'], b:['<b>Belief bias</b>','Believability overrules validity (dogs syllogism).'], trap:'OA trap: rejecting <b>valid logic</b> over a weird conclusion = belief bias.'},
+];
+const STORIES = {
+ ch1:'Walk into <b>Wundt lab (1879)</b> where volunteers whisper their sensations into notebooks (<b>structuralism + introspection</b>). A bell rings once — you press (<b>simple RT</b>); two bells — left or right hand (<b>choice RT</b>); <b>Donders</b> times your decision. Upstairs <b>Ebbinghaus</b> drills syllables, and relearning flies (<b>savings</b>). <b>Watson</b> bursts in: “Stop feeling, start measuring!” — a dog drools at a tone (<b>behaviorism</b>). Decades later the <b>1950s revolution</b> reboots the mind as a computer (<b>information processing</b>), <b>Piaget</b> children stack stages on the stairs, <b>Vygotsky</b> friends teach on the landing, and two elders argue: quick-puzzle <b>fluid</b> versus wise <b>crystallized</b>.',
+ ch2:'Ride a <b>neuron</b> like a waterslide: catch at the <b>dendrites</b>, whoosh down the <b>axon</b> as an <b>action potential</b>, splash into <b>neurotransmitter</b>. The <b>cortex (3 mm)</b> is mission control: <b>frontal</b> steers, <b>temporal</b> names faces (wave at the <b>fusiform</b> desk). At dusk the <b>retina</b> phones the <b>SCN clock</b>, the <b>hypothalamus</b> nods, <b>pineal melatonin</b> pours like night syrup. Babies in the nursery log <b>12-18 h</b>, adults across the hall take <b>7-9</b>. Down the corridor: <b>insomnia</b> tosses, <b>apnea</b> flickers awake, <b>narcolepsy</b> takes a <b>stimulant</b>, and a nurse cools the <b>SIDS</b> room. In the pharmacy, <b>depressants</b> dim lights via <b>GABA</b> (<b>alcohol</b> pours more), <b>stimulants</b> crank the dial (<b>meth</b> euphoria), <b>opioids</b> numb pain (<b>codeine</b> mild, <b>methadone</b> rescue). <b>Dopamine</b> cheers for reward, <b>serotonin</b> steadies mood, <b>acetylcholine</b> flexes muscle. <b>Agonists</b> boost, <b>antagonists</b> block.',
+ ch3:'Enter the noisy party with <b>Broadbent bouncer</b> admitting only the loud <b>concierge</b> channel. But <b>Treisman</b> left the back door <b>leaky</b>: your <b>name</b> slips through (<b>cocktail party</b>, <b>dichotic</b> ears). Counting passes, you miss the <b>costumed walker</b> and the <b>limo</b> (<b>inattentional blindness</b>, <b>Simons & Chabris</b>); the swapped host goes unnoticed (<b>change blindness</b>). <b>Binding glue</b> assembles color + shape into whole objects — familiar ones snap faster. Upstairs, <b>Helmholtz</b> bets on likeliest causes (<b>unconscious inference</b>), <b>Gestalt</b> insists on simplest wholes, verticals beat diagonals (<b>oblique</b>), the <b>dorsal where-path</b> points occipital→parietal, and the toy is known from every side (<b>viewpoint invariance</b>). Your <b>phone</b> buzzes behind the wheel — <b>Strayer & Johnston</b> confiscate it. A <b>busy mind</b> (high load) shrugs off distractors.',
+ ch4:'At the <b>workbench</b>, digits rest on the <b>short-term</b> shelf while <b>working memory</b> carries the math. Foreman <b>executive</b> directs three workers: <b>loop</b> muttering the lecture, <b>sketchpad</b> mapping trail hazards, <b>buffer</b> fetching actor faces from <b>long-term</b> archives. A heckler chants “the, the, the” (<b>suppression</b>) and the loop drops everything. <b>Seven slots (±2)</b> overflow, so you <b>chunk</b> the account number into tasty sets. The <b>fish tree</b> grows pictures on branches (<b>imagery + organization</b>); the <b>pastry trainee</b> bakes cards and rates flavor (<b>generation + self-reference</b>). Meaning (<b>elaborative</b>) is laminated; rote (<b>maintenance</b>) is penciled and smudges. Silent synapses still hold the rotation (<b>activity-silent</b>).',
+ ch5:'Open the life album: <b>waves</b> splashed (episode) under a noted <b>temperature</b> (fact) — that blend is <b>autobiographical</b>. <b>Roses</b> flip pages to childhood; chopped <b>wood</b> replays the cabin (<b>Proust</b>). At the <b>lake</b>, two guides argue: one says the <b>hippocampus</b> retires early (<b>standard</b>), the other says it never leaves (<b>multiple-trace</b>). <b>Nairne</b> ranger stamps “useful for survival” on the best-kept pages; <b>taboo</b> words glow with arousal. <b>Bartlett</b> retells the ghost story nightly — shorter, simpler, more like home (<b>War of Ghosts</b>). The <b>airport actor</b> gets a gold star (personally <b>significant</b>); the <b>graduate</b> frames the diploma (<b>self-image</b>). Each recall loosens the binding (<b>fragile, reconsolidation</b>), the hippocampus <b>replays</b> at night, and <b>sleep</b> laminates the page. Same room, same mood — doors reopen (<b>specificity, state-dependence</b>).',
+ ch6:'In the courtroom, the witness stares at the <b>gun</b> and loses the face (<b>weapon focus</b>). The familiar <b>teacher</b> is picked — thrice the risk (<b>familiarity</b>). A doctored <b>video</b> rolls: “you cheated” — the suspect signs, remembering nothing (<b>Nash & Wade</b>); judge <b>Kassin</b> bans the fake tape. The artist name floats without an owner (<b>source monitoring</b>); a leading question repaints the scene (<b>misinformation</b>); praise for the lineup pick cements a <b>camp</b> memory that never happened (<b>feedback</b>). Outside, old <b>Spanish</b> heckles new Italian (<b>proactive</b>), new terms bury last week (<b>retroactive</b>), unused locker codes dissolve (<b>decay</b>), pain is shelved (<b>motivated</b>). Back in the same classroom, answers flow again — cue the context, find the memory.',
+ ch7:'The baby declares “<b>goed</b>!” and <b>Chomsky</b> smiles: the <b>device</b> works. The <b>lexicon</b> dictionary issues frequent words express (<b>frequency</b>) and puzzles over <b>light</b> (<b>ambiguity</b>); toddlers slice the speech river into words (<b>segmentation</b>). <b>Driver</b> preheats <b>car</b> (<b>priming</b>); <b>it</b> chases the <b>dog</b> across sentences (<b>anaphora</b>). On the garden path, the <b>horse</b> sentence trips every reader; the <b>car/hills</b> child first blames motion (<b>causal error</b>), then swaps subjects (<b>reanalysis</b>). At dinner, both guests grow loud together, gesturing in sync (<b>entrainment</b> on <b>common ground</b>). In the gallery, <b>Kosslyn</b> times your mental walk: farther scans slower, bigger rotations longer (<b>spatial imagery</b> beats sentences; <b>Aristotle</b> refuted). Your palace hallway stores groceries door-to-bed (<b>loci</b>), <b>one-bun</b> rhymes hold the list (<b>pegword</b>), concrete nouns glow (<b>Paivio</b>). Up front <b>Broca</b> speaks haltingly but understands; in back <b>Wernicke</b> chatters fluently but means nothing.',
+ ch8:'Stand at <b>start</b>, face the <b>goal</b>: the <b>space</b> between is crossed by <b>subgoals</b>, one <b>Hanoi</b> disc at a time (<b>means-end</b>). The <b>Gestalt</b> sculptor reshapes the problem (<b>restructuring</b>) while the <b>box</b> refuses to be a platform (<b>fixedness</b>) and two <b>strings</b> hang just out of joint reach. Walk away: over <b>lunch</b> the code resolves, on the <b>mountain</b> the song completes, the <b>pun</b> finally lands (<b>incubation</b>, <b>insight</b>). The <b>engineer</b> studies a rotting <b>cup</b> and grows clean <b>pots</b>; the club reprints the <b>flyers</b> that once won votes (<b>transfer</b>). Rules <b>guarantee</b> sixteen means license (<b>deduction, permission</b>); patterns merely <b>suggest</b> (<b>induction</b>; test by <b>falsification</b>, best in real-world <b>four-card</b> form). The crowd judges: the shy <b>poet</b> must shelve books (<b>representativeness</b>), the <b>shark</b> headline empties beaches (<b>availability</b>), the <b>dogs</b> syllogism fails on vibes (<b>belief bias</b>). The surgeon offers <b>90% live</b> versus <b>10% die</b> — same numbers, opposite answers (<b>framing</b>; losses loom). One <b>robbery</b> smears a nation (<b>illusory correlation</b>); <b>Mateo</b> feeds the <b>slots</b> against his own math (<b>expected utility</b>). Inside the skull, the <b>insula</b> vetoes unfair splits while the <b>prefrontal</b> reaches to buy (<b>neuroeconomics</b>).',
+};
+// attach diagram keys to classic cards (runs once at load)
+VISUAL_ATTACH.forEach(([id,key])=>{ const c=flashcards.find(f=>f.id===id); if(c && !c.visual && VISUALS[key]) c.visual=key; });
+function visualHTML(card){
+  if(!card || !state.visualsOn || !card.visual || !VISUALS[card.visual]) return '';
+  const v=VISUALS[card.visual];
+  return `<div class="visual-box">🖼️ ${v.html}<div class="visual-cap">${v.cap}</div></div>`;
+}
+function shortHTML(card){
+  if(!card || !state.shortMode) return '';
+  return `<div class="short-box">⚡ <span class="kw">${getShort(card)}</span></div>`;
+}
+
+// --- SPEECH ENGINE: two voices for the podcast, one voice for card read-aloud ---
+let VOICES=[];
+function loadVoices(){ try{ VOICES=(window.speechSynthesis? window.speechSynthesis.getVoices():[])||[]; }catch(e){ VOICES=[]; } }
+function ttsOK(){ return ('speechSynthesis' in window); }
+function pickVoice(who){
+  const en=(VOICES||[]).filter(v=>v.lang && v.lang.toLowerCase().indexOf('en')===0);
+  const pool=en.length?en:(VOICES||[]);
+  if(!pool.length) return null;
+  const fem=pool.find(v=>/female|samantha|zira|tessa|moira|google uk english female|karen|serena/i.test(v.name));
+  const masc=pool.find(v=>/male|daniel|david|alex|fred|google uk english male|thomas|james/i.test(v.name));
+  if(who==='maya') return fem||pool[0];
+  if(who==='leo') return masc||pool[pool.length-1]||pool[0];
+  return pool[0];
+}
+function stopSpeech(){ try{ if(ttsOK()){ state.podPlaying=false; window.speechSynthesis.cancel(); } }catch(e){} }
+function speakCard(){
+  if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
+  const c=current(); if(!c) return;
+  stopSpeech();
+  const u=new SpeechSynthesisUtterance(c.term+'. '+c.definition+(c.example? ' Example: '+c.example:''));
+  u.rate=1; const v=pickVoice('maya'); if(v) u.voice=v;
+  window.speechSynthesis.speak(u);
+}
+function podEpisodes(){
+  if(state.chapter==='all') return PODCASTS;
+  const one=PODCASTS.filter(e=>e.id===state.chapter);
+  return one.length?one:PODCASTS;
+}
+function podCurrent(){
+  const eps=podEpisodes();
+  let ep=eps.find(e=>e.id===state.podEp);
+  if(!ep){ ep=eps[0]; state.podEp=ep.id; state.podIdx=0; }
+  return ep;
+}
+function podPlay(fromIdx){
+  if(!ttsOK()){ alert('🎙️ Podcast playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
+  const ep=podCurrent();
+  if(typeof fromIdx==='number') state.podIdx=fromIdx;
+  stopSpeech();
+  state.podPlaying=true;
+  podSpeakLine(ep, state.podIdx);
+  renderPodcast();
+}
+function podSpeakLine(ep, i){
+  if(i>=ep.lines.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
+  state.podIdx=i;
+  const line=ep.lines[i];
+  const u=new SpeechSynthesisUtterance(line.t);
+  u.rate=state.podRate||1;
+  u.pitch=(line.s==='maya')?1.15:0.85;
+  const v=pickVoice(line.s); if(v) u.voice=v;
+  u.onend=()=>{ if(!state.podPlaying) return; podSpeakLine(ep, i+1); renderPodcast(); };
+  u.onerror=()=>{ state.podPlaying=false; renderPodcast(); };
+  try{ window.speechSynthesis.speak(u); }catch(e){ state.podPlaying=false; }
+  renderPodcast();
+}
+function podPause(){
+  try{
+    if(!ttsOK()) return;
+    if(window.speechSynthesis.paused){ window.speechSynthesis.resume(); }
+    else { window.speechSynthesis.pause(); }
+  }catch(e){}
+  renderPodcast();
+}
+function renderPodcast(){
+  const wrap=document.getElementById('podWrap');
+  if(!wrap || state.mode!=='podcast') return;
+  const eps=podEpisodes();
+  const ep=podCurrent();
+  const chName=(id)=>{ const c=chapters.find(x=>x.id===id); return c?c.emoji+' '+c.name:id; };
+  wrap.innerHTML=`
+    <div class="pod-player">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap">
+        <div style="font-weight:800;font-size:1.05rem">🎙️ CogCast — ${ep.title}</div>
+        <span class="badge">${ep.mins} • Maya 👩 + Leo 🧑</span>
+      </div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:0.35rem">${chName(ep.id)} • Two hosts trade questions and answers across the whole chapter. Transcript highlights as it plays.</div>
+      ${ttsOK()?'':'<div class="vs-trap">⚠️ This browser has no speech support — transcript still reads fine below. Try Chrome, Edge, or Safari for audio.</div>'}
+      <div class="pod-controls">
+        <button class="btn primary" id="podPlayBtn">${state.podPlaying?'▶ Playing… restart':'▶ Play episode'}</button>
+        <button class="btn" id="podPauseBtn">⏸ Pause / Resume</button>
+        <button class="btn red" id="podStopBtn">⏹ Stop</button>
+      </div>
+      <div class="rate-row">
+        <label for="podRate">🎚️ Speed:</label>
+        <input type="range" id="podRate" min="0.8" max="1.4" step="0.1" value="${state.podRate}" style="width:130px">
+        <span id="podRateLbl">${state.podRate.toFixed(1)}×</span>
+        <span style="margin-left:auto">📍 Line ${Math.min(state.podIdx+1,ep.lines.length)} / ${ep.lines.length}</span>
+      </div>
+    </div>
+    <div class="pod-player">
+      <div style="font-weight:800;margin-bottom:0.6rem">📻 Episodes ${state.chapter!=='all'?'(filtered: '+chName(state.chapter)+')':'(all 8 chapters)'}</div>
+      <div class="pod-ep-list">
+        ${eps.map(e=>`<button class="pod-ep${e.id===ep.id?' active':''}" data-ep="${e.id}">🎙️ ${e.title}<small>${e.mins} • ${e.lines.length} exchanges • ${chName(e.id)}</small></button>`).join('')}
+      </div>
+    </div>
+    <div class="pod-player">
+      <div style="font-weight:800;margin-bottom:0.6rem">📝 Transcript — tap any line to play from there</div>
+      <div class="pod-script" id="podScript">
+        ${ep.lines.map((l,i)=>`<div class="line ${l.s}${i===state.podIdx&&state.podPlaying?' speaking':''}" data-line="${i}"><span class="who">${l.s==='maya'?'👩 Maya':'🧑 Leo'}</span><br>${l.t}</div>`).join('')}
+      </div>
+    </div>`;
+  document.getElementById('podPlayBtn').onclick=()=>podPlay(0);
+  document.getElementById('podPauseBtn').onclick=podPause;
+  document.getElementById('podStopBtn').onclick=()=>{ stopSpeech(); state.podIdx=0; renderPodcast(); };
+  document.getElementById('podRate').oninput=(e)=>{ state.podRate=parseFloat(e.target.value); document.getElementById('podRateLbl').textContent=state.podRate.toFixed(1)+'×'; };
+  wrap.querySelectorAll('.pod-ep').forEach(b=>b.onclick=()=>{ stopSpeech(); state.podEp=b.dataset.ep; state.podIdx=0; renderPodcast(); });
+  wrap.querySelectorAll('.line').forEach(el=>el.onclick=()=>{ podPlay(parseInt(el.dataset.line,10)); });
+  const cur=wrap.querySelector('.line.speaking');
+  if(cur && cur.scrollIntoView){ try{ cur.scrollIntoView({block:'nearest',behavior:'smooth'}); }catch(e){} }
+}
+// --- SMART LEARN LAB renderer ---
+function learnCards(){
+  const arr=(state.chapter==='all')?flashcards:flashcards.filter(c=>c.chapter===state.chapter);
+  return arr;
+}
+function renderLearn(){
+  const wrap=document.getElementById('learnWrap');
+  if(!wrap || state.mode!=='learn') return;
+  const chName=(id)=>{ const c=chapters.find(x=>x.id===id); return c?c.emoji+' '+c.name:id; };
+  const scope=(state.chapter==='all')?'Whole OA':chName(state.chapter);
+  const tabs=[['mnem','🧠 Mnemonics'],['vs','⚔️ Confusables'],['story','🗺️ Story Walk'],['rf','⚡ Rapid-Fire T/F']];
+  let body='';
+  if(state.learnSub==='mnem'){
+    const keys=(state.chapter==='all')?Object.keys(MNEMONICS):[state.chapter];
+    body=keys.map(k=>`<div style="margin-top:0.7rem"><span class="badge">${chName(k)}</span>${MNEMONICS[k].flat().map(m=>`<div class="mnem">${m}</div>`).join('')}</div>`).join('');
+  }else if(state.learnSub==='vs'){
+    const list=VERSUS.filter(v=>state.chapter==='all'||v.ch===state.chapter);
+    body=list.length?list.map(v=>{
+      const vc=chapters.find(x=>x.id===v.ch);
+      return `<div style="margin-top:0.8rem"><span class="badge">${vc?vc.emoji+' '+vc.name:v.ch}</span><div class="versus"><div class="vs-cell left">${v.a[0]}<br><span style="color:var(--muted)">${v.a[1]}</span></div><div class="vs-cell right">${v.b[0]}<br><span style="color:var(--muted)">${v.b[1]}</span></div></div><div class="vs-trap">🎯 ${v.trap}</div></div>`;
+    }).join(''):'<div class="mnem">No contrasts for this filter — try Whole OA.</div>';
+  }else if(state.learnSub==='story'){
+    const keys=(state.chapter==='all')?Object.keys(STORIES):[state.chapter];
+    body='<div style="font-size:0.85rem;color:var(--muted)">A memory-palace walk per chapter: every <b>bold</b> stop is a tested term. Read it once, retell it once — that is Bartlett-approved encoding.</div>'
+      +keys.map(k=>`<div style="margin-top:0.7rem"><span class="badge">${chName(k)}</span><div class="story">🗺️ ${STORIES[k]}</div><div style="margin-top:0.4rem"><button class="tgl" data-say="${k}">🔊 Listen to this story</button></div></div>`).join('');
+  }else{
+    if(!state.rf) newRapidFire();
+    const q=state.rf.qs[state.rf.idx];
+    if(!q){
+      const pct=Math.round(state.rf.score/state.rf.qs.length*100);
+      body=`<div class="mnem" style="text-align:center;font-size:1.05rem"><b>Round over: ${state.rf.score} / ${state.rf.qs.length} (${pct}%)</b><br><span style="font-size:0.85rem;color:var(--muted)">${pct>=80?'Trap-proof. Run it back to lock it in.':'Review the Confusables tab, then run it back.'}</span></div><div style="margin-top:0.6rem;text-align:center"><button class="btn primary" id="rfNew">🔁 New round</button></div>`;
+    }else{
+      body=`<div style="font-size:0.85rem;color:var(--muted)">Q ${state.rf.idx+1} / ${state.rf.qs.length} • Score ${state.rf.score} — does the definition match the term?</div>
+      <div class="mnem"><b>${q.card.term}</b><br><span style="color:var(--muted)">“${q.shown}”</span></div>
+      <div class="rf-opt"><button class="btn green" id="rfTrue">✓ True — matches</button><button class="btn red" id="rfFalse">✕ False — trap</button></div>
+      <div id="rfFb" style="margin-top:0.5rem"></div>
+      <div style="margin-top:0.6rem;text-align:center"><button class="btn ghost" id="rfNew">🔁 New round</button></div>`;
+    }
+  }
+  wrap.innerHTML=`
+    <div class="learn-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap">
+        <div style="font-weight:800;font-size:1.05rem">🌟 Smart Learn Lab</div>
+        <span class="badge">${scope}</span>
+      </div>
+      <div class="subtabs">${tabs.map(t=>`<button class="subtab${state.learnSub===t[0]?' active':''}" data-sub="${t[0]}">${t[1]}</button>`).join('')}</div>
+      <div id="learnBody">${body}</div>
+    </div>`;
+  wrap.querySelectorAll('.subtab').forEach(b=>b.onclick=()=>{ state.learnSub=b.dataset.sub; if(state.learnSub==='rf') state.rf=null; renderLearn(); });
+  wrap.querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>{
+    if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support.'); return; }
+    stopSpeech();
+    const tmp=document.createElement('div'); tmp.innerHTML=STORIES[b.dataset.say]; 
+    const u=new SpeechSynthesisUtterance(tmp.textContent);
+    u.rate=1; const v=pickVoice('leo'); if(v) u.voice=v;
+    window.speechSynthesis.speak(u);
+  });
+  const nb=document.getElementById('rfNew'); if(nb) nb.onclick=()=>{ newRapidFire(); renderLearn(); };
+  const rt=document.getElementById('rfTrue'); if(rt) rt.onclick=()=>rfAnswer(true);
+  const rf2=document.getElementById('rfFalse'); if(rf2) rf2.onclick=()=>rfAnswer(false);
+}
+function newRapidFire(){
+  const pool=shuffleArr([...learnCards()]);
+  const qs=pool.slice(0,6).map(card=>{
+    const match=Math.random()<0.5;
+    let shown=card.definition;
+    if(!match){
+      const others=flashcards.filter(c=>c.id!==card.id && c.chapter===card.chapter);
+      const pick=others.length?others[Math.floor(Math.random()*others.length)]:flashcards[Math.floor(Math.random()*flashcards.length)];
+      if(pick) shown=pick.definition;
+    }
+    return {card, shown, match};
+  });
+  state.rf={qs, idx:0, score:0};
+}
+function rfAnswer(userTrue){
+  const q=state.rf.qs[state.rf.idx]; if(!q) return;
+  const ok=(userTrue===q.match);
+  if(ok) state.rf.score++;
+  const fb=document.getElementById('rfFb');
+  if(fb) fb.innerHTML=`<div class="mnem" style="border-color:${ok?'var(--green)':'var(--red)'}">${ok?'✅ Correct!':'❌ Trap got you.'} ${q.match?'That definition <b>does</b> match <b>'+q.card.term+'</b>.':'That definition belongs to a <b>different</b> card — <b>'+q.card.term+'</b> means: '+q.card.definition} ${ok?'':'<br>⚡ Short: <b>'+getShort(q.card)+'</b>'}</div><div style="margin-top:0.5rem;text-align:center"><button class="btn primary" id="rfNext">Next →</button></div>`;
+  const nx=document.getElementById('rfNext'); if(nx) nx.onclick=()=>{ state.rf.idx++; renderLearn(); };
+}
 
 // --- EXAM-STYLE QUESTIONS (D570 OA-like, Form A: core vignettes from public D570 study guides) ---
 const examQuestions = [
@@ -652,7 +1276,9 @@ let state={
   examOrder:[], examIdx:0, lastExamId:null,
   examOrder2:[], examIdx2:0, lastExamId2:null,
   oasimQs:[], oasimIdx:0, oasimAnswers:{}, oasimScore:{correct:0,answered:0}, oasimDone:false,
-  missedOnly:false,
+  missedOnly:false, shortMode:false, visualsOn:true,
+  podEp:'ch1', podIdx:0, podPlaying:false, podRate:1,
+  learnSub:'mnem', rf:null,
   theme: localStorage.getItem('wgu570_theme')||'dark'
 };
 
@@ -819,6 +1445,8 @@ function renderStats(){
 }
 function renderCard(){
   const quizBox=document.getElementById('quizOptions');
+  if(state.mode==='podcast'){ renderPodcast(); return; }
+  if(state.mode==='learn'){ renderLearn(); return; }
   
   // EXAM QUIZ MODES use examQuestions (Quiz 1) or examQuestions2 (Quiz 2)
   if(state.mode==='quiz' || state.mode==='quiz2'){
@@ -906,7 +1534,7 @@ function renderCard(){
     document.getElementById('cardCount').textContent=`${state.idx+1} / ${state.order.length} • Flashcard Quiz`;
     document.getElementById('cardTerm').textContent=card.term;
     document.getElementById('cardTermSmall').textContent=card.term;
-    document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
+    document.getElementById('cardDef').innerHTML=`${shortHTML(card)}${card.definition}${visualHTML(card)}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
     quizBox.style.display='grid';
     if(state.lastQuizId !== card.id){
@@ -931,7 +1559,7 @@ function renderCard(){
   document.getElementById('cardCount').textContent=`${state.idx+1} / ${state.order.length}`;
   document.getElementById('cardTerm').textContent=card.term;
   document.getElementById('cardTermSmall').textContent=card.term;
-  document.getElementById('cardDef').innerHTML=`${card.definition}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
+  document.getElementById('cardDef').innerHTML=`${shortHTML(card)}${card.definition}${visualHTML(card)}${card.example?`<div class="example-box"><b>Example:</b> ${card.example}</div>`:''}`;
   document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
   quizBox.style.display='none';
 }
@@ -1099,7 +1727,9 @@ function renderList(){
     const isKnown=state.known.has(card.id);
     div.innerHTML=`
       <div class="lc-term">${card.term}</div>
+      ${state.shortMode?`<div class="short-box" style="margin-bottom:0.5rem">⚡ <span class="kw">${getShort(card)}</span></div>`:''}
       <div class="lc-def">${card.definition}</div>
+      ${(state.visualsOn&&card.visual&&VISUALS[card.visual])?`<div class="visual-box">${VISUALS[card.visual].html}<div class="visual-cap">${VISUALS[card.visual].cap}</div></div>`:''}
       ${card.example? `<div class="lc-def-ex"><b>Example:</b> ${card.example}</div>`:''}
       <div class="lc-meta" style="margin-top:0.8rem;display:flex;flex-direction:column;gap:0.35rem">
         <span class="badge" style="align-self:flex-start">${ch?.emoji||''} ${ch?.name||''}</span>
@@ -1142,9 +1772,30 @@ function render(){
   }else{
     document.getElementById('studyArea').style.display='flex';
     document.getElementById('listArea').style.display='none';
+    const hideCardUI=(state.mode==='podcast'||state.mode==='learn');
+    document.querySelectorAll('#studyArea .scene, #studyArea .controls-row, #studyArea .kbd-hints, #featBar').forEach(el=>{ el.style.display=hideCardUI?'none':''; });
+    const qo=document.getElementById('quizOptions'); if(qo && hideCardUI) qo.style.display='none';
+    const pw=document.getElementById('podWrap'); if(pw) pw.style.display=(state.mode==='podcast')?'flex':'none';
+    const lw=document.getElementById('learnWrap'); if(lw) lw.style.display=(state.mode==='learn')?'flex':'none';
+    syncFeatBar();
   }
 }
+function syncFeatBar(){
+  const pairs=[['shortBtn','shortMode','⚡ Short: '],['visualBtn','visualsOn','🖼️ Diagram: '],['shortTgl','shortMode','⚡ Short definitions: '],['visualTgl','visualsOn','🖼️ Diagrams: ']];
+  pairs.forEach(([id,key,label])=>{
+    const el=document.getElementById(id); if(!el) return;
+    const on=!!state[key];
+    el.classList.toggle('on', on);
+    el.classList.toggle('active', on);
+    const icon=id.indexOf('short')===0?'⚡ ':'🖼️ ';
+    const name=id.indexOf('short')===0?(id==='shortBtn'?'Short: ':'Short definitions: '):(id==='visualBtn'?'Diagram: ':'Diagrams: ');
+    el.textContent=icon+name+(on?'ON':'OFF');
+  });
+}
+function setShortMode(on){ state.shortMode=on; render(); }
+function setVisualsMode(on){ state.visualsOn=on; render(); }
 function next(){
+  if(state.mode==='podcast'||state.mode==='learn') return;
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx+1)%state.examOrder.length;
@@ -1161,6 +1812,7 @@ function next(){
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
 function prev(){
+  if(state.mode==='podcast'||state.mode==='learn') return;
   if(state.mode==='quiz'){
     if(!state.examOrder.length) return;
     state.examIdx=(state.examIdx-1+state.examOrder.length)%state.examOrder.length;
@@ -1177,6 +1829,7 @@ function prev(){
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null; state.lastExamId2=null; render();
 }
 function flip(){
+  if(state.mode==='podcast'||state.mode==='learn') return;
   if((state.mode==='quiz'||state.mode==='quiz2') && !state.quizAnswered){
     state.flipped=!state.flipped;
     document.getElementById('flashCard').classList.toggle('flipped', state.flipped);
@@ -1190,8 +1843,11 @@ function flip(){
   state.flipped=!state.flipped; render();
 }
 function switchMode(m){
+  stopSpeech();
   state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
   state.flipped=false; state.quizAnswered=false; state.lastQuizId=null; state.lastExamId=null;
+  if(m==='podcast'){ const eps=podEpisodes(); if(!eps.find(e=>e.id===state.podEp)){ state.podEp=eps[0].id; state.podIdx=0; } }
+  if(m==='learn') state.rf=null;
   render();
 }
 function confetti(){
@@ -1231,6 +1887,7 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
 document.addEventListener('keydown', e=>{
   const isTyping = e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA' || e.target.tagName==='SELECT' || e.target.isContentEditable;
   if(isTyping) return;
+  if(state.mode==='podcast'||state.mode==='learn') return;
   if(e.code==='Space'){ e.preventDefault(); flip(); }
   if(e.code==='ArrowRight') next();
   if(e.code==='ArrowLeft') prev();
@@ -1242,6 +1899,13 @@ document.addEventListener('keydown', e=>{
 // init
 document.body.setAttribute('data-theme', state.theme);
 document.getElementById('themeBtn').textContent = state.theme==='dark'?'☀️':'🌙';
+// feature toolbar wiring (short / diagrams / listen)
+document.getElementById('shortBtn').addEventListener('click', ()=>setShortMode(!state.shortMode));
+document.getElementById('visualBtn').addEventListener('click', ()=>setVisualsMode(!state.visualsOn));
+document.getElementById('shortTgl').addEventListener('click', ()=>setShortMode(!state.shortMode));
+document.getElementById('visualTgl').addEventListener('click', ()=>setVisualsMode(!state.visualsOn));
+document.getElementById('listenBtn').addEventListener('click', speakCard);
+if(ttsOK()){ loadVoices(); try{ window.speechSynthesis.onvoiceschanged=loadVoices; }catch(e){} }
 load(); renderChapters(); rebuild();
 </script>
 </body>
