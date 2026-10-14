@@ -1025,123 +1025,85 @@ function speakSentences(sents, who, baseRate, onDone){
     try{ window.speechSynthesis.speak(u); }catch(err){ if(onDone) onDone(true); }
   })();
 }
-// --- EDGE NEURAL ENGINE: free keyless neural voices (needs internet, no account, nothing billable) ---
-// Uses the same public client endpoint the Edge browser's own Read Aloud ships with.
-// No personal key, token, or secret of ours is involved — the string below is a public
-// client constant published in Edge itself and in many open-source clients.
-const EDGE_WSS='wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4';
-const EDGE_CONFIG='Content-Type:application/json; charset=utf-8\r\nPath:speech.config\r\n\r\n{"context":{"synthesis":{"audio":{"metadataoptions":{"sentenceBoundaryEnabled":"true","wordBoundaryEnabled":"true"},"outputFormat":"audio-24khz-48kbitrate-mono-mp3"}}}}';
-const EDGE_FEMALE=[['Aria ⭐','en-US-AriaNeural'],['Jenny','en-US-JennyNeural'],['Michelle','en-US-MichelleNeural']];
-const EDGE_MALE=[['Guy ⭐','en-US-GuyNeural'],['Davis','en-US-DavisNeural'],['Jason','en-US-JasonNeural']];
+// --- CLOUD ENGINE: free keyless Google voices (needs internet, no account, no key of any kind) ---
+// Plain <audio> playback of short speech chunks. Nothing is fetched via script (the endpoint
+// sends no CORS headers), no credentials exist anywhere — just a public synthesis URL.
+// Maya speaks US English, Leo speaks GB English, so the two hosts sound like two people.
 try{
-  state.podEngine=localStorage.getItem('wgu570_engine')||'device';
-  voicePrefs.edgeMaya=localStorage.getItem('wgu570_edge_maya')||'en-US-AriaNeural';
-  voicePrefs.edgeLeo=localStorage.getItem('wgu570_edge_leo')||'en-US-GuyNeural';
+  const e=localStorage.getItem('wgu570_engine')||'device';
+  state.podEngine=(e==='edge')?'cloud':e;
 }catch(e){}
-function saveEngine(){ try{ localStorage.setItem('wgu570_engine',state.podEngine); localStorage.setItem('wgu570_edge_maya',voicePrefs.edgeMaya); localStorage.setItem('wgu570_edge_leo',voicePrefs.edgeLeo); }catch(e){} }
-function edgeVoice(who){ return who==='maya'?voicePrefs.edgeMaya:voicePrefs.edgeLeo; }
-function edgeVoiceOptions(who){
-  const list=who==='maya'?EDGE_FEMALE:EDGE_MALE;
-  return list.map(o=>`<option value="${escAttr(o[1])}"${edgeVoice(who)===o[1]?' selected':''}>${escAttr(o[0])}</option>`).join('');
+function saveEngine(){ try{ localStorage.setItem('wgu570_engine',state.podEngine); }catch(e){} }
+function cloudURL(text,who){
+  const tl=who==='maya'?'en-US':'en-GB';
+  return 'https://translate.google.com/translate_tts?ie=UTF-8&client=gtx&tl='+tl+'&q='+encodeURIComponent(text);
 }
-function escSSML(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function edgeRate(){ const p=Math.round(((state.podRate||1)-1)*100); return (p>=0?'+':'')+p+'%'; }
-let edgeWS=null, edgeReady=null, edgeReqs={}, edgeToken=0, edgeAudio=null;
-const edgeCache={}, edgeCacheOrder=[];
-function edgeCachePut(k,url){ edgeCache[k]=url; edgeCacheOrder.push(k); if(edgeCacheOrder.length>40){ const old=edgeCacheOrder.shift(); try{ URL.revokeObjectURL(edgeCache[old]); }catch(e){} delete edgeCache[old]; } }
-function edgeConnect(){
-  if(edgeWS&&(edgeWS.readyState===0||edgeWS.readyState===1)&&edgeReady) return edgeReady;
-  edgeReqs={};
-  edgeReady=new Promise((res,rej)=>{
-    let ws; try{ ws=new WebSocket(EDGE_WSS); }catch(e){ rej(e); return; }
-    edgeWS=ws; ws.binaryType='arraybuffer';
-    const to=setTimeout(()=>{ try{ ws.close(); }catch(e){} rej(new Error('connect timeout')); },12000);
-    ws.onopen=()=>{ clearTimeout(to); try{ ws.send(EDGE_CONFIG); }catch(e){ rej(e); return; } res(); };
-    ws.onerror=()=>{ clearTimeout(to); rej(new Error('connection failed')); };
-    ws.onclose=()=>{ const rs=edgeReqs; edgeReqs={}; Object.keys(rs).forEach(k=>{ try{ rs[k].rej(new Error('connection closed')); }catch(e){} }); if(edgeWS===ws) edgeWS=null; };
-    ws.onmessage=(ev)=>edgeOnMessage(ev);
+function cloudChunks(text){
+  const sents=sentencesOf(text); const out=[]; let cur='';
+  const push=()=>{ if(cur.trim()) out.push(cur.trim()); cur=''; };
+  sents.forEach(s=>{
+    if((cur+' '+s).trim().length>190) push();
+    cur=(cur+' '+s).trim();
+    if(cur.length>190){
+      const words=cur.split(/\s+/); cur='';
+      words.forEach(w=>{ if((cur+' '+w).trim().length>190) push(); cur=(cur+' '+w).trim(); });
+    }
   });
-  return edgeReady;
+  push();
+  return out.length?out:[String(text).slice(0,190)];
 }
-function edgeOnMessage(ev){
-  let buf=null;
-  try{ buf=ev.data instanceof ArrayBuffer?new Uint8Array(ev.data):new Uint8Array(ev.data); }catch(e){ return; }
-  let hi=-1;
-  for(let i=0;i+4<=buf.length;i++){ if(buf[i]===13&&buf[i+1]===10&&buf[i+2]===13&&buf[i+3]===10){ hi=i; break; } }
-  if(hi<0) return;
-  let head='';
-  try{ head=new TextDecoder().decode(buf.slice(0,Math.min(hi,800))); }catch(e){ return; }
-  const m=/X-RequestId:([0-9a-f]+)/i.exec(head);
-  const rid=m?m[1]:'';
-  const slot=rid?edgeReqs[rid]:null;
-  if(/Path:turn\.end/.test(head)){
-    if(slot){ delete edgeReqs[rid]; finishEdge(slot); }
-    return;
+let cloudAudio=null, cloudToken=0;
+function cloudStop(){ cloudToken++; try{ if(cloudAudio){ cloudAudio.pause(); cloudAudio=null; } }catch(e){} }
+function cloudRate(who){ return Math.min(1.4,Math.max(0.7,(state.podRate||1)*(who==='leo'?0.9:1))); }
+function cloudRun(ep,startIdx,token){
+  state.podPlaying=true; renderPodcast();
+  const items=[];
+  for(let i=startIdx;i<ep.lines.length;i++){
+    const L=ep.lines[i];
+    cloudChunks(L.t).forEach(t=>items.push({line:i,who:L.s,text:t}));
   }
-  if(/Path:audio\.metadata/.test(head)) return;
-  if(/Path:audio/.test(head)&&slot){ slot.chunks.push(buf.slice(hi+4)); }
+  let k=0; const warmed={};
+  const warm=(u)=>{ if(warmed[u]) return; warmed[u]=1; try{ const a=new Audio(u); a.preload='auto'; }catch(e){} };
+  function fail(err){ if(token!==cloudToken) return; state.podPlaying=false; renderPodcast(); alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); }
+  function step(){
+    if(token!==cloudToken||!state.podPlaying) return;
+    if(k>=items.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
+    const it=items[k];
+    state.podIdx=it.line; renderPodcast();
+    let a; try{ a=new Audio(cloudURL(it.text,it.who)); }catch(e){ fail(e); return; }
+    cloudAudio=a;
+    try{ a.playbackRate=cloudRate(it.who); }catch(e){}
+    a.preload='auto';
+    if(k+1<items.length) warm(cloudURL(items[k+1].text,items[k+1].who));
+    a.onended=()=>{ if(token!==cloudToken||!state.podPlaying) return; k++; step(); };
+    a.onerror=()=>{ if(token!==cloudToken||!state.podPlaying) return; k++; step(); };
+    try{ const pr=a.play(); if(pr&&pr.catch) pr.catch(()=>fail(new Error('playback blocked — tap Play again'))); }catch(e){ fail(e); }
+  }
+  step();
 }
-function finishEdge(slot){
-  try{
-    const blob=new Blob(slot.chunks,{type:'audio/mpeg'});
-    slot.res(URL.createObjectURL(blob));
-  }catch(e){ try{ slot.rej(e); }catch(e2){} }
-}
-function edgeFetch(text, voiceShort){
-  const key=voiceShort+'|'+edgeRate()+'|'+text;
-  if(edgeCache[key]) return Promise.resolve(edgeCache[key]);
-  return edgeConnect().then(()=>new Promise((res,rej)=>{
-    let rid='';
-    try{ rid=(window.crypto&&crypto.randomUUID?crypto.randomUUID():Math.random().toString(16).slice(2)+Math.random().toString(16).slice(2)+Date.now().toString(16)).replace(/-/g,''); }catch(e){ rid=''; }
-    rid=String(rid).replace(/[^0-9a-f]/gi,'');
-    while(rid.length<32) rid+='0123456789abcdef'[Math.floor(Math.random()*16)];
-    rid=rid.slice(0,32);
-    const ssml='<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US"><voice name="'+voiceShort+'"><prosody pitch="+0Hz" rate="'+edgeRate()+'" volume="100.0">'+escSSML(text)+'</prosody></voice></speak>';
-    const to=setTimeout(()=>{ if(edgeReqs[rid]){ delete edgeReqs[rid]; rej(new Error('synthesis timeout — check connection')); } },25000);
-    edgeReqs[rid]={chunks:[],rid};
-    const slot=edgeReqs[rid];
-    slot.res=(url)=>{ clearTimeout(to); edgeCachePut(key,url); res(url); };
-    slot.rej=(err)=>{ clearTimeout(to); rej(err); };
-    try{ edgeWS.send('X-RequestId:'+rid+'\r\nContent-Type:application/ssml+xml\r\nPath:ssml\r\n\r\n'+ssml); }
-    catch(e){ clearTimeout(to); delete edgeReqs[rid]; rej(e); }
-  }));
-}
-function edgePlayUrl(url){
+function cloudSpeakText(text,who){
   return new Promise((res,rej)=>{
-    try{
-      const a=new Audio(url); edgeAudio=a;
-      a.onended=()=>{ if(edgeAudio===a) edgeAudio=null; res(); };
-      a.onerror=()=>rej(new Error('audio playback failed'));
-      const pr=a.play(); if(pr&&pr.catch) pr.catch(rej);
-    }catch(e){ rej(e); }
+    const items=cloudChunks(text); let k=0; const token=cloudToken;
+    function step(){
+      if(token!==cloudToken){ res(); return; }
+      if(k>=items.length){ res(); return; }
+      let a; try{ a=new Audio(cloudURL(items[k],who)); }catch(e){ rej(e); return; }
+      cloudAudio=a;
+      try{ a.playbackRate=cloudRate(who); }catch(e){}
+      a.onended=()=>{ k++; step(); };
+      a.onerror=()=>{ k++; step(); };
+      try{ const pr=a.play(); if(pr&&pr.catch) pr.catch(rej); }catch(e){ rej(e); }
+    }
+    step();
   });
 }
-async function edgeRun(ep,startIdx,token){
-  let i=startIdx, pending=null;
-  const req=(j)=>edgeFetch(ep.lines[j].t, ep.lines[j].s==='maya'?edgeVoice('maya'):edgeVoice('leo'));
-  pending=req(i);
-  while(true){
-    const url=await pending; pending=null;
-    if(token!==edgeToken||!state.podPlaying) return;
-    state.podIdx=i; renderPodcast();
-    if(i+1<ep.lines.length) pending=req(i+1);
-    await edgePlayUrl(url);
-    if(token!==edgeToken||!state.podPlaying) return;
-    i++;
-    if(i>=ep.lines.length){ state.podPlaying=false; state.podIdx=0; renderPodcast(); return; }
-  }
-}
-async function edgeSpeakText(text,who){
-  const url=await edgeFetch(text, edgeVoice(who));
-  await edgePlayUrl(url);
-}
-function stopSpeech(){ try{ if(ttsOK()){ state.podPlaying=false; window.speechSynthesis.cancel(); } }catch(e){} edgeToken++; try{ if(edgeAudio){ edgeAudio.pause(); edgeAudio=null; } }catch(e){} try{ if(edgeWS){ const w=edgeWS; edgeWS=null; edgeReady=null; w.close(); } }catch(e){} }
+function stopSpeech(){ try{ if(ttsOK()){ state.podPlaying=false; window.speechSynthesis.cancel(); } }catch(e){} try{ cloudStop(); }catch(e){} }
 function speakCard(){
   const c=current(); if(!c) return;
   const text=c.term+'. '+c.definition+(c.example? ' Example: '+c.example:'');
   stopSpeech();
-  if(state.podEngine==='edge'){
-    edgeSpeakText(text,'maya').catch(err=>{ alert('🧠 Edge Neural voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
+  if(state.podEngine==='cloud'){
+    cloudSpeakText(text,'maya').catch(err=>{ alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
     return;
   }
   if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
@@ -1162,15 +1124,10 @@ function podPlay(fromIdx){
   const ep=podCurrent();
   if(typeof fromIdx==='number') state.podIdx=fromIdx;
   stopSpeech();
-  if(state.podEngine==='edge'){
-    state.podPlaying=true;
-    const token=++edgeToken;
-    renderPodcast();
-    edgeRun(ep, state.podIdx, token).catch(err=>{
-      if(token!==edgeToken) return;
-      state.podPlaying=false; renderPodcast();
-      alert('🧠 Edge Neural voice failed ('+((err&&err.message)||err)+'). Check your internet connection, or switch to 📱 Device voices.');
-    });
+  if(state.podEngine==='cloud'){
+    const token=++cloudToken;
+    state.podIdx=(typeof fromIdx==='number')?fromIdx:state.podIdx;
+    cloudRun(ep, state.podIdx, token);
     return;
   }
   if(!ttsOK()){ alert('🎙️ Podcast playback needs a browser with speech support (Chrome, Edge, or Safari).'); return; }
@@ -1191,10 +1148,10 @@ function podSpeakLine(ep, i){
 }
 function podPause(){
   try{
-    if(state.podEngine==='edge'){
-      if(!edgeAudio) return;
-      if(edgeAudio.paused){ edgeAudio.play().catch(()=>{}); }
-      else { edgeAudio.pause(); }
+    if(state.podEngine==='cloud'){
+      if(!cloudAudio) return;
+      if(cloudAudio.paused){ cloudAudio.play().catch(()=>{}); }
+      else { cloudAudio.pause(); }
     }else{
       if(!ttsOK()) return;
       if(window.speechSynthesis.paused){ window.speechSynthesis.resume(); }
@@ -1231,16 +1188,10 @@ function renderPodcast(){
       <div class="rate-row">
         <span style="font-weight:700">🔊 Engine:</span>
         <button class="tgl${state.podEngine==='device'?' on':''}" id="engDevice">📱 Device</button>
-        <button class="tgl${state.podEngine==='edge'?' on':''}" id="engEdge">🧠 Edge Neural · free</button>
+        <button class="tgl${state.podEngine==='cloud'?' on':''}" id="engEdge">☁️ Google Voice · free</button>
       </div>
-      ${state.podEngine==='edge'?`
-      <div class="rate-row">
-        <label for="edgeMaya">👩 Maya:</label>
-        <select id="edgeMaya" style="max-width:190px;padding:0.35rem 0.5rem;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.78rem">${edgeVoiceOptions('maya')}</select>
-        <label for="edgeLeo">🧑 Leo:</label>
-        <select id="edgeLeo" style="max-width:190px;padding:0.35rem 0.5rem;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.78rem">${edgeVoiceOptions('leo')}</select>
-      </div>
-      <div style="font-size:0.75rem;color:var(--muted)">🧠 Microsoft neural voices over the internet — free, no key, no account. Needs connection; the transcript always works offline. Picks are remembered.</div>` : `
+      ${state.podEngine==='cloud'?`
+      <div style="font-size:0.78rem;color:var(--muted)">☁️ Free Google voices over the internet — no key, no account. 👩 Maya speaks US English, 🧑 Leo speaks GB English. Needs connection; the transcript always works offline.</div>` : `
       <div class="rate-row">
         <label for="voiceMaya">👩 Maya voice:</label>
         <select id="voiceMaya" style="max-width:190px;padding:0.35rem 0.5rem;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.78rem">${voiceOptions('maya')}</select>
@@ -1268,9 +1219,7 @@ function renderPodcast(){
   const vm=document.getElementById('voiceMaya'); if(vm) vm.onchange=(e)=>{ voicePrefs.maya=e.target.value; saveVoices(); };
   const vl=document.getElementById('voiceLeo'); if(vl) vl.onchange=(e)=>{ voicePrefs.leo=e.target.value; saveVoices(); };
   const ed=document.getElementById('engDevice'); if(ed) ed.onclick=()=>{ stopSpeech(); state.podEngine='device'; saveEngine(); renderPodcast(); };
-  const ee=document.getElementById('engEdge'); if(ee) ee.onclick=()=>{ stopSpeech(); state.podEngine='edge'; saveEngine(); renderPodcast(); };
-  const em=document.getElementById('edgeMaya'); if(em) em.onchange=(e)=>{ voicePrefs.edgeMaya=e.target.value; saveEngine(); };
-  const eo=document.getElementById('edgeLeo'); if(eo) eo.onchange=(e)=>{ voicePrefs.edgeLeo=e.target.value; saveEngine(); };
+  const ee=document.getElementById('engEdge'); if(ee) ee.onclick=()=>{ stopSpeech(); state.podEngine='cloud'; saveEngine(); renderPodcast(); };
   wrap.querySelectorAll('.pod-ep').forEach(b=>b.onclick=()=>{ stopSpeech(); state.podEp=b.dataset.ep; state.podIdx=0; renderPodcast(); });
   wrap.querySelectorAll('.line').forEach(el=>el.onclick=()=>{ podPlay(parseInt(el.dataset.line,10)); });
   const cur=wrap.querySelector('.line.speaking');
@@ -1328,8 +1277,8 @@ function renderLearn(){
   wrap.querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>{
     stopSpeech();
     const tmp=document.createElement('div'); tmp.innerHTML=STORIES[b.dataset.say];
-    if(state.podEngine==='edge'){
-      edgeSpeakText(tmp.textContent,'leo').catch(err=>{ alert('🧠 Edge Neural voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
+    if(state.podEngine==='cloud'){
+      cloudSpeakText(tmp.textContent,'leo').catch(err=>{ alert('☁️ Cloud voice failed ('+((err&&err.message)||err)+'). Check internet or switch to 📱 Device.'); });
       return;
     }
     if(!ttsOK()){ alert('🔊 Voice playback needs a browser with speech support.'); return; }
